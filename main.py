@@ -4,6 +4,9 @@ from datetime import datetime
 import time
 
 from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST
+from functions.week_summary import GET_TEXT, GET_SUMMARY_GPT
+from config import POXA_WEEK
+
 from database import r, store_news
 import random
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -38,6 +41,16 @@ def get_recommand_news(topic, top=3):
 def get_topic_news(topic, top=3):
   url = f'https://news.google.com/search?q={topic.replace(" ", "%20")}&hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant'
   return GET_NEWS_FAST(url, top)
+
+def get_week_summary():
+   data = GET_SUMMARY_GPT(GET_TEXT(POXA_WEEK))
+
+   res = []
+   res.append(FORMAT_RESPONSE("text", {
+            "content" : data
+        }))
+   
+   return res
 
 # define functions
 functions = [
@@ -89,7 +102,12 @@ functions = [
       },
       "required": ["topic"],
     }
-  }
+  },
+  {
+    "name": "get_week_summary",
+    "description": "台電電力交易市場的最新動態的本週摘要",
+    "parameters": {}
+  },
 ]
 
 client = OpenAI()
@@ -102,29 +120,18 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 @app.route('/greeting', methods=['GET'])
 def greeting():
   res = []
   res.append(FORMAT_RESPONSE("text", {
     "tag" : "span",
-    "content" : f"您好～ 我是新聞小助手，我能夠提供以下功能:"
+    "content" : f"您好～ 我是電力交易市場小助手，我能夠提供以下功能:"
   }))
 
   res.append(FORMAT_RESPONSE("button", {
-    "content": "最新新聞",
-    "function": "get_latest_news"
-  }))
-
-  res.append(FORMAT_RESPONSE("button", {
-    "content": "依類別推薦新聞",
-    "function": "get_recommand_news"
-  }))
-
-  res.append(FORMAT_RESPONSE("button", {
-    "content": "依關鍵字搜尋新聞",
-    "function": "get_topic_news"
+    "content": "本週摘要",
+    "function": "get_week_summary"
   }))
 
   return jsonify({
@@ -173,14 +180,14 @@ def chat_with_bot():
     print(f"呼叫函式的名稱: {function_call.name}")
     print(f"呼叫函式的參數: {function_call.arguments}")
 
-    data = call_function_by_name(function_call.name, eval(function_call.arguments))
+    final_res = call_function_by_name(function_call.name, eval(function_call.arguments))
     print(f"最終結論: {data}")
 
     end_time = time.time()
     execution_time = end_time - start_time
     print(f">>>>>>>> 本輪對話花費時間: {execution_time}")
     
-    return jsonify({'response': FORMAT_NEWS(data)})
+    return jsonify({'response': final_res})
 
 @app.route('/set', methods=['POST'])
 def set_key():
@@ -224,59 +231,3 @@ def apscheduler():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-# while(True):
-#   user_input = input("使用者: ")
-#   messages = [{
-#     "role": "user",
-#     "content": user_input
-#   }]
-
-#   # messages.append({
-#   #   "role": "user",
-#   #   "content": user_input
-#   # })
-  
-#   start_time = time.time()
-
-#   response = client.chat.completions.create(
-#     model="gpt-3.5-turbo", 
-#     messages= messages,
-#     functions = functions
-#   )
-
-#   res_mes = response.choices[0].message
-#   content = res_mes.content
-#   function_call = res_mes.function_call
-
-#   # print(f"res_mes: {res_mes}")
-#   print(f"function_call: {function_call}")
-
-#   # gpt 直接回覆
-#   if content != None:
-#     print(f"機器人1: {content}")
-  
-#   if function_call: # 需要呼叫 function
-#     print(f"呼叫函式的名稱: {function_call.name}")
-#     print(f"呼叫函式的參數: {function_call.arguments}")
-
-#     data = call_function_by_name(function_call.name, eval(function_call.arguments))
-#     print(f"最終結論: {data}")
-
-#     messages.append({
-#       "role": "function",
-#       "name": function_call.name,
-#       "content": str(data)
-#     })
-
-#     response = client.chat.completions.create(
-#       model="gpt-3.5-turbo", 
-#       messages= messages
-#     )
-#     # print("--------------------")
-#     print(f"機器人: {response.choices[0].message.content}")
-#     # print("--------------------")
-    
-#   end_time = time.time()
-#   execution_time = end_time - start_time
-#   print(f">>>>>>>> 本輪對話花費時間: {execution_time}")
