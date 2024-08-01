@@ -12,3 +12,9 @@
 `pip install -r requirements.txt`
 
 註：把環境所需套件變成 requirements.txt 指令為 `pip freeze > requirements.txt`
+
+## 加入環境變數
+`export OPENAI_API_KEY=<<密鑰>>`
+
+## 開啟後端
+`python3 main.py`
