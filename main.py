@@ -5,7 +5,9 @@ import time
 
 from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST
 from functions.week_summary import GET_TEXT, GET_SUMMARY_GPT
+from functions.qa_consult import GET_COMMON_QA
 from config import POXA_WEEK
+from config import POXA
 
 from database import r, store_news
 import random
@@ -20,6 +22,7 @@ def call_function_by_name(function_name, function_args):
     if function_name in global_symbols and callable(global_symbols[function_name]):
         # 呼叫
         function_to_call = global_symbols[function_name]
+        print(f"Calling function: {function_name} with arguments: {function_args}")
         return function_to_call(**function_args)
     else:
         # 丟出錯誤
@@ -43,6 +46,7 @@ def get_topic_news(topic, top=3):
   return GET_NEWS_FAST(url, top)
 
 def get_week_summary():
+   # print("Executing get_week_summary")
    data = GET_SUMMARY_GPT(GET_TEXT(POXA_WEEK))
 
    res = []
@@ -51,6 +55,16 @@ def get_week_summary():
         }))
    
    return res
+
+def get_qa_consult(question):
+    answer = GET_COMMON_QA(POXA, question)
+
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "content": answer
+    }))
+    return res
+
 
 # define functions
 functions = [
@@ -108,6 +122,21 @@ functions = [
     "description": "台電電力交易市場的最新動態的本週摘要",
     "parameters": {}
   },
+  {
+    "name": "get_qa_consult",
+    "description": "簡單回答->QA",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "question": {
+                "type": "string",
+                "description": "Ask the system to answer the user's questions."
+            }
+        },
+        "required": ["question"]
+    }
+}
+
 ]
 
 client = OpenAI()
@@ -132,6 +161,11 @@ def greeting():
   res.append(FORMAT_RESPONSE("button", {
     "content": "本週摘要",
     "function": "get_week_summary"
+  }))
+
+  res.append(FORMAT_RESPONSE("button", {
+    "content": "QA問答",
+    "function": "get_qa_consult"
   }))
 
   return jsonify({
@@ -159,6 +193,7 @@ def chat_with_bot():
   )
 
   res_mes = response.choices[0].message
+  print(f"res_mes: {res_mes}")
   content = res_mes.content
   function_call = res_mes.function_call
 
@@ -166,7 +201,6 @@ def chat_with_bot():
 
   # gpt 直接回覆
   if content != None:
-    # print(f"機器人1: {content}")
     res.append(FORMAT_RESPONSE("text", {
       "tag" : "span",
       "content" : content
@@ -180,13 +214,18 @@ def chat_with_bot():
     print(f"呼叫函式的名稱: {function_call.name}")
     print(f"呼叫函式的參數: {function_call.arguments}")
 
+    if function_call.name == "get_qa_consult":
+      final_res = call_function_by_name(function_call.name, eval(function_call.arguments))
+      res.extend(final_res)
+      return jsonify({'response': res})
+    
     final_res = call_function_by_name(function_call.name, eval(function_call.arguments))
     print(f"最終結論: {data}")
 
     end_time = time.time()
     execution_time = end_time - start_time
     print(f">>>>>>>> 本輪對話花費時間: {execution_time}")
-    
+      
     return jsonify({'response': final_res})
 
 @app.route('/set', methods=['POST'])
