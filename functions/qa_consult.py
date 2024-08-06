@@ -179,17 +179,11 @@ def get_data_from_web(main_url, new_answer):
             "title": data_title,
             "content": data_content,
             "labels": data_labels,
-            "subtitle": {},
-            "subcontent": {},
-            "section": {}
+            "subtitle": {str(i): data_subtitle[i] for i in range(len(data_subtitle))},
+            "subcontent": {str(i): data_subContent[i] for i in range(len(data_subtitle))},
+            "section": {str(i): data_section[i] for i in range(len(data_section))}
         }
-
-        for i in range(len(data_subtitle)):
-            data["subtitle"][str(i)] = data_subtitle[i]
-            data["subcontent"][str(i)] = data_subContent[i]
-        for i in range(len(data_section)):
-            data["section"][str(i)] = data_section[i]
-
+        
         data_list.append(data)
         driver.get(origin_url)
         
