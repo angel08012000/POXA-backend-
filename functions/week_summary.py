@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from openai import OpenAI
 
-from config import WEEK_CSS_SELECTOR
+from config import POXA, WEEK_SUMMARY_CSS_SELECTOR, WEEK_CSS_SELECTOR
 
 def GET_TEXT(url):
     options = webdriver.ChromeOptions()
@@ -31,3 +31,16 @@ def GET_SUMMARY_GPT(full_text):
     )
 
     return response.choices[0].message.content
+
+def get_web_with_week_summary():
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options)
+    driver.get(POXA)
+
+    a_tag = driver.find_element(By.CSS_SELECTOR, WEEK_SUMMARY_CSS_SELECTOR)
+
+    href = a_tag.get_attribute('href')
+    driver.quit()
+
+    return href
