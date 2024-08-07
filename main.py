@@ -5,7 +5,8 @@ import time
 
 from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST
 from functions.week_summary import GET_TEXT, GET_SUMMARY_GPT, get_web_with_week_summary
-from config import POXA_WEEK
+from functions.qa_consult import GET_COMMON_QA
+from config import POXA
 
 from database import r, store_news
 import random
@@ -49,6 +50,16 @@ def get_week_summary():
    res = []
    res.append(FORMAT_RESPONSE("text", {
         "content" : data
+      }))
+   
+   return res
+
+def get_qa_answer(question):
+   answer = GET_COMMON_QA(POXA, question)
+
+   res = []
+   res.append(FORMAT_RESPONSE("text", {
+        "content" : answer
       }))
    
    return res
@@ -105,10 +116,25 @@ functions = [
     }
   },
   {
+    "name": "get_qa_answer",
+    "description": "解答任何與台電電力交易市場相關的問題，即使問題與本週動態相關，也應使用此功能。僅在用戶明確要求提供一週摘要時，不使用此功能。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "使用者所問的問題"
+        }
+      },
+      "required": ["question"],
+    }
+  },
+  {
     "name": "get_week_summary",
-    "description": "台電電力交易市場的最新動態的本週摘要，只有跟「本週」且「摘要」有關才使用這個",
+    "description": "提供這一週台電電力交易市場的最新動態摘要，僅在用戶明確要求提供一週摘要時使用，例如「本週摘要」或「本週動態」。",
     "parameters": {}
   },
+  
 ]
 
 client = OpenAI()
@@ -132,6 +158,11 @@ def greeting():
 
   res.append(FORMAT_RESPONSE("button", {
     "content": "本週摘要",
+    "function": "get_qa_answer"
+  }))
+
+  res.append(FORMAT_RESPONSE("button", {
+    "content": "QA 問答",
     "function": "get_week_summary"
   }))
 
