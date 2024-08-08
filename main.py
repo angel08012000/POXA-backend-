@@ -117,7 +117,7 @@ functions = [
   },
   {
     "name": "get_qa_answer",
-    "description": "解答任何與台電電力交易市場相關的問題，即使問題與本週動態相關，也應使用此功能。僅在用戶明確要求提供一週摘要時，不使用此功能。",
+    "description": "解答任何與台電電力交易市場相關的問題。如果使用者沒有明確要求本週摘要，應使用此功能。",
     "parameters": {
       "type": "object",
       "properties": {
@@ -131,7 +131,7 @@ functions = [
   },
   {
     "name": "get_week_summary",
-    "description": "提供這一週台電電力交易市場的最新動態摘要，僅在用戶明確要求提供一週摘要時使用，例如「本週摘要」或「本週動態」。",
+    "description": "提供這一週台電電力交易市場的最新動態摘要。僅在用戶明確要求提供一週摘要時使用，例如「本週摘要」或「本週動態」。",
     "parameters": {}
   },
   
@@ -158,12 +158,12 @@ def greeting():
 
   res.append(FORMAT_RESPONSE("button", {
     "content": "本週摘要",
-    "function": "get_qa_answer"
+    "function": "get_week_summary"
   }))
 
   res.append(FORMAT_RESPONSE("button", {
     "content": "QA 問答",
-    "function": "get_week_summary"
+    "function": "get_qa_answer"
   }))
 
   return jsonify({
@@ -178,7 +178,7 @@ def chat_with_bot():
   data = request.json  # 拿到送來的參數
   if 'user' not in data:
     return jsonify({'error': "Didn't receive what user said"}), 400
-  
+
   messages = [{
     "role": "user",
     "content": data["user"]
@@ -203,7 +203,6 @@ def chat_with_bot():
       "tag" : "span",
       "content" : content
     }))
-    
     return jsonify({
       'response': res
     })
@@ -211,6 +210,11 @@ def chat_with_bot():
   if function_call: # 需要呼叫 function
     print(f"呼叫函式的名稱: {function_call.name}")
     print(f"呼叫函式的參數: {function_call.arguments}")
+
+    if data["user"] != "本週摘要":
+      print(f"將{function_call.name}修改為 -> get_qa_answer ")
+      function_call.name = "get_qa_answer"
+      function_call.arguments = str({"question": data["user"]})
 
     final_res = call_function_by_name(function_call.name, eval(function_call.arguments))
     print(f"最終結論: {data}")
