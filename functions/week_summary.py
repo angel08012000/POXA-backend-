@@ -25,9 +25,10 @@ def GET_SUMMARY_GPT(full_text):
         messages= [
             {
             "role": "system",
-            "content": f"請根據以下內容，幫我摘要出200字以內，並以列點的形式呈現。內容如下：{full_text}"
+            "content": f"請根據以下內容，幫我摘要出200字以內，並以階層式的列點形式呈現，需要使用 html 的標籤。內容如下：{full_text}"
             }
-        ]
+        ],
+        temperature=0
     )
 
     return response.choices[0].message.content

@@ -1,6 +1,9 @@
 {
     "ui_type": "",
     "data" : {
+        "html_content":{
+            "content" : "<<content>>"
+        },
         "text" : {
             "content" : "<<content>>"
         },

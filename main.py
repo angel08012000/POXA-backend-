@@ -48,7 +48,7 @@ def get_week_summary():
    data = GET_SUMMARY_GPT(GET_TEXT(url))
 
    res = []
-   res.append(FORMAT_RESPONSE("text", {
+   res.append(FORMAT_RESPONSE("html_content", {
         "content" : data
       }))
    
@@ -211,10 +211,10 @@ def chat_with_bot():
     print(f"呼叫函式的名稱: {function_call.name}")
     print(f"呼叫函式的參數: {function_call.arguments}")
 
-    if data["user"] != "本週摘要":
-      print(f"將{function_call.name}修改為 -> get_qa_answer ")
-      function_call.name = "get_qa_answer"
-      function_call.arguments = str({"question": data["user"]})
+    # if data["user"] != "本週摘要":
+    #   print(f"將{function_call.name}修改為 -> get_qa_answer ")
+    #   function_call.name = "get_qa_answer"
+    #   function_call.arguments = str({"question": data["user"]})
 
     final_res = call_function_by_name(function_call.name, eval(function_call.arguments))
     print(f"最終結論: {data}")
