@@ -179,13 +179,13 @@ def get_data_from_web(main_url, new_answer):
                     section_part.append(sbh.text)
             data_section.append(section_part)
                     
-        # Prepare data to save in JSON 
+        # Prepare data to save in MongoDB
         data = {
             "title": data_title,
             "content": data_content,
-            "labels": data_labels,
+            "labels": {str(i): data_labels[i] for i in range(len(data_labels))},
             "subtitle": {str(i): data_subtitle[i] for i in range(len(data_subtitle))},
-            "subcontent": {str(i): data_subContent[i] for i in range(len(data_subtitle))},
+            "subcontent": {str(i): data_subContent[i] for i in range(len(data_subContent))},
             "section": {str(i): data_section[i] for i in range(len(data_section))}
         }
         
