@@ -196,3 +196,53 @@ def get_data_from_web(main_url, new_answer):
     driver.close
 
     return data_list
+
+def GET_KEYWORD(question):
+    client = OpenAI()
+
+    # 請 GPT 幫忙過濾掉無關的文字
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo", 
+        messages= [
+            {
+            "role": "system",
+            "content": f"""
+            幫我提取出以下句子的關鍵字
+            句子如下：{question}
+            """
+            }
+        ],
+        temperature=0
+    )
+
+    return response.choices[0].message.content
+
+def GET_DB_NAME(question):
+    client = OpenAI()
+
+    # 請 GPT 幫忙過濾掉無關的文字
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo", 
+        messages= [
+            {
+            "role": "system",
+            "content": f"""
+            假設我現在有多個資料庫
+            包含用電大戶, 市場資訊, E-dReg, sReg, dReg, 即時備轉, 補充備轉, 創新能源技術, 電價方案, 再生能源, 台電說明會, 規範解析, 台電供需資訊
+            請根據以下問題，來猜測資訊可能位於哪個資料庫，可以多個，以逗號隔開
+            
+            句子如下：{question}
+            """
+            }
+        ],
+        temperature=0
+    )
+
+    return response.choices[0].message.content
+
+sentence = "光儲無限套娃是啥意思?"
+keywords = GET_KEYWORD(sentence)
+db = GET_DB_NAME(sentence)
+print(f"可能的關鍵字為: {keywords}")
+print("----------")
+print(f"可能的資料庫為: {db}")
