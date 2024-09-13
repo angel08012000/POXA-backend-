@@ -80,7 +80,7 @@ def extract_keywords(question):
 def classify_question_lastest(question):
     global gpt_calls
     gpt_calls += 1
-    prompt = f"請判斷以下問題是否有明確提及到當前或最新之類的時間點，請使用0.1的溫度回答：\n問題：{question}\n\n請回答是或否就好，無須回答其他額外資訊："
+    prompt = f"請判斷以下問題是否有明確提及到目前、當前、最近或最新之類的時間點，請使用0.1的溫度回答：\n問題：{question}\n\n請回答是或否就好，無須回答其他額外資訊："
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
