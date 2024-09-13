@@ -1,18 +1,15 @@
 from openai import OpenAI
-import requests
 from datetime import datetime
 import time
 
 from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST
 from functions.week_summary import get_summary
-from functions.qa_consult import GET_COMMON_QA
+from functions.get_QA_analyze import get_QA_analyze
 from config import POXA
 
 from database import r, store_news
-import random
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
-import atexit
 
 def call_function_by_name(function_name, function_args):
     global_symbols = globals()
@@ -53,9 +50,18 @@ def get_define():
    
   return res
 
+#獲取使用者問題
+def get_qa_question():
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "tag": "span",
+        "content": "請問您想詢問的問題是什麼？"
+    }))
+    return res
+
 # QA 問答
 def get_qa_answer(question):
-   answer = GET_COMMON_QA(POXA, question)
+   answer = get_QA_analyze(question)
 
    res = []
    res.append(FORMAT_RESPONSE("text", {
@@ -92,6 +98,19 @@ functions = [
         }
       },
       "required": ["question"],
+    }
+  },
+  {
+    "name": "get_qa_question",
+    "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "麻煩使用者輸入想詢問的問題"
+        }
+      },
     }
   },
   
@@ -180,11 +199,6 @@ def chat_with_bot():
   if function_call: # 需要呼叫 function
     print(f"呼叫函式的名稱: {function_call.name}")
     print(f"呼叫函式的參數: {function_call.arguments}")
-
-    # if data["user"] != "本週摘要":
-    #   print(f"將{function_call.name}修改為 -> get_qa_answer ")
-    #   function_call.name = "get_qa_answer"
-    #   function_call.arguments = str({"question": data["user"]})
 
     final_res = call_function_by_name(function_call.name, eval(function_call.arguments))
     # print(f"最終結論: {data}")
