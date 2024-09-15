@@ -55,7 +55,7 @@ def get_qa_question():
     res = []
     res.append(FORMAT_RESPONSE("text", {
         "tag": "span",
-        "content": "請問您想詢問的問題是什麼？"
+        "content": "請問您想詢問什麼問題呢？"
     }))
     return res
 
