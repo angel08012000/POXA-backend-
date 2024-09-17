@@ -5,6 +5,7 @@ import time
 from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST
 from functions.week_summary import get_summary
 from functions.get_QA_analyze import get_QA_analyze
+from functions.get_etp_related import get_etp_related
 from config import POXA
 
 from database import r, store_news
@@ -70,6 +71,17 @@ def get_qa_answer(question):
    
    return res
 
+#關於etp的問題
+def get_etp_answer(question):
+    answer = get_etp_related(question)
+
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "content" : answer
+      }))
+   
+    return res
+
 # define functions
 functions = [
   {
@@ -113,11 +125,19 @@ functions = [
       },
     }
   },
-  
   {
-    "name": "get_define",
-    "description": "解釋各種專有名詞的定義",
-    "parameters": {}
+    "name": "get_etp_answer",
+    "description": "當使用者的問題涉及得標量、結清價格、非交易、或提到民營相關詞彙時，使用此功能。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "包含得標量、結清價格、非交易、或民營等關鍵詞的問題"
+        }
+      },
+        "required": ["question"],
+    }
   }
 ]
 
