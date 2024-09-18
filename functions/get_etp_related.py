@@ -2,6 +2,7 @@ import os
 import pymongo, json
 from openai import OpenAI
 from pymongo.server_api import ServerApi
+from functions.get_QA_analyze import get_QA_analyze
 
 uri = "mongodb+srv://victoria91718:white0718@poxa.1j2eh.mongodb.net/?retryWrites=true&w=majority&appName=poxa"
 client = pymongo.MongoClient(uri)
@@ -140,3 +141,4 @@ def get_etp_related(user_input):
             print(f"找不到檔案: {json_file}")
     else:
         print("無法解析您的問題，請確認輸入格式。")
+        return get_QA_analyze(user_input)

@@ -100,7 +100,7 @@ functions = [
   },
   {
     "name": "get_qa_answer",
-    "description": "解答任何與台電電力交易市場相關的問題。如果使用者沒有明確要求本週摘要，應使用此功能。",
+    "description": "解答任何問題。",
     "parameters": {
       "type": "object",
       "properties": {
@@ -127,13 +127,13 @@ functions = [
   },
   {
     "name": "get_etp_answer",
-    "description": "當使用者的問題涉及得標量、結清價格、非交易、或提到民營相關詞彙時，使用此功能。",
+    "description": "當使用者的問題涉及得標量、結清、非交易、或提到民營相關詞彙時，使用此功能。",
     "parameters": {
       "type": "object",
       "properties": {
         "question": {
           "type": "string",
-          "description": "包含得標量、結清價格、非交易、或民營等關鍵詞的問題"
+          "description": "包含得標量、結清、非交易、或民營等關鍵詞的問題"
         }
       },
         "required": ["question"],
