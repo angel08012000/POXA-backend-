@@ -72,6 +72,14 @@ def get_qa_answer(question):
    
    return res
 
+def get_market_rule():
+   res = []
+   res.append(FORMAT_RESPONSE("text", {
+        "content" : "尚未完成"
+      }))
+   
+   return res
+
 # define functions
 functions = [
   {
@@ -105,6 +113,11 @@ functions = [
   {
     "name": "get_define",
     "description": "解釋各種專有名詞的定義",
+    "parameters": {}
+  },
+  {
+    "name": "get_market_rule",
+    "description": "電力交易市場規則",
     "parameters": {}
   }
 ]
@@ -141,6 +154,11 @@ def greeting():
   res.append(FORMAT_RESPONSE("button", {
     "content": "QA 問答",
     "function": "get_qa_answer"
+  }))
+
+  res.append(FORMAT_RESPONSE("button", {
+    "content": "電力交易市場規則",
+    "function": "get_market_rule"
   }))
 
   return jsonify({
