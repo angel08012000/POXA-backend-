@@ -10,6 +10,7 @@ client = pymongo.MongoClient(uri)
 
 mydb = client["WebInformation"]
 mycol = mydb["article"]
+synoncol = mydb["synonyms"]
 noundb = client["Test"] 
 nouncol = noundb["definitions"]
 mycol.create_index([("content", "text"),
@@ -195,10 +196,22 @@ def generate_response(question, rel_content):
     )
     return response.choices[0].message.content.strip()
 
+def synonym_analysis(user_input):
+    synonyms = synoncol.find({})
+    
+    for synon in synonyms:
+        for term in synon["term"]:
+            if term in user_input:
+                user_input = user_input.replace(term, synon["vocabulary"])
+    
+    return user_input
+
 def get_QA_analyze(user_input):
     global gpt_calls
     final_answer = ""
     start_time = time.time()
+
+    user_input = synonym_analysis(user_input)
 
     qa_classification = classify_question(user_input)
     print("QA's classification:", qa_classification)

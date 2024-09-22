@@ -100,7 +100,7 @@ functions = [
   },
   {
     "name": "get_qa_answer",
-    "description": "解答任何問題。",
+    "description": "解答任何電力交易市場的相關問題。",
     "parameters": {
       "type": "object",
       "properties": {
