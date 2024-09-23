@@ -6,6 +6,8 @@ import time
 from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST
 from functions.week_summary import get_summary
 from functions.qa_consult import GET_COMMON_QA
+from functions.file_search import start_file_search
+from functions.term_explaination import get_definition
 from config import POXA
 
 from database import r, store_news
@@ -45,10 +47,12 @@ def get_week_summary(date):
   return res
 
 # 名詞解釋
-def get_define():
+def get_define(term):
+  definition = get_definition(term)
+
   res = []
   res.append(FORMAT_RESPONSE("text", {
-    "content" : "尚未完成"
+    "content" : definition
   }))
    
   return res
@@ -63,6 +67,16 @@ def get_qa_answer(question):
       }))
    
    return res
+
+#電力交易市場規則
+def get_market_rule(question):
+  response = start_file_search(question)
+  res = []
+  res.append(FORMAT_RESPONSE("text", {
+      "content" : response
+    }))
+  
+  return res
 
 # define functions
 functions = [
@@ -94,11 +108,33 @@ functions = [
       "required": ["question"],
     }
   },
-  
   {
     "name": "get_define",
     "description": "解釋各種專有名詞的定義",
-    "parameters": {}
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "term": {
+          "type": "string",
+          "description": "使用者想知道的名詞"
+        }
+      },
+      "required": ["term"],
+    }
+  },
+  {
+    "name": "get_market_rule",
+    "description": "解答電力交易市場的法規相關問題。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "使用者想要解答的問題。"
+        }
+      },
+      "required": ["question"],
+    }
   }
 ]
 
@@ -134,6 +170,11 @@ def greeting():
   res.append(FORMAT_RESPONSE("button", {
     "content": "QA 問答",
     "function": "get_qa_answer"
+  }))
+
+  res.append(FORMAT_RESPONSE("button", {
+    "content": "電力交易市場規則",
+    "function": "get_market_rule"
   }))
 
   return jsonify({
