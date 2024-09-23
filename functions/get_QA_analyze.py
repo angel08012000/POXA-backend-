@@ -188,7 +188,7 @@ def generate_response(question, rel_content):
     prompt = f"問題: {question}\n\n根據以下內容生成合理的回答:\n{rel_content}\n\n回答:"
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        temperature=1,
+        temperature=0.8,
         messages=[
             {"role": "system", "content": "你是一個專業的問題解答助手，請根據資料直接回答問題，不要提供額外的解釋或背景資訊。"},
             {"role": "user", "content": prompt}
@@ -197,8 +197,13 @@ def generate_response(question, rel_content):
     return response.choices[0].message.content.strip()
 
 def synonym_analysis(user_input):
+    print("synonym_analysis")
     synonyms = synoncol.find({})
     
+    if "E-dReg" in user_input:
+        print("no replace!!")
+        return user_input
+
     for synon in synonyms:
         for term in synon["term"]:
             if term in user_input:

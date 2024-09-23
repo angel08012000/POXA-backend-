@@ -127,13 +127,13 @@ functions = [
   },
   {
     "name": "get_etp_answer",
-    "description": "當使用者的問題涉及得標量、結清、非交易、或提到民營相關詞彙時，使用此功能。",
+    "description": "當使用者的問題完全涉及得標量、結清、非交易、或提到民營時，使用此功能。",
     "parameters": {
       "type": "object",
       "properties": {
         "question": {
           "type": "string",
-          "description": "包含得標量、結清、非交易、或民營等關鍵詞的問題"
+          "description": "必須包含得標量、結清、非交易、或民營等關鍵詞的問題"
         }
       },
         "required": ["question"],
