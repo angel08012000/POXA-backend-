@@ -3,6 +3,7 @@ import pymongo, json
 from openai import OpenAI
 from pymongo.server_api import ServerApi
 from functions.get_QA_analyze import get_QA_analyze
+from datetime import datetime
 
 uri = "mongodb+srv://victoria91718:white0718@poxa.1j2eh.mongodb.net/?retryWrites=true&w=majority&appName=poxa"
 client = pymongo.MongoClient(uri)
@@ -85,6 +86,33 @@ def classify_question(question):
         answer = answer.split("：")[-1].strip()
     return answer
 
+def parse_and_find_closest(data_list, date_field):
+    today = datetime.today()
+
+    closest_date = None
+    matching_list = []
+    closest_date_diff = float('inf')
+
+    for entry in data_list:
+        entry_date_str = entry[date_field]
+        entry_date = datetime.strptime(entry_date_str, "%Y-%m-%d") 
+        
+        date_diff = abs((today - entry_date).days)
+
+        if date_diff < closest_date_diff:
+            closest_date_diff = date_diff
+            closest_date = entry_date
+
+    if closest_date:
+        for entry in data_list:
+            entry_date_str = entry[date_field]
+            entry_date = datetime.strptime(entry_date_str, "%Y-%m-%d")
+
+            if entry_date == closest_date:
+                matching_list.append(entry)
+
+    return matching_list
+
 def get_etp_related(user_input):
     classify = classify_question(user_input)
     print("classify:", classify)
@@ -113,8 +141,10 @@ def get_etp_related(user_input):
 
     if suffix != "Offering":
         json_file = 'poxa-info.etp_settle_value_query.json'
+        date = "tranDate"
     else:
         json_file = 'poxa-info.etp_offering.json'
+        date = "date"
 
     print(f"Using JSON file: {json_file}")
     print("product_prefix:", prefix)
@@ -125,9 +155,15 @@ def get_etp_related(user_input):
             with open(json_file, 'r', encoding='utf-8') as f:
                 existing_data = json.load(f)
 
+            closest_data = parse_and_find_closest(existing_data, date)
             result = execute_code_logic(existing_data, prefix, is_qse, suffix)
+            lastest_result = execute_code_logic(closest_data, prefix, is_qse, suffix)
             if isinstance(result, dict):
-                answer = (f"2024/08/11 ~ 2024/08/22的ETP資料:\n"
+                answer = (f"目前最新->{closest_data[0][date]}的ETP資料:\n"
+                          f"最大值: {lastest_result['max_value']:.2f}, "
+                          f"最小值: {lastest_result['min_value']:.2f}, "
+                          f"平均值: {lastest_result['avg_value']:.2f}\n\n"
+                          f"2024/08/11 ~ 2024/08/22的ETP資料:\n"
                           f"最大值: {result['max_value']:.2f}, "
                           f"最小值: {result['min_value']:.2f}, "
                           f"平均值: {result['avg_value']:.2f}")
