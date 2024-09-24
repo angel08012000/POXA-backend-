@@ -25,9 +25,17 @@ def call_function_by_name(function_name, function_args):
         raise ValueError(f"Function '{function_name}' not found or not callable.")
 
 # 本週摘要
-def get_week_summary(date):
-  print(f"送進來的日期: {date}")
-  date = get_summary(date)
+def get_week_summary(time=None):
+  print(f"送進來的時間: {time}")
+  date = get_summary(time)
+
+  if date == None:
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+      "tag" : "span",
+      "content" : f"時間過早，第一篇摘要是 2023/10/2 發布"
+    }))
+    return res
 
   res = []
   res.append(FORMAT_RESPONSE("text", {
@@ -90,12 +98,12 @@ functions = [
     "parameters": {
       "type": "object",
       "properties": {
-        "date": {
+        "time": {
           "type": "string",
-          "description": f"請要求使用者額外提供確切日期，若未提供年份、月份，請使用今天的年份、月份，今天是{datetime.today().strftime('%Y%m%d')}"
-        }
+          "description": f"跟時間有關的描述，不要推測使用者未提供的數據"
+        },
       },
-      "required": ["date"],
+      # "required": ["time"],
     }
   },
   {
@@ -111,7 +119,7 @@ functions = [
       },
       "required": ["question"],
     }
-  },
+  }, 
   {
     "name": "get_qa_question",
     "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題。",
@@ -173,6 +181,11 @@ def greeting():
   res.append(FORMAT_RESPONSE("button", {
     "content": "QA 問答",
     "function": "get_qa_answer"
+  }))
+
+  res.append(FORMAT_RESPONSE("button", {
+    "content": "電力交易市場規則",
+    "function": "get_market_rule"
   }))
 
   return jsonify({
