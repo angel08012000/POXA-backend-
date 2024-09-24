@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=D:\碩\POXA_chatbot\pdftest\POXA-backend-\poxaenv
+set VIRTUAL_ENV=C:\Users\shaua\Desktop\mine\poxagpt\POXA-backend-\poxaenv
 
 if not defined PROMPT set PROMPT=$P$G
 
