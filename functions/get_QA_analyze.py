@@ -10,6 +10,7 @@ client = pymongo.MongoClient(uri)
 
 mydb = client["WebInformation"]
 mycol = mydb["article"]
+synoncol = mydb["synonyms"]
 noundb = client["Test"] 
 nouncol = noundb["definitions"]
 mycol.create_index([("content", "text"),
@@ -42,7 +43,7 @@ def search_latest_article():
         article_date = extract_date_from_title(title)
         
         if article_date:
-            date_diff = abs((current_date - article_date).days)  # 計算日期差異
+            date_diff = abs((current_date - article_date).days) 
             if date_diff < closest_date_diff:
                 closest_date_diff = date_diff
                 closest_article = article
@@ -62,9 +63,10 @@ def extract_keywords(question):
     terms_string = '、'.join(terms) 
  
     gpt_calls+=1
-    prompt = f"請提取以下問題中的關鍵詞，使用逗號分隔，並使用0.2的溫度回答：\n問題：{question}\n\n關鍵詞："
+    prompt = f"請提取以下問題中的關鍵詞，使用逗號分隔：\n問題：{question}\n\n關鍵詞："
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
+        temperature=0.2,
         messages=[
             {"role": "system", "content": f"你是一個專業的問題解答助手，請從問題中提取出關鍵詞，遇到以下關鍵字請勿拆解它:{terms_string}"}, #:光儲合一、光合作用、調頻轉備。
             {"role": "user", "content": prompt}
@@ -80,9 +82,10 @@ def extract_keywords(question):
 def classify_question_lastest(question):
     global gpt_calls
     gpt_calls += 1
-    prompt = f"請判斷以下問題是否有明確提及到目前、當前、最近或最新之類的時間點，請使用0.1的溫度回答：\n問題：{question}\n\n請回答是或否就好，無須回答其他額外資訊："
+    prompt = f"請判斷以下問題是否有明確提及到目前、當前、最近或最新之類的時間點：\n問題：{question}\n\n請回答是或否就好，無須回答其他額外資訊："
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
+        temperature=0.1,
         messages=[
             {"role": "system", "content": "你是一個專業的問題分類助手，請判斷問題是否有明確提及到當前或最新之類的時間點。"},
             {"role": "user", "content": prompt}
@@ -97,9 +100,10 @@ def classify_question_lastest(question):
 def classify_question(question):
     global gpt_calls
     gpt_calls+=1
-    prompt = f"請將以下問題分類，使用0.3的溫度回答：\n問題：{question}\n\n分類："
+    prompt = f"請將以下問題分類：\n問題：{question}\n\n分類："
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
+        temperature=0.3,
         messages=[
             {"role": "system", "content": "你是一個專業的問題解答助手，請將問題分類成數據型問題和敘述型問題，如果是敘述型問題的話，請再細分為事實性問題、意見性問題或推理性問題。"},
             {"role": "user", "content": prompt}
@@ -131,9 +135,10 @@ def generate_answer(question, article, classification):
         ans_type = "綜合"
 
     gpt_calls+=1
-    prompt = f"問題: {question}\n\n根據以下文章內容生成{ans_type}的回答，請使用0.8的溫度回答:\n{article}\n\n回答:"
+    prompt = f"問題: {question}\n\n根據以下文章內容生成{ans_type}的回答:\n{article}\n\n回答:"
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
+        temperature=0.8,
         messages=[
             {"role": "system", "content": "你是一個專業的問題解答助手，請根據資料直接回答問題，不要提供額外的解釋或背景資訊。"},
             {"role": "user", "content": prompt}
@@ -180,9 +185,10 @@ def find_most_relevant(qa_emb, article_emb):
 def generate_response(question, rel_content):
     global gpt_calls
     gpt_calls+=1
-    prompt = f"問題: {question}\n\n根據以下內容生成合理的回答，請使用0.8的溫度回答:\n{rel_content}\n\n回答:"
+    prompt = f"問題: {question}\n\n根據以下內容生成合理的回答:\n{rel_content}\n\n回答:"
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
+        temperature=0.8,
         messages=[
             {"role": "system", "content": "你是一個專業的問題解答助手，請根據資料直接回答問題，不要提供額外的解釋或背景資訊。"},
             {"role": "user", "content": prompt}
@@ -190,10 +196,27 @@ def generate_response(question, rel_content):
     )
     return response.choices[0].message.content.strip()
 
+def synonym_analysis(user_input):
+    print("synonym_analysis")
+    synonyms = synoncol.find({})
+    
+    if "E-dReg" in user_input:
+        print("no replace!!")
+        return user_input
+
+    for synon in synonyms:
+        for term in synon["term"]:
+            if term in user_input:
+                user_input = user_input.replace(term, synon["vocabulary"])
+    
+    return user_input
+
 def get_QA_analyze(user_input):
     global gpt_calls
     final_answer = ""
     start_time = time.time()
+
+    user_input = synonym_analysis(user_input)
 
     qa_classification = classify_question(user_input)
     print("QA's classification:", qa_classification)
