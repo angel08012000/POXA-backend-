@@ -43,7 +43,7 @@ def search_latest_article():
         article_date = extract_date_from_title(title)
         
         if article_date:
-            date_diff = abs((current_date - article_date).days)  # 計算日期差異
+            date_diff = abs((current_date - article_date).days) 
             if date_diff < closest_date_diff:
                 closest_date_diff = date_diff
                 closest_article = article
