@@ -7,6 +7,12 @@ client = pymongo.MongoClient(connect_string)
 mydb = client['Test']
 my_collection = mydb['definitions']
 
+all_term = my_collection.find()
+term_list = list()
+for t in all_term:
+    term_list.append(t['term'])
+#print(term_list)
+
 def get_definition(term_to_find):
     data = my_collection.find_one({"term": term_to_find})
     if data != None:

@@ -70,11 +70,11 @@ def response_directly(user_question, my_thread, my_assistant):
     return messages[0].content[0].text.value
 
 def response_with_preprocess(user_question, my_thread, my_assistant):
-    user_message = "請根據以下問題選擇三個合適的檔案，並分別以這些檔案提供三種回答，請用繁體中文回答。格式為\"檔案名：回答\"。問題如下：" + user_question
+    user_message = "請根據以下問題選擇三個合適的檔案，分別以這些檔案提供三種回答，並用繁體中文回答。回答格式為\"檔案名：回答\"。問題如下：" + user_question
     messages = send_message(user_question,  my_thread, my_assistant)
     gpt_response = messages[0].content[0].text.value
     print(gpt_response + "\n\n...正在選擇最適合答案...\n")
-    user_message = "請從三個回答中選出一個最適合問題的答案，並用繁體中文回答問題：" + user_question
+    user_message = "請從三種回答中選出一個最適合問題的答案，並用繁體中文回答問題：" + user_question
     messages = send_message(user_question,  my_thread, my_assistant)
     return messages[0].content[0].text.value
 
@@ -84,8 +84,9 @@ def start_file_search(question):
     #建立 vector store
     #vector_store_name = "For POXA FAQ"
     #my_vector_store = create_vector_store(vector_store_name)
-    #vector_store_id = "vs_aNGnuTDnhWzZF7JjzGmfCJ1F"
-    #my_vector_store = client.beta.vector_stores.retrieve(vector_store_id=vector_store_id)
+    vector_store_id = "vs_aNGnuTDnhWzZF7JjzGmfCJ1F"
+    my_vector_store = client.beta.vector_stores.retrieve(vector_store_id=vector_store_id)
+    print(my_vector_store.name)
 
     #上傳檔案
     #file_paths = ['D:\碩\POXA_chatbot\pdftest\market files\電力交易平台管理規範及作業程序.txt']
@@ -101,10 +102,11 @@ def start_file_search(question):
     #assistant_name = "POXA engry assistant"
     #my_assistant = create_assistant(assistant_name, ins, my_vector_store)
     my_assistant = client.beta.assistants.retrieve("asst_IFk0TMIJ3RBDIP7W1Sk2dCVw")
-    print(my_assistant.id, my_assistant.name)
+    print(my_assistant.name)
     my_thread = client.beta.threads.create()
 
     responses = response_with_preprocess(question, my_thread, my_assistant)
+    print("最終答案：\n" + responses)
     return responses
 
     '''
