@@ -38,7 +38,7 @@ def get_week_summary(time=None):
     res = []
     res.append(FORMAT_RESPONSE("text", {
       "tag" : "span",
-      "content" : f"時間過早，第一篇摘要是 2023/10/2 發布"
+      "content" : f"時間過早/還沒到（第一篇摘要是 2023/10/2 發布）"
     }))
     return res
 
@@ -118,7 +118,10 @@ functions = [
       "properties": {
         "time": {
           "type": "string",
-          "description": f"跟時間有關的描述，不要推測使用者未提供的數據"
+          "description": f"""跟時間有關的描述，不要推測使用者未提供的數據。
+          若有未給定年 or 月，請使用與「{datetime.today().strftime('%Y/%m/%d')}」對應的數字。
+          若未給定日期，請保持空白。
+          """
         },
       },
       # "required": ["time"],

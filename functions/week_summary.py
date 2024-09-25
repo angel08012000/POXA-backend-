@@ -20,7 +20,8 @@ def get_summary(time=None):
                     你是一個日期轉換工具，只會輸出八位數字（%Y%m%d），請不要輸出除了數字之外的東西
                     若未提供年份，請使用{today}對應的年份
                     若未提供年份與月份，請使用{today}對應的年份與月份
-                    若未提供日期，請使用該月份的6號
+                    若未提供日期，但有給定第n週，請使用7*n
+                    若未提供任何能推測日期之描述，請使用 6
                     """
                 },
                 {"role": "user", "content": time}
@@ -30,6 +31,8 @@ def get_summary(time=None):
 
         start_time = datetime(2023, 10, 2)
         if date < start_time:
+            return None
+        if date > datetime.today():
             return None
 
         print(f"轉換後的日期: {response.choices[0].message.content}")
