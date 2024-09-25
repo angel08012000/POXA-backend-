@@ -281,4 +281,4 @@ def chat_with_bot():
     return jsonify({'response': final_res})
 
 if __name__ == '__main__':
-    app.run(port=3000, debug=True)
+    app.run(debug=True)
