@@ -50,15 +50,6 @@ def get_week_summary(time=None):
 
   return res
 
-# 名詞解釋
-def get_define():
-  res = []
-  res.append(FORMAT_RESPONSE("text", {
-    "content" : "尚未完成"
-  }))
-   
-  return res
-
 #獲取使用者問題
 def get_qa_question():
     res = []
@@ -122,13 +113,13 @@ functions = [
   }, 
   {
     "name": "get_qa_question",
-    "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題。",
+    "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題，其他問題或動作，不要使用此功能。",
     "parameters": {
       "type": "object",
       "properties": {
         "question": {
           "type": "string",
-          "description": "麻煩使用者輸入想詢問的問題"
+          "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題。"
         }
       },
     }
