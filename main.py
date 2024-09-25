@@ -155,6 +155,16 @@ functions = [
   {
     "name": "get_market_rule",
     "description": "解答電力交易市場的法規相關問題。當使用者想知道電力交易市場法規時，進一步問使用者想問哪一項法規或市場規則。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "使用者想問的法規或市場規則，請不要修改使用者的問題。"
+        }
+      },
+      "required": ["question"],
+    }
   }, 
   {
     "name": "get_qa_question",
