@@ -158,13 +158,13 @@ functions = [
   }, 
   {
     "name": "get_qa_question",
-    "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題。",
+    "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題，其他問題或動作，不要使用此功能。",
     "parameters": {
       "type": "object",
       "properties": {
         "question": {
           "type": "string",
-          "description": "使用者想問的法規或市場規則，請不要修改使用者的問題。"
+          "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題。"
         }
       },
       "required": ["question"],
