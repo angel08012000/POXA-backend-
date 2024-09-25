@@ -176,9 +176,7 @@ functions = [
           "type": "string",
           "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題。"
         }
-      },
-      "required": ["question"],
-          "description": "麻煩使用者輸入想詢問的問題"
+      }
     }
   },
   {
