@@ -150,13 +150,13 @@ functions = [
   },
   {
     "name": "get_define",
-    "description": f"解釋使用者想知道的專有名詞定義，若問題不跟專有名詞有相關，不要此用此功能。",
+    "description": f"解釋使用者想知道的專有名詞定義，若問題不是想問定義或需要解釋，不要此用此功能。",
     "parameters": {
       "type": "object",
       "properties": {
         "question": {
           "type": "string",
-          "description": "使用者問的問題必須關於專有名詞，請勿修改使用者的問題。"
+          "description": "使用者問的問題必須關於專有名詞定義或解釋，才使用此功能。請勿修改使用者的問題。"
         }
       },
       "required": ["question"],
