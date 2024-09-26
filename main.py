@@ -56,41 +56,25 @@ def get_week_summary(time=None):
   return res
 
 # 名詞解釋
-# def get_define(question):
-#   term = ""
-#   for t in term_list:
-#      if t in question:
-#         term = t
-#         print("term: " + term)
-#         definition = get_definition(term)
-#   if term == "":
-#     print("查無資料")
-#     definition = start_file_search(question)
-
-#   res = []
-#   res.append(FORMAT_RESPONSE("text", {
-#     "content" : definition
-#   }))
-   
-#   return res
 def get_define(question):
-    term = ""
-    for t in term_list:
-        if t in question and len(question.strip()) == len(t):
-            term = t
-            print("term: " + term)
-            definition = get_definition(term)
-    if term == "":
-        print("查無資料，非純名詞問題，應使用其他功能")
-        return None 
+  term = ""
+  for t in term_list:
+     if t in question:
+        term = t
+        print("term: " + term)
+        definition = get_definition(term)
+  if term == "":
+    print("查無資料")
+    print("非純名詞問題，應使用其他功能")
+    return None
+    # definition = start_file_search(question)
 
-    res = []
-    res.append(FORMAT_RESPONSE("text", {
-        "content": definition
-    }))
-    return res
-
-
+  res = []
+  res.append(FORMAT_RESPONSE("text", {
+    "content" : definition
+  }))
+   
+  return res
 
 #獲取使用者問題
 def get_qa_question():
