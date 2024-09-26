@@ -56,10 +56,10 @@ def get_week_summary(time=None):
   return res
 
 # 名詞解釋
-def get_define(question):
+def get_define(term_question):
   term = ""
   for t in term_list:
-     if t in question:
+     if t in term_question:
         term = t
         print("term: " + term)
         definition = get_definition(term)
@@ -155,12 +155,12 @@ functions = [
     "parameters": {
       "type": "object",
       "properties": {
-        "term": {
+        "term_question": {
           "type": "string",
           "description": "使用者問的問題必須關於專有名詞定義或解釋，才使用此功能。請勿修改使用者的問題。"
         }
       },
-      "required": ["term"],
+      "required": ["term_question"],
     }
   },
   {
