@@ -56,23 +56,40 @@ def get_week_summary(time=None):
   return res
 
 # 名詞解釋
-def get_define(question):
-  term = ""
-  for t in term_list:
-     if t in question:
-        term = t
-        print("term: " + term)
-        definition = get_definition(term)
-  if term == "":
-    print("查無資料")
-    definition = start_file_search(question)
+# def get_define(question):
+#   term = ""
+#   for t in term_list:
+#      if t in question:
+#         term = t
+#         print("term: " + term)
+#         definition = get_definition(term)
+#   if term == "":
+#     print("查無資料")
+#     definition = start_file_search(question)
 
-  res = []
-  res.append(FORMAT_RESPONSE("text", {
-    "content" : definition
-  }))
+#   res = []
+#   res.append(FORMAT_RESPONSE("text", {
+#     "content" : definition
+#   }))
    
-  return res
+#   return res
+def get_define(question):
+    term = ""
+    for t in term_list:
+        if t in question and len(question.strip()) == len(t):
+            term = t
+            print("term: " + term)
+            definition = get_definition(term)
+    if term == "":
+        print("查無資料，非純名詞問題，應使用其他功能")
+        return None 
+
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "content": definition
+    }))
+    return res
+
 
 
 #獲取使用者問題
@@ -96,8 +113,8 @@ def get_qa_answer(issue):
    return res
 
 #電力交易市場規則
-def get_market_rule(question):
-  response = start_file_search(question)
+def get_market_rule(rule_question):
+  response = start_file_search(rule_question)
   res = []
   res.append(FORMAT_RESPONSE("text", {
       "content" : response
@@ -154,12 +171,12 @@ functions = [
     "parameters": {
       "type": "object",
       "properties": {
-        "question": {
+        "term": {
           "type": "string",
           "description": "使用者問的問題必須關於專有名詞定義或解釋，才使用此功能。請勿修改使用者的問題。"
         }
       },
-      "required": ["question"],
+      "required": ["term"],
     }
   },
   {
@@ -168,12 +185,12 @@ functions = [
     "parameters": {
       "type": "object",
       "properties": {
-        "question": {
+        "rule_question": {
           "type": "string",
           "description": "使用者想問的法規或市場規則，請不要修改使用者的問題。"
         }
       },
-      "required": ["question"],
+      "required": ["rule_question"],
     }
   }, 
   {
