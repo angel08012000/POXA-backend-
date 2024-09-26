@@ -156,17 +156,12 @@ def get_etp_related(user_input):
                 existing_data = json.load(f)
 
             closest_data = parse_and_find_closest(existing_data, date)
-            result = execute_code_logic(existing_data, prefix, is_qse, suffix)
             lastest_result = execute_code_logic(closest_data, prefix, is_qse, suffix)
-            if isinstance(result, dict):
+            if isinstance(lastest_result, dict):
                 answer = (f"目前最新->{closest_data[0][date]}的ETP資料:\n"
                           f"最大值: {lastest_result['max_value']:.2f}, "
                           f"最小值: {lastest_result['min_value']:.2f}, "
-                          f"平均值: {lastest_result['avg_value']:.2f}\n\n"
-                          f"2024/08/11 ~ 2024/08/22的ETP資料:\n"
-                          f"最大值: {result['max_value']:.2f}, "
-                          f"最小值: {result['min_value']:.2f}, "
-                          f"平均值: {result['avg_value']:.2f}")
+                          f"平均值: {lastest_result['avg_value']:.2f})
             else:
                 answer = result 
 
