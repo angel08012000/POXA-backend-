@@ -85,8 +85,8 @@ def get_qa_question():
     return res
 
 # QA 問答
-def get_qa_answer(question):
-   answer = get_QA_analyze(question)
+def get_qa_answer(issue):
+   answer = get_QA_analyze(issue)
 
    res = []
    res.append(FORMAT_RESPONSE("text", {
@@ -105,8 +105,8 @@ def get_market_rule(question):
   
   return res
 #關於etp的問題
-def get_etp_answer(question):
-    answer = get_etp_related(question)
+def get_etp_answer(etpProblem):
+    answer = get_etp_related(etpProblem)
 
     res = []
     res.append(FORMAT_RESPONSE("text", {
@@ -140,12 +140,12 @@ functions = [
     "parameters": {
       "type": "object",
       "properties": {
-        "question": {
+        "issue": {
           "type": "string",
           "description": "使用者所問的任何問題"
         }
       },
-      "required": ["question"],
+      "required": ["issue"],
     }
   },
   {
@@ -195,12 +195,12 @@ functions = [
     "parameters": {
       "type": "object",
       "properties": {
-        "question": {
+        "etpProblem": {
           "type": "string",
           "description": "必須包含得標量、結清、非交易、或民營等關鍵詞的問題"
         }
       },
-        "required": ["question"],
+        "required": ["etpProblem"],
     }
   }
 ]
