@@ -65,9 +65,7 @@ def get_define(term_question):
         definition = get_definition(term)
   if term == "":
     print("查無資料")
-    print("非純名詞問題，應使用其他功能")
-    return None
-    # definition = start_file_search(question)
+    definition = start_file_search(term_question)
 
   res = []
   res.append(FORMAT_RESPONSE("text", {
@@ -151,13 +149,13 @@ functions = [
   },
   {
     "name": "get_define",
-    "description": f"解釋使用者想知道的專有名詞定義，若問題不是想問定義或需要解釋，不要此用此功能。",
+    "description": f"當且僅當使用者的問題是單一專有名詞且沒有其他內容時，使用此功能。若問題是完整句子或涉及多個名詞，則不要使用此功能。",
     "parameters": {
       "type": "object",
       "properties": {
         "term_question": {
           "type": "string",
-          "description": "使用者問的問題必須關於專有名詞定義或解釋，才使用此功能。請勿修改使用者的問題。"
+          "description": "使用者問的問題必須是單一專有名詞，且無其他內容。請勿修改使用者的問題。"
         }
       },
       "required": ["term_question"],
