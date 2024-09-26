@@ -156,7 +156,7 @@ functions = [
       "properties": {
         "question": {
           "type": "string",
-          "description": "使用者問的問題，請勿修改使用者的問題。"
+          "description": "使用者問的問題關於專有名詞定義，請勿修改使用者的問題。"
         }
       },
       "required": ["question"],
