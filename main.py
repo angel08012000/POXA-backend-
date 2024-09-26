@@ -3,7 +3,7 @@ import requests
 from datetime import datetime
 import time
 
-from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST
+from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST, SHOW_MENU
 from functions.week_summary import get_summary
 from functions.qa_consult import GET_COMMON_QA
 from config import POXA
@@ -50,7 +50,7 @@ def get_week_summary(time=None):
     "content": f"{date}（點我查看）"
   }))
 
-  return res
+  return res+SHOW_MENU()
 
 # 名詞解釋
 def get_define():
@@ -63,14 +63,33 @@ def get_define():
 
 # QA 問答
 def get_qa_answer(question):
-   answer = GET_COMMON_QA(POXA, question)
+    answer = GET_COMMON_QA(POXA, question)
 
-   res = []
-   res.append(FORMAT_RESPONSE("text", {
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
         "content" : answer
       }))
+    res.append(FORMAT_RESPONSE("button", {
+    "content": "每週摘要",
+    "function": "get_week_summary"
+    }))
+
+    res.append(FORMAT_RESPONSE("button", {
+      "content": "名詞解釋",
+      "function": "get_define"
+    }))
+
+    res.append(FORMAT_RESPONSE("button", {
+      "content": "QA 問答",
+      "function": "get_qa_answer"
+    }))
+
+    res.append(FORMAT_RESPONSE("button", {
+      "content": "電力交易市場規則",
+      "function": "get_market_rule"
+    }))
    
-   return res
+    return res
 
 def get_market_rule():
    res = []
@@ -138,34 +157,9 @@ CORS(app)
 
 @app.route('/greeting', methods=['GET'])
 def greeting():
-  res = []
-  res.append(FORMAT_RESPONSE("text", {
-    "tag" : "span",
-    "content" : f"您好～ 我是電力交易市場小助手，我能夠提供以下功能:"
-  }))
-
-  res.append(FORMAT_RESPONSE("button", {
-    "content": "每週摘要",
-    "function": "get_week_summary"
-  }))
-
-  res.append(FORMAT_RESPONSE("button", {
-    "content": "名詞解釋",
-    "function": "get_define"
-  }))
-
-  res.append(FORMAT_RESPONSE("button", {
-    "content": "QA 問答",
-    "function": "get_qa_answer"
-  }))
-
-  res.append(FORMAT_RESPONSE("button", {
-    "content": "電力交易市場規則",
-    "function": "get_market_rule"
-  }))
 
   return jsonify({
-    "response": res
+    "response": SHOW_MENU()
   })
 
 @app.route('/chat', methods=['POST'])
