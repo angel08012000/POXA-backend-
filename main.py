@@ -15,7 +15,7 @@ from database import r, store_news
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
-term_list = "平台成員、合格交易者、電力交易單位、電力調度單位、資源、併網型儲能設備、交易資源、報價代碼、參與容量、報價容量、結清價格、交易表計、電能移轉、能力測試、調度日、日、需求公告、合格交易者提出報價、最佳化排程作業、公布競價結果、交易結果結算、調頻備轉容量、電能移轉複合動態調節備轉容量、即時備轉容量、補充備轉容量、交易媒合期間、資訊閉鎖期間、需求量及供給量公告、交易媒合結果公告、成交紀錄公布、標售資訊設定期間、標售資訊審查期間、買方競價期間、應、容量費、效能費、服務品質指標、容量費、效能費、電能服務費、效能費、電能費、容量費、服務品質指標、電能費、補償價格、電力交易單位、發電機組發電機組、自用發電設備自用發電設備、需量反應需量反應、併網型儲能設備儲能設備、執行事件期間、光儲合一、光儲無限套娃"
+term_list = ['平台成員', '合格交易者', '電力交易單位', '電力調度單位', '資源', '併網型儲能設備', '交易資源', '報價代碼', '參與容量', '報價容量', '結清價格', '交易表計', '電能移轉', '能力測試', '調度日', '日', '需求公告', '合格交易者提出報價', '最佳化排程作業', '公布競價結果', '交易結果結算', '調頻備轉容量', '移轉複合動態調節備轉容量', '即時備轉容量', '補充備轉容量', '交易媒合期間', '資訊閉鎖期間', '需求量及供給量公告', '交易媒合結果公告', '成交紀錄公布', '標售資訊設定期間', '標售資訊審查期間', '買方競價期間', '應', '容量費', '效能費', '服務品質指標', '容量費', '效能費', '電能服務費', '效能費', '電能費', '容量費', '服務品質指標', '電能費', '補償價格', '電力交易單位', '發電機組發電機組', '自用發電設備自用發電設備', '需量反應需量反應', '併網型儲能設備儲能設備', '執行事件期間', '光儲合一', '光儲無限套娃']
 
 def call_function_by_name(function_name, function_args):
     global_symbols = globals()
@@ -56,10 +56,16 @@ def get_week_summary(time=None):
   return res
 
 # 名詞解釋
-def get_define(term):
-  definition = get_definition(term)
-  if definition == "查無資料":
-     definition = start_file_search(term)
+def get_define(question):
+  term = ""
+  for t in term_list:
+     if t in question:
+        term = t
+        print("term: " + term)
+        definition = get_definition(term)
+  if term == "":
+    print("查無資料")
+    definition = start_file_search(question)
 
   res = []
   res.append(FORMAT_RESPONSE("text", {
@@ -67,6 +73,7 @@ def get_define(term):
   }))
    
   return res
+
 
 #獲取使用者問題
 def get_qa_question():
@@ -143,16 +150,16 @@ functions = [
   },
   {
     "name": "get_define",
-    "description": f"解釋使用者想知道的專有名詞定義，請從問題中提取出關鍵詞，遇到以下關鍵字請勿拆解它：{term_list}。",
+    "description": f"解釋使用者想知道的專有名詞定義。",
     "parameters": {
       "type": "object",
       "properties": {
-        "term": {
+        "question": {
           "type": "string",
-          "description": "使用者想知道的名詞"
+          "description": "使用者問的問題，請勿修改使用者的問題。"
         }
       },
-      "required": ["term"],
+      "required": ["question"],
     }
   },
   {
