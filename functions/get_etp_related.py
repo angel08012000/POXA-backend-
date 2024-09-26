@@ -161,9 +161,9 @@ def get_etp_related(user_input):
                 answer = (f"目前最新->{closest_data[0][date]}的ETP資料:\n"
                           f"最大值: {lastest_result['max_value']:.2f}, "
                           f"最小值: {lastest_result['min_value']:.2f}, "
-                          f"平均值: {lastest_result['avg_value']:.2f})
+                          f"平均值: {lastest_result['avg_value']:.2f}\n")
             else:
-                answer = result 
+                answer = lastest_result 
 
             print(f"回答: {answer}")
             return answer
