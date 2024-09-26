@@ -142,7 +142,7 @@ functions = [
       "properties": {
         "question": {
           "type": "string",
-          "description": "使用者所問的問題"
+          "description": "使用者所問的任何問題"
         }
       },
       "required": ["question"],
@@ -150,13 +150,13 @@ functions = [
   },
   {
     "name": "get_define",
-    "description": f"解釋使用者想知道的專有名詞定義。",
+    "description": f"解釋使用者想知道的專有名詞定義，若問題不跟專有名詞有相關，不要此用此功能。",
     "parameters": {
       "type": "object",
       "properties": {
         "question": {
           "type": "string",
-          "description": "使用者問的問題關於專有名詞定義，請勿修改使用者的問題。"
+          "description": "使用者問的問題必須關於專有名詞，請勿修改使用者的問題。"
         }
       },
       "required": ["question"],
