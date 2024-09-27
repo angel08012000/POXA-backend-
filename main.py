@@ -149,7 +149,7 @@ functions = [
   },
   {
     "name": "get_define",
-    "description": f"當且僅當使用者的問題是單一專有名詞且沒有其他內容時，使用此功能。若問題是完整句子或涉及多個名詞，則不要使用此功能。",
+    "description": f"當使用者詢問單一專有名詞的定義時，請使用此功能。若問題是完整句子或涉及多個名詞，則不要使用此功能。",
     "parameters": {
       "type": "object",
       "properties": {
