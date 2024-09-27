@@ -148,28 +148,14 @@ functions = [
     }
   },
   {
-    "name": "get_define",
-    "description": f"當使用者詢問單一專有名詞的定義時，請使用此功能。若問題是完整句子或涉及多個名詞，則不要使用此功能。",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "term_question": {
-          "type": "string",
-          "description": "使用者問的問題必須是單一專有名詞，且無其他內容。請勿修改使用者的問題。"
-        }
-      },
-      "required": ["term_question"],
-    }
-  },
-  {
     "name": "get_market_rule",
-    "description": "解答電力交易市場的法規相關問題。當使用者想知道電力交易市場法規時，進一步問使用者想問哪一項法規或市場規則。",
+    "description": "解釋電力交易市場的法規或市場規則。若非法規或市場規則，請使用get_qa_answer。",
     "parameters": {
       "type": "object",
       "properties": {
         "rule_question": {
           "type": "string",
-          "description": "使用者想問的法規或市場規則，請不要修改使用者的問題。"
+          "description": "是特定的法規或市場規則，請不要修改使用者的問題。"
         }
       },
       "required": ["rule_question"],
@@ -200,6 +186,20 @@ functions = [
         }
       },
         "required": ["etpProblem"],
+    }
+  },
+  {
+    "name": "get_define",
+    "description": f"當使用者詢問單一專有名詞的定義時，請使用此功能。若非提到定義及解釋，請使用get_qa_answer。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "term_question": {
+          "type": "string",
+          "description": "是單一專有名詞，代表使用者要問的名詞定義。請勿修改使用者的問題。"
+        }
+      },
+      "required": ["term_question"],
     }
   }
 ]
@@ -239,7 +239,7 @@ def greeting():
   }))
 
   res.append(FORMAT_RESPONSE("button", {
-    "content": "電力交易市場規則",
+    "content": "規則查詢",
     "function": "get_market_rule"
   }))
 
