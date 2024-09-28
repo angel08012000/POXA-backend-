@@ -157,6 +157,36 @@ CORS(app)
 
 @app.route('/greeting', methods=['GET'])
 def greeting():
+  res = []
+  res.append(FORMAT_RESPONSE("text", {
+    "tag" : "span",
+    "content" : f"""您好～ 我是電力交易市場小助手，我能夠提供以下功能:\n
+    1) 每週摘要\n
+    2) 名詞解釋\n
+    3) QA 問答\n
+    4) 規則查詢\n
+    """
+  }))
+
+  # res.append(FORMAT_RESPONSE("button", {
+  #   "content": "每週摘要",
+  #   "function": "get_week_summary"
+  # }))
+
+  # res.append(FORMAT_RESPONSE("button", {
+  #   "content": "名詞解釋",
+  #   "function": "get_define"
+  # }))
+
+  # res.append(FORMAT_RESPONSE("button", {
+  #   "content": "QA 問答",
+  #   "function": "get_qa_answer"
+  # }))
+
+  # res.append(FORMAT_RESPONSE("button", {
+  #   "content": "規則查詢",
+  #   "function": "get_market_rule"
+  # }))
 
   return jsonify({
     "response": SHOW_MENU()
