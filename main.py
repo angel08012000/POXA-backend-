@@ -1,18 +1,21 @@
 from openai import OpenAI
-import requests
 from datetime import datetime
 import time
 
 from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST, SHOW_MENU
 from functions.week_summary import get_summary
 from functions.qa_consult import GET_COMMON_QA
+from functions.file_search import start_file_search
+from functions.term_explaination import get_definition
+from functions.get_QA_analyze import get_QA_analyze
+from functions.get_etp_related import get_etp_related
 from config import POXA
 
 from database import r, store_news
-import random
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
-import atexit
+
+term_list = ['平台成員', '合格交易者', '電力交易單位', '電力調度單位', '資源', '併網型儲能設備', '交易資源', '報價代碼', '參與容量', '報價容量', '結清價格', '交易表計', '電能移轉', '能力測試', '調度日', '日', '需求公告', '合格交易者提出報價', '最佳化排程作業', '公布競價結果', '交易結果結算', '調頻備轉容量', '移轉複合動態調節備轉容量', '即時備轉容量', '補充備轉容量', '交易媒合期間', '資訊閉鎖期間', '需求量及供給量公告', '交易媒合結果公告', '成交紀錄公布', '標售資訊設定期間', '標售資訊審查期間', '買方競價期間', '應', '容量費', '效能費', '服務品質指標', '容量費', '效能費', '電能服務費', '效能費', '電能費', '容量費', '服務品質指標', '電能費', '補償價格', '電力交易單位', '發電機組發電機組', '自用發電設備自用發電設備', '需量反應需量反應', '併網型儲能設備儲能設備', '執行事件期間', '光儲合一', '光儲無限套娃']
 
 def call_function_by_name(function_name, function_args):
     global_symbols = globals()
@@ -50,20 +53,39 @@ def get_week_summary(time=None):
     "content": f"{date}（點我查看）"
   }))
 
-  return res+SHOW_MENU()
+  return res
 
 # 名詞解釋
-def get_define():
+def get_define(term_question):
+  term = ""
+  for t in term_list:
+     if t in term_question:
+        term = t
+        print("term: " + term)
+        definition = get_definition(term)
+  if term == "":
+    print("查無資料")
+    definition = start_file_search(term_question)
+
   res = []
   res.append(FORMAT_RESPONSE("text", {
-    "content" : "尚未完成"
+    "content" : definition
   }))
    
   return res
 
+#獲取使用者問題
+def get_qa_question():
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "tag": "span",
+        "content": "請問您想詢問什麼問題呢？"
+    }))
+    return res
+
 # QA 問答
-def get_qa_answer(question):
-    answer = GET_COMMON_QA(POXA, question)
+def get_qa_answer(issue):
+    answer = get_QA_analyze(issue)
 
     res = []
     res.append(FORMAT_RESPONSE("text", {
@@ -91,13 +113,25 @@ def get_qa_answer(question):
    
     return res
 
-def get_market_rule():
-   res = []
-   res.append(FORMAT_RESPONSE("text", {
-        "content" : "尚未完成"
+#電力交易市場規則
+def get_market_rule(rule_question):
+  response = start_file_search(rule_question)
+  res = []
+  res.append(FORMAT_RESPONSE("text", {
+      "content" : response
+    }))
+  
+  return res
+#關於etp的問題
+def get_etp_answer(etpProblem):
+    answer = get_etp_related(etpProblem)
+
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "content" : answer
       }))
    
-   return res
+    return res
 
 # define functions
 functions = [
@@ -120,27 +154,72 @@ functions = [
   },
   {
     "name": "get_qa_answer",
-    "description": "解答任何與台電電力交易市場相關的問題。如果使用者沒有明確要求本週摘要，應使用此功能。",
+    "description": "解答任何使用者問題。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "issue": {
+          "type": "string",
+          "description": "使用者所問的任何問題"
+        }
+      },
+      "required": ["issue"],
+    }
+  },
+  {
+    "name": "get_market_rule",
+    "description": "解釋電力交易市場的法規或市場規則。若非法規或市場規則，請使用get_qa_answer。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "rule_question": {
+          "type": "string",
+          "description": "是特定的法規或市場規則，請不要修改使用者的問題。"
+        }
+      },
+      "required": ["rule_question"],
+    }
+  }, 
+  {
+    "name": "get_qa_question",
+    "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題，其他問題或動作，不要使用此功能。",
     "parameters": {
       "type": "object",
       "properties": {
         "question": {
           "type": "string",
-          "description": "使用者所問的問題"
+          "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題。"
         }
-      },
-      "required": ["question"],
+      }
     }
-  }, 
-  {
-    "name": "get_define",
-    "description": "解釋各種專有名詞的定義",
-    "parameters": {}
   },
   {
-    "name": "get_market_rule",
-    "description": "電力交易市場規則",
-    "parameters": {}
+    "name": "get_etp_answer",
+    "description": "當使用者的問題完全涉及得標量、結清、非交易、或提到民營時，使用此功能。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "etpProblem": {
+          "type": "string",
+          "description": "必須包含得標量、結清、非交易、或民營等關鍵詞的問題"
+        }
+      },
+        "required": ["etpProblem"],
+    }
+  },
+  {
+    "name": "get_define",
+    "description": f"當使用者詢問單一專有名詞的定義時，請使用此功能。若非提到定義及解釋，請使用get_qa_answer。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "term_question": {
+          "type": "string",
+          "description": "是單一專有名詞，代表使用者要問的名詞定義。請勿修改使用者的問題。"
+        }
+      },
+      "required": ["term_question"],
+    }
   }
 ]
 
@@ -181,10 +260,10 @@ def greeting():
   #   "function": "get_qa_answer"
   # }))
 
-  # res.append(FORMAT_RESPONSE("button", {
-  #   "content": "規則查詢",
-  #   "function": "get_market_rule"
-  # }))
+  res.append(FORMAT_RESPONSE("button", {
+    "content": "規則查詢",
+    "function": "get_market_rule"
+  }))
 
   return jsonify({
     "response": SHOW_MENU()
@@ -231,11 +310,6 @@ def chat_with_bot():
     print(f"呼叫函式的名稱: {function_call.name}")
     print(f"呼叫函式的參數: {function_call.arguments}")
 
-    # if data["user"] != "本週摘要":
-    #   print(f"將{function_call.name}修改為 -> get_qa_answer ")
-    #   function_call.name = "get_qa_answer"
-    #   function_call.arguments = str({"question": data["user"]})
-
     final_res = call_function_by_name(function_call.name, eval(function_call.arguments))
     # print(f"最終結論: {data}")
 
@@ -246,4 +320,4 @@ def chat_with_bot():
     return jsonify({'response': final_res})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
