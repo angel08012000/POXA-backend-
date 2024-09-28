@@ -160,11 +160,9 @@ def greeting():
   res = []
   res.append(FORMAT_RESPONSE("text", {
     "tag" : "span",
-    "content" : f"""您好～ 我是電力交易市場小助手，我能夠提供以下功能:\n
-    1) 每週摘要\n
-    2) 名詞解釋\n
-    3) QA 問答\n
-    4) 規則查詢\n
+    "content" : f"""您好～ 我是電力交易市場小助手，我能夠提供的功能類型包含:\n
+    每週摘要、名詞解釋、QA 問答、規則查詢\n
+    請您直接提問～
     """
   }))
 
