@@ -53,7 +53,7 @@ def get_week_summary(time=None):
     "content": f"{date}（點我查看）"
   }))
 
-  return res+SHOW_MENU()
+  return res
 
 # 名詞解釋
 def get_define(term_question):
