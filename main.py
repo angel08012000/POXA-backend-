@@ -85,7 +85,7 @@ def get_qa_question():
 
 # QA 問答
 def get_qa_answer(issue):
-   answer = get_QA_analyze(issue)
+    answer = get_QA_analyze(issue)
 
     res = []
     res.append(FORMAT_RESPONSE("text", {
