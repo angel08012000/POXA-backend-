@@ -86,8 +86,8 @@ def start_file_search(question):
     #vector_store_name = "For POXA FAQ"
     #my_vector_store = create_vector_store(vector_store_name)
     vector_store_id = "vs_aNGnuTDnhWzZF7JjzGmfCJ1F"
-    my_vector_store = client.beta.vector_stores.retrieve(vector_store_id=vector_store_id)
-    print(my_vector_store.name)
+    #my_vector_store = client.beta.vector_stores.retrieve(vector_store_id=vector_store_id)
+    #print(my_vector_store.name)
 
     #上傳檔案
     #file_paths = ['D:\碩\POXA_chatbot\pdftest\market files\電力交易平台管理規範及作業程序.txt']
@@ -107,7 +107,7 @@ def start_file_search(question):
     my_thread = client.beta.threads.create()
 
     responses = response_with_preprocess(question, my_thread, my_assistant)
-    responses = re.sub(r'【\w+】', '', responses)
+    responses = re.sub(r'【\d+:\d+†source】', '', responses)
     print("最終答案：\n" + responses)
     return responses
 
@@ -133,27 +133,3 @@ def start_file_search(question):
 #請問基準年的定義是甚麼？
 #跟我介紹一下E-dReg的規範？
 #成為合格交易者的資格是啥？請幫我整理申請流程。
-
-
-'''
-user_message = "請摘要市場總覽內容，用繁體中文回答。"
-my_thread = initiate_interaction(user_message, my_vector_store)
-
-trigger_assistant(my_thread, my_assistant)
-messages = client.beta.threads.messages.list(
-    thread_id=my_thread.id
-)
-response = messages.data[0].content[0].text.value
-print(response)
-
-response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "Hello!"}
-  ]
-)
-
-completed_text = response.choices[0].message
-print(completed_text)
-'''

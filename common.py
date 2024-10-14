@@ -216,3 +216,45 @@ def SHOW_MENU():
     # }))
     
     return res
+
+def ADD_FILE_LINKS(response):
+    links = dict()
+    file_links = {
+                '市場總覽':'https://drive.google.com/file/d/1ORYpsMQss8D-HGpYKmwF4ROG--_BTXQx/view?usp=sharing',
+                '專業人員資格證明之取得程序':'https://drive.google.com/file/d/1a-9CDZ2cRG5LvDf4K_yBP9lN2SM0-_md/view?usp=sharing',
+                '併網型儲能設備併網申請作業程序':'https://drive.google.com/file/d/1tXhBuZAzCXPo1kCbHRWE4W7O0dMyBoc5/view?usp=sharing',
+                '保證金收取、退還及參與費用收取程序':'https://drive.google.com/file/d/1sNn2XgqMYsN-K_NKel4xcTqPNHDIq0hQ/view?usp=sharing',
+                'SD-WAN VPN通道設定':'https://drive.google.com/file/d/11Ts847D_L4xJcHjjqVQ-JPNp6RUokNL_/view?usp=sharing',
+                '3E-dReg通訊API說明':'https://drive.google.com/file/d/16I6YpILxyhd0xHA9fvbtNbLQMlTaGCav/view?usp=sharing',
+                '通訊能力測試說明文件':'https://drive.google.com/file/d/1QmQn0Ecs4FRi_KozjKykCDY5_iaygTN1/view?usp=sharing',
+                '輔助服務執行能力測試說明文件':'https://drive.google.com/file/d/1mA35eak44bjbItoKFOQx-vB65Dy54YDQ/view?usp=sharing',
+                '日前輔助服務市場之交易表計設置位置錯誤態樣說明文件':'https://drive.google.com/file/d/1oWqDVJbO_Uhlti3zczAvsReIifaKNVZI/view?usp=sharing',
+                '交易資源變比器得採行措施之說明文件':'https://drive.google.com/file/d/1NNPbbr1qedxNDhm74AZgo9rKNS3bg8rV/view?usp=sharing',
+                '報價代碼重新測試說明文件':'https://drive.google.com/file/d/1J5vBAflvTyxaTrHQSyFegvsunK4rbcyo/view?usp=sharing',
+                'E-dReg電能移轉排程之升降載率設定說明文件':'https://drive.google.com/file/d/1qy6YlwzHmmBtAqshRoigMsMuarsIwD1l/view?usp=sharing',
+                'E-dReg遇59.50Hz作動模式說明文件':'https://drive.google.com/file/d/1VzEvfQr7wzpcKa-X337FORx3b7Kr3I2T/view?usp=sharing',
+                '日前輔助服務市場之價金結算付款程序':'https://drive.google.com/file/d/1V68UdaSnMMzNFkqA2Go9AG9zDPZhCWIR/view?usp=sharing',
+                '日前輔助服務市場需求量估算方式說明文件':'https://drive.google.com/file/d/1WbAe86YVnNVhXfSyk4VGxEdBpEm-Hrk5/view?usp=sharing',
+                '日前輔助服務市場月結算價金結算說明文件':'https://drive.google.com/file/d/1roHkJAYPDmHurykn4JLmDDEo5h52jPpP/view?usp=sharing',
+                '自用發電設備表計設置規定及結算方式說明文件':'https://drive.google.com/file/d/1ASCsnmjC9GkiDLK0eG0llYWWjRKK5PLK/view?usp=sharing',
+                '需量反應交易表計設置規定及執行容量計算基準認定說明文件':'https://drive.google.com/file/d/1JKKhWtVTH9trWPSEoXFpDsJZ5Ll4-7bM/view?usp=sharing',
+                '備用容量市場參與及交易媒合程序':'https://drive.google.com/file/d/1AtjFmtAeLWZGZ_Gp-Qi4A1c14T1maP8u/view?usp=sharing',
+                '資訊公開項目':'https://drive.google.com/file/d/1N8FjWJw64GM7sjCP1rRk8i5nYbG0b1jL/view?usp=sharing',
+                '太陽光電發電設備結合儲能系統餘電合約':'https://drive.google.com/file/d/1M_Kxsq_1_00PC24L6S9vPmTme9Ohu4tB/view?usp=drive_link',
+                '備用供電容量管理辦法':'https://drive.google.com/file/d/15cyTh4n3eQ6cJG2jp4G91WD8I4tkAzLD/view?usp=sharing',
+                '電力交易平台市場管理系統服務使用條款':'https://drive.google.com/file/d/1am423gdHqSoPBmENcSv--IsWTml-JoSX/view?usp=sharing',
+                '電力交易平台排除「政府採購法」函':'https://drive.google.com/file/d/1gSYdPMPXscP9OeqE8kuzz6qudooASIzv/view?usp=sharing',
+                '電力交易平台設置規則 逐條說明':'https://drive.google.com/file/d/1LiKWcOHSTfNsjPetC_aR3FG8rgNEw679/view?usp=sharing',
+                '電力交易平台管理規範及作業程序 - 113年7月經濟部核定函與台電公告文':'https://drive.google.com/file/d/1jKcUmaMx1sJkAbV6vVUXPLd-V93bGdH9/view?usp=sharing',
+                '電力交易平台管理規範及作業程序 - 全文':'https://drive.google.com/file/d/152GpKhIbwd7EbUYXVtgUYt50T8-2pEad/view?usp=sharing',
+                '電力交易平台管理規範及作業程序 - 經濟部核定函與台電公告':'https://drive.google.com/file/d/1yJUpODhuaDRmHhYvtIVqEaCo3yivgh7s/view?usp=sharing',
+                '電力交易平台管理規範及作業程序 - 總說明與對照表(版次：TPC-MT-v02)':'https://drive.google.com/file/d/1Z-T4DW6YWzC_yrP4taAOhUDVgUo7TFwu/view?usp=sharing',
+                '電力交易平台管理規範及作業程序 - 總說明與對照表(版次：TPC-MT-v04)':'https://drive.google.com/file/d/1ZtMqxoTWROcaqpXTO0lKLU1ZcfA_-Kow/view?usp=sharing',
+                '電力交易平台管理規範及作業程序附件五表5-4及附件九表9-2_113經濟部核定函與台電公告':'https://drive.google.com/file/d/1wGaHePUGxEJ1Jx436och6hkWFU4W-xD8/view?usp=sharing',
+                '電力交易平台管理規範及作業程序附件五表5-4及附件九表9-2_規定、修正總說明及對照表':'https://drive.google.com/file/d/1szd939FeAubiyfAHioTnK5lPP1xZOtQv/view?usp=sharing',
+                }
+    
+    for key, value in file_links.items():
+        if key in response:
+            links[key] = value
+    return links
