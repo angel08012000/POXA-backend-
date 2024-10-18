@@ -96,27 +96,7 @@ def get_qa_answer(issue):
     res = []
     res.append(FORMAT_RESPONSE("text", {
         "content" : answer
-      }))
-    res.append(FORMAT_RESPONSE("button", {
-    "content": "每週摘要",
-    "function": "get_week_summary"
-    }))
-
-    res.append(FORMAT_RESPONSE("button", {
-      "content": "名詞解釋",
-      "function": "get_define"
-    }))
-
-    res.append(FORMAT_RESPONSE("button", {
-      "content": "QA 問答",
-      "function": "get_qa_answer"
-    }))
-
-    res.append(FORMAT_RESPONSE("button", {
-      "content": "電力交易市場規則",
-      "function": "get_market_rule"
-    }))
-   
+      }))   
     return res
 
 #電力交易市場規則
