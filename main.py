@@ -2,7 +2,7 @@ from openai import OpenAI
 from datetime import datetime
 import time
 
-from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST
+from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST, SHOW_MENU, ADD_FILE_LINKS
 from functions.week_summary import get_summary
 from functions.qa_consult import GET_COMMON_QA
 from functions.file_search import start_file_search
@@ -66,6 +66,12 @@ def get_define(term_question):
   if term == "":
     print("查無資料")
     definition = start_file_search(term_question)
+    links = ADD_FILE_LINKS(definition)
+    for key, value in links.items():
+      res.append(FORMAT_RESPONSE("link", {
+                "url": value,
+                "content": f"\"{key}\"檔案連結"
+            }))
 
   res = []
   res.append(FORMAT_RESPONSE("text", {
@@ -85,14 +91,13 @@ def get_qa_question():
 
 # QA 問答
 def get_qa_answer(issue):
-   answer = get_QA_analyze(issue)
+    answer = get_QA_analyze(issue)
 
-   res = []
-   res.append(FORMAT_RESPONSE("text", {
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
         "content" : answer
-      }))
-   
-   return res
+      }))   
+    return res
 
 #電力交易市場規則
 def get_market_rule(rule_question):
@@ -102,7 +107,15 @@ def get_market_rule(rule_question):
       "content" : response
     }))
   
+  links = ADD_FILE_LINKS(response)
+  for key, value in links.items():
+    res.append(FORMAT_RESPONSE("link", {
+                "url": value,
+                "content": f"\"{key}\"檔案連結"
+            }))
+  
   return res
+
 #關於etp的問題
 def get_etp_answer(etpProblem):
     answer = get_etp_related(etpProblem)
@@ -225,9 +238,14 @@ def greeting():
     請您直接提問～
     """
   }))
-  
+
+  res.append(FORMAT_RESPONSE("button", {
+    "content": "規則查詢",
+    "function": "get_market_rule"
+  }))
+
   return jsonify({
-    "response": res
+    "response": SHOW_MENU()
   })
 
 @app.route('/chat', methods=['POST'])
