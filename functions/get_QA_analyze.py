@@ -114,14 +114,41 @@ def classify_question(question):
     return classification_traditional
 
 def search_articles(question):
+    global gpt_calls
     keywords = extract_keywords(question)
     print("Keywords:", keywords)
     
     query = {"$text": {"$search": " ".join(keywords)}}
     results = mycol.find(query)
+    result_list=[]
     if results == []:
         print("Empty")
-    return list(results)
+    else:
+        for result in results:
+            combined_content = ""
+
+            combined_content += f"段落標題: {result['title']}\n"
+            combined_content += f"段落簡介: {result['content']}\n"
+
+            for i, block in result['block'].items():
+                combined_content += f"段落內容: {block['blockContent']}\n"
+            
+            for i, section in result['section'].items():
+                combined_content += f"部分內容: {section['sectionContent']}\n"
+            combined_content += "\n"
+
+            gpt_calls+=1
+            prompt = f"問題: {question}\n\n根據以下內容生成最符合的回答，回答請在600字左右:\n{combined_content}\n\n回答:"
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                temperature=0.8,
+                messages=[
+                    {"role": "system", "content": "你是一個專業的問題解答助手，請根據資料直接回答問題，不要提供額外的解釋或背景資訊。"},
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            result_list.append(response)
+    return result_list
 
 def generate_answer(question, article, classification):
     global gpt_calls
@@ -205,9 +232,9 @@ def synonym_analysis(user_input):
         return user_input
 
     for synon in synonyms:
-        for term in synon["term"]:
-            if term in user_input:
-                user_input = user_input.replace(term, synon["vocabulary"])
+        if synon["term"] in user_input:
+            user_input = user_input.replace(synon["term"], synon["vocabulary"])
+            break;
     
     return user_input
 
@@ -217,6 +244,7 @@ def get_QA_analyze(user_input):
     start_time = time.time()
 
     user_input = synonym_analysis(user_input)
+    print(user_input);
 
     qa_classification = classify_question(user_input)
     print("QA's classification:", qa_classification)
