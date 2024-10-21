@@ -113,6 +113,24 @@ def classify_question(question):
     classification_traditional = converter.convert(classification)
     return classification_traditional
 
+def analysis_questionTime(question):
+    global gpt_calls
+    gpt_calls+=1
+    prompt = f"請分析以下問題是否包含明確的時間點：\n問題：{question}\n\n請回答是或否就好，無須回答其他額外資訊："
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        temperature=0.2,
+        messages=[
+            {"role": "system", "content": "你是一個專業的問題分析師，請對問題進行分析，判斷該問題是否包含明確的時間點。"},
+            {"role": "user", "content": prompt}
+        ]
+    )
+    answer = response.choices[0].message.content.strip()
+    if "是" in answer :
+        return False
+    else:
+        return True
+
 def search_articles(question):
     global gpt_calls
     keywords = extract_keywords(question)
@@ -248,8 +266,10 @@ def get_QA_analyze(user_input):
 
     qa_classification = classify_question(user_input)
     print("QA's classification:", qa_classification)
+    qa_analyzeTime = analysis_questionTime(user_input)
+    print("QA's analyzeTime:", qa_analyzeTime)
     if "數據型問題" in qa_classification:
-        if classify_question_lastest(user_input):
+        if classify_question_lastest(user_input) or analysis_questionTime(user_input):
             print("search_latest_article")
             lastest_article = search_latest_article()
             response = generate_response(user_input, lastest_article)
@@ -262,7 +282,7 @@ def get_QA_analyze(user_input):
         print("\nAns:", response)
         final_answer = response
     else:
-        if classify_question_lastest(user_input):
+        if classify_question_lastest(user_input) or analysis_questionTime(user_input):
             print("search_latest_article")
             lastest_article = search_latest_article()
             answer = generate_answer(user_input, lastest_article, qa_classification)
