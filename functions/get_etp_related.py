@@ -1,12 +1,8 @@
-import os
-import pymongo, json
+import json
 from openai import OpenAI
 from pymongo.server_api import ServerApi
 from functions.get_QA_analyze import get_QA_analyze
 from datetime import datetime
-
-uri = "mongodb+srv://victoria91718:white0718@poxa.1j2eh.mongodb.net/?retryWrites=true&w=majority&appName=poxa"
-client = pymongo.MongoClient(uri)
 
 client = OpenAI()
 

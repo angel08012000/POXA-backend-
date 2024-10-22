@@ -4,7 +4,6 @@ import time
 
 from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST, SHOW_MENU, ADD_FILE_LINKS
 from functions.week_summary import get_summary
-from functions.qa_consult import GET_COMMON_QA
 from functions.file_search import start_file_search
 from functions.term_explaination import get_definition
 from functions.get_QA_analyze import get_QA_analyze
@@ -58,6 +57,7 @@ def get_week_summary(time=None):
 # 名詞解釋
 def get_define(term_question):
   term = ""
+  res = []
   for t in term_list:
      if t in term_question:
         term = t
@@ -73,7 +73,6 @@ def get_define(term_question):
                 "content": f"\"{key}\"檔案連結"
             }))
 
-  res = []
   res.append(FORMAT_RESPONSE("text", {
     "content" : definition
   }))
@@ -195,7 +194,7 @@ functions = [
       "properties": {
         "etpProblem": {
           "type": "string",
-          "description": "必須包含得標量、結清、非交易、或民營等關鍵詞的問題"
+          "description": "必須包含得標量、結清、非交易、或民營等關鍵詞的完整問題"
         }
       },
         "required": ["etpProblem"],
