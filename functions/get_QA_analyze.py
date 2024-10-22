@@ -1,22 +1,11 @@
-import pymongo, re, opencc, time
+import re, opencc, time
 from pymongo.server_api import ServerApi
 from openai import OpenAI
 from datetime import datetime
 import numpy as np
 from sentence_transformers import SentenceTransformer
+from db_manager import db_readData
 
-uri = "mongodb+srv://victoria91718:white0718@poxa.1j2eh.mongodb.net/?retryWrites=true&w=majority&appName=poxa"
-client = pymongo.MongoClient(uri)
-
-mydb = client["WebInformation"]
-mycol = mydb["article"]
-synoncol = mydb["synonyms"]
-noundb = client["Test"] 
-nouncol = noundb["definitions"]
-mycol.create_index([("content", "text"),
-                    ("block.blockContent", "text"),
-                    ("section.sectionContent", "text")])
-# mycol.drop_indexes() # 刪除所建立的索引
 gpt_calls = 0
 client = OpenAI()
 model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -33,7 +22,7 @@ def extract_date_from_title(title):
 def search_latest_article():
     current_date = datetime.now()
 
-    all_articles = list(mycol.find({}, {"title": 1})) 
+    all_articles = list(db_readData("WebInformation","article",{}, {"title": 1})) 
     
     closest_article = None
     closest_date_diff = float('inf') 
@@ -49,7 +38,7 @@ def search_latest_article():
                 closest_article = article
 
     if closest_article:
-        full_article = mycol.find_one({"_id": closest_article["_id"]})
+        full_article = db_readData("WebInformation","article",{"_id": closest_article["_id"]},find_one=True)
         return full_article
     else:
         print("無法找到接近當前日期的文章")
@@ -58,7 +47,7 @@ def search_latest_article():
 def extract_keywords(question):
     global gpt_calls
 
-    nouns = list(nouncol.find({}))
+    nouns = list(db_readData("WebInformation","definitions",{}))
     terms = [noun['term'] for noun in nouns]  
     terms_string = '、'.join(terms) 
  
@@ -137,7 +126,7 @@ def search_articles(question):
     print("Keywords:", keywords)
     
     query = {"$text": {"$search": " ".join(keywords)}}
-    results = mycol.find(query)
+    results = db_readData("WebInformation","article",query)
     result_list=[]
     if results == []:
         print("Empty")
@@ -195,7 +184,7 @@ def text_embedding(text):
     return model.encode(text)
 
 def article_text_embedding():
-    datas = list(mycol.find({}))
+    datas = list(db_readData("WebInformation","article",{}))
     data_embedding = []
 
     for data in datas:
@@ -224,7 +213,6 @@ def find_most_relevant(qa_emb, article_emb):
         if similarity > max_similarity:
             max_similarity = similarity
             most_relevant = data
-            #print(data["title"])
     return most_relevant
 
 def generate_response(question, rel_content):
@@ -243,7 +231,7 @@ def generate_response(question, rel_content):
 
 def synonym_analysis(user_input):
     print("synonym_analysis")
-    synonyms = synoncol.find({})
+    synonyms = db_readData("WebInformation","synonyms",{})
     
     if "E-dReg" in user_input:
         print("no replace!!")

@@ -1,11 +1,4 @@
-import json
-import pymongo
-
-
-connect_string = "mongodb+srv://victoria91718:white0718@poxa.1j2eh.mongodb.net/?retryWrites=true&w=majority&appName=poxa"
-client = pymongo.MongoClient(connect_string)
-mydb = client['Test']
-my_collection = mydb['definitions']
+from db_manager import db_readData
 
 '''
 all_term = list(my_collection.find())
@@ -15,7 +8,7 @@ print(term_string)
 '''
 
 def get_definition(term_to_find):
-    data = my_collection.find_one({"term": term_to_find})
+    data = db_readData("Test","definitions",{"term": term_to_find},find_one=True)
     if data != None:
         #print(data["definition"])
         return data["definition"]
