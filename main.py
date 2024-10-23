@@ -58,6 +58,7 @@ def get_week_summary(time=None):
 # 名詞解釋
 def get_define(term_question):
   term = ""
+  res = []
   for t in term_list:
      if t in term_question:
         term = t
@@ -73,7 +74,6 @@ def get_define(term_question):
                 "content": f"\"{key}\"檔案連結"
             }))
 
-  res = []
   res.append(FORMAT_RESPONSE("text", {
     "content" : definition
   }))
