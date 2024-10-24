@@ -208,7 +208,7 @@ functions = [
       "properties": {
         "term_question": {
           "type": "string",
-          "description": "是單一專有名詞，代表使用者要問的名詞定義。請勿修改使用者的問題。"
+          "description": "是單一專有名詞，代表使用者要問的名詞定義。"
         }
       },
       "required": ["term_question"],
