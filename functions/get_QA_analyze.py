@@ -154,7 +154,7 @@ def search_articles(question):
                     {"role": "user", "content": prompt}
                 ]
             )
-            result_list.append(response)
+            result_list.append(response.choices[0].message.content.strip())
     return result_list
 
 def generate_answer(question, article, classification):
@@ -184,11 +184,12 @@ def text_embedding(text):
     return model.encode(text)
 
 def article_text_embedding():
-    datas = list(db_readData("WebInformation","article",{}))
+    datas = list(db_readData("WebInformation", "article", {}))
     data_embedding = []
 
     for data in datas:
         combined_content = ""
+        article_title = data['title']  # 取得文章標題
 
         for i, block in data['block'].items():
             combined_content += f"段落內容: {block['blockContent']}\n"
@@ -198,8 +199,9 @@ def article_text_embedding():
         combined_content += "\n"
 
         article_embedding = text_embedding(combined_content)
-        data_embedding.append((combined_content, article_embedding))
+        data_embedding.append((article_title, combined_content, article_embedding))  # 包含文章標題
     return data_embedding
+
 
 def cosine_similarity(embedding1, embedding2):
     return np.dot(embedding1, embedding2) / (np.linalg.norm(embedding1) * np.linalg.norm(embedding2))
@@ -207,13 +209,16 @@ def cosine_similarity(embedding1, embedding2):
 def find_most_relevant(qa_emb, article_emb):
     max_similarity = -1
     most_relevant = None
+    most_relevant_title = None 
 
-    for data, embedding in article_emb:
+    for title, data, embedding in article_emb:
         similarity = cosine_similarity(qa_emb, embedding)
         if similarity > max_similarity:
             max_similarity = similarity
             most_relevant = data
-    return most_relevant
+            most_relevant_title = title 
+    return most_relevant, most_relevant_title
+
 
 def generate_response(question, rel_content):
     global gpt_calls
@@ -250,39 +255,50 @@ def get_QA_analyze(user_input):
     start_time = time.time()
 
     user_input = synonym_analysis(user_input)
-    print(user_input);
+    print(user_input)
 
     qa_classification = classify_question(user_input)
     print("QA's classification:", qa_classification)
     qa_analyzeTime = analysis_questionTime(user_input)
     print("QA's analyzeTime:", qa_analyzeTime)
+    
+    article_title = ""  # 用來存儲文章標題
+
     if "數據型問題" in qa_classification:
         if classify_question_lastest(user_input) or analysis_questionTime(user_input):
             print("search_latest_article")
-            lastest_article = search_latest_article()
-            response = generate_response(user_input, lastest_article)
+            latest_article = search_latest_article()
+            article_title = latest_article["title"] if latest_article else "未知來源"
+            response = generate_response(user_input, latest_article)
         else:
             print("Bert Module")
             qa_embedding = text_embedding(user_input)
             article_embedding = article_text_embedding()
-            relevant_content = find_most_relevant(qa_embedding, article_embedding)
+            relevant_content, article_title = find_most_relevant(qa_embedding, article_embedding)
             response = generate_response(user_input, relevant_content)
+            article_title = article_title if article_title else "未知來源"
         print("\nAns:", response)
-        final_answer = response
+        final_answer = f"{response}"
     else:
         if classify_question_lastest(user_input) or analysis_questionTime(user_input):
             print("search_latest_article")
-            lastest_article = search_latest_article()
-            answer = generate_answer(user_input, lastest_article, qa_classification)
+            latest_article = search_latest_article()
+            article_title = latest_article["title"] if latest_article else "未知來源"
+            answer = generate_answer(user_input, latest_article, qa_classification)
         else:
             appropriate_articles = search_articles(user_input)
+            article_title = appropriate_articles[0]["title"] if appropriate_articles else "未知來源"
             answer = generate_answer(user_input, appropriate_articles, qa_classification)
+        
         answer_traditional = converter.convert(answer)
         print("\nAns:", answer_traditional)
-        final_answer = answer_traditional
+        final_answer = f"{answer_traditional}"
+
+    date_obj = extract_date_from_title(article_title)
+    article_date = date_obj.strftime("%Y%m%d")
 
     end_time = time.time()
     elapsed_time = end_time - start_time
     print(f"Total_running_time : {elapsed_time:.2f} s")
     print(f"Total GPT API calls: {gpt_calls}")
-    return final_answer
+    return final_answer,article_title,article_date

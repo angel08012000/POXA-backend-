@@ -90,12 +90,17 @@ def get_qa_question():
 
 # QA 問答
 def get_qa_answer(issue):
-    answer = get_QA_analyze(issue)
+    answer,article_title,article_date = get_QA_analyze(issue)
 
     res = []
     res.append(FORMAT_RESPONSE("text", {
         "content" : answer
       }))   
+    if article_title or article_date:
+      res.append(FORMAT_RESPONSE("link", {
+                  "url": f"https://info.poxa.io/report/{article_date}",
+                  "content": f"回答來源 : {article_title}"
+        }))
     return res
 
 #電力交易市場規則
