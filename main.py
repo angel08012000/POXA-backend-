@@ -99,7 +99,7 @@ def get_qa_answer(issue):
     if article_title or article_date:
       res.append(FORMAT_RESPONSE("link", {
                   "url": f"https://info.poxa.io/report/{article_date}",
-                  "content": f"回答來源 : {article_title}"
+                  "content": f"回答參考來源 : {article_title}"
         }))
     return res
 
