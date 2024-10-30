@@ -127,35 +127,38 @@ def search_articles(question):
     
     query = {"$text": {"$search": " ".join(keywords)}}
     results = db_readData("WebInformation","article",query)
-    result_list=[]
+    result_list = []
+    
     if results == []:
         print("Empty")
-    else:
-        for result in results:
-            combined_content = ""
+        return result_list  
+    
+    for result in results:
+        combined_content = ""
 
-            combined_content += f"段落標題: {result['title']}\n"
-            combined_content += f"段落簡介: {result['content']}\n"
+        combined_content += f"段落標題: {result['title']}\n"
+        combined_content += f"段落簡介: {result['content']}\n"
 
-            for i, block in result['block'].items():
-                combined_content += f"段落內容: {block['blockContent']}\n"
-            
-            for i, section in result['section'].items():
-                combined_content += f"部分內容: {section['sectionContent']}\n"
-            combined_content += "\n"
+        for i, block in result['block'].items():
+            combined_content += f"段落內容: {block['blockContent']}\n"
+        
+        for i, section in result['section'].items():
+            combined_content += f"部分內容: {section['sectionContent']}\n"
+        combined_content += "\n"
 
-            gpt_calls+=1
-            prompt = f"問題: {question}\n\n根據以下內容生成最符合的回答，回答請在600字左右:\n{combined_content}\n\n回答:"
-            response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                temperature=0.8,
-                messages=[
-                    {"role": "system", "content": "你是一個專業的問題解答助手，請根據資料直接回答問題，不要提供額外的解釋或背景資訊。"},
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            result_list.append(response.choices[0].message.content.strip())
+        gpt_calls += 1
+        prompt = f"問題: {question}\n\n根據以下內容生成最符合的回答，回答請在600字左右:\n{combined_content}\n\n回答:"
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            temperature=0.8,
+            messages=[
+                {"role": "system", "content": "你是一個專業的問題解答助手，請根據資料直接回答問題，不要提供額外的解釋或背景資訊。"},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        result_list.append({"title": result["title"], "response": response.choices[0].message.content.strip()})
     return result_list
+
 
 def generate_answer(question, article, classification):
     global gpt_calls
@@ -262,14 +265,17 @@ def get_QA_analyze(user_input):
     qa_analyzeTime = analysis_questionTime(user_input)
     print("QA's analyzeTime:", qa_analyzeTime)
     
-    article_title = ""  # 用來存儲文章標題
+    article_title = "來源未知" 
 
     if "數據型問題" in qa_classification:
         if classify_question_lastest(user_input) or analysis_questionTime(user_input):
             print("search_latest_article")
             latest_article = search_latest_article()
-            article_title = latest_article["title"] if latest_article else "未知來源"
-            response = generate_response(user_input, latest_article)
+            if latest_article:
+                article_title = latest_article.get("title", "未知來源")
+                response = generate_response(user_input, latest_article)
+            else:
+                response = "找不到符合問題的文章。"
         else:
             print("Bert Module")
             qa_embedding = text_embedding(user_input)
@@ -283,12 +289,18 @@ def get_QA_analyze(user_input):
         if classify_question_lastest(user_input) or analysis_questionTime(user_input):
             print("search_latest_article")
             latest_article = search_latest_article()
-            article_title = latest_article["title"] if latest_article else "未知來源"
-            answer = generate_answer(user_input, latest_article, qa_classification)
+            if latest_article:
+                article_title = latest_article.get("title", "未知來源")
+                answer = generate_answer(user_input, latest_article, qa_classification)
+            else:
+                answer = "找不到符合問題的文章。"
         else:
             appropriate_articles = search_articles(user_input)
-            article_title = appropriate_articles[0]["title"] if appropriate_articles else "未知來源"
-            answer = generate_answer(user_input, appropriate_articles, qa_classification)
+            if appropriate_articles:
+                article_title = appropriate_articles[0].get("title", "未知來源")
+                answer = generate_answer(user_input, appropriate_articles[0]["response"], qa_classification)
+            else:
+                answer = "找不到符合問題的文章。"
         
         answer_traditional = converter.convert(answer)
         print("\nAns:", answer_traditional)
