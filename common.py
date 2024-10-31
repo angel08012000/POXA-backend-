@@ -181,24 +181,23 @@ def FORMAT_NEWS(news):
     return res
 
 def SHOW_MENU():
-    # res = []
-    # res.append(FORMAT_RESPONSE("text", {
-    #     "tag" : "span",
-    #     "content" : f"您好～ 我是電力交易市場小助手，我能夠提供以下功能:"
-    # }))
     res = []
     res.append(FORMAT_RESPONSE("text", {
         "tag" : "span",
         "content" : f"""您好～ 我是電力交易市場小助手，我能夠提供的功能類型包含:\n
-        每週摘要、名詞解釋、QA 問答、規則查詢\n
-        請您直接提問～
+        每週摘要、名詞解釋、QA 問答、規則查詢
         """
     }))
     
-    # res.append(FORMAT_RESPONSE("button", {
-    #     "content": "每週摘要",
-    #     "function": "get_week_summary"
-    # }))
+    res.append(FORMAT_RESPONSE("button", {
+        "content": "每週摘要",
+        "function": "get_week_summary"
+    }))
+
+    res.append(FORMAT_RESPONSE("button", {
+        "content": "其他問題",
+        "function": "get_other_question"
+    }))
 
     # res.append(FORMAT_RESPONSE("button", {
     #     "content": "名詞解釋",

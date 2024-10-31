@@ -1,6 +1,7 @@
 from openai import OpenAI
-from datetime import datetime
 import time
+import requests
+from datetime import datetime, timedelta
 
 from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST, SHOW_MENU, ADD_FILE_LINKS
 from functions.week_summary import get_summary
@@ -47,12 +48,18 @@ def get_week_summary(time=None):
     "content" : f"週摘要如下（註：每週摘要由週一發佈）"
   }))
 
+  while requests.get(f"{POXA}/report/{date}").status_code == 404:
+    date_obj = datetime.strptime(date, '%Y%m%d')
+    date_obj -= timedelta(days=7)
+    date = date_obj.strftime("%Y%m%d")
+  
+
   res.append(FORMAT_RESPONSE("link", {
     "url": f"{POXA}/report/{date}",
     "content": f"{date}（點我查看）"
   }))
 
-  return res
+  return res + SHOW_MENU()
 
 # 名詞解釋
 def get_define(term_question):
@@ -77,7 +84,7 @@ def get_define(term_question):
     "content" : definition
   }))
    
-  return res
+  return res + SHOW_MENU()
 
 #獲取使用者問題
 def get_qa_question():
@@ -101,7 +108,7 @@ def get_qa_answer(issue):
                   "url": f"https://info.poxa.io/report/{article_date}",
                   "content": f"回答參考來源 : {article_title}"
         }))
-    return res
+    return res + SHOW_MENU()
 
 #電力交易市場規則
 def get_market_rule(rule_question):
@@ -118,7 +125,7 @@ def get_market_rule(rule_question):
                 "content": f"\"{key}\"檔案連結"
             }))
   
-  return res
+  return res + SHOW_MENU()
 
 #關於etp的問題
 def get_etp_answer(etpProblem):
@@ -129,11 +136,12 @@ def get_etp_answer(etpProblem):
         "content" : answer
       }))
    
-    return res
+    return res + SHOW_MENU()
+
 
 # define functions
-functions = [
-  {
+week = [
+   {
     "name": "get_week_summary",
     "description": "提供指定日期的台電電力交易市場的週摘要",
     "parameters": {
@@ -150,6 +158,9 @@ functions = [
       # "required": ["time"],
     }
   },
+]
+
+other_question = [
   {
     "name": "get_qa_answer",
     "description": "解答任何使用者問題。",
@@ -234,23 +245,10 @@ CORS(app)
 
 @app.route('/greeting', methods=['GET'])
 def greeting():
-  res = []
-  res.append(FORMAT_RESPONSE("text", {
-    "tag" : "span",
-    "content" : f"""您好～ 我是電力交易市場小助手，我能夠提供的功能類型包含:\n
-    每週摘要、名詞解釋、QA 問答、規則查詢\n
-    請您直接提問～
-    """
-  }))
-
-  res.append(FORMAT_RESPONSE("button", {
-    "content": "規則查詢",
-    "function": "get_market_rule"
-  }))
-
   return jsonify({
     "response": SHOW_MENU()
   })
+
 
 @app.route('/chat', methods=['POST'])
 def chat_with_bot():
@@ -261,10 +259,22 @@ def chat_with_bot():
   if 'user' not in data:
     return jsonify({'error': "Didn't receive what user said"}), 400
 
+  if 'flow' not in data:
+     return jsonify({'error': "Didn't receive what flow user want"}), 400
+
   messages = [{
     "role": "user",
     "content": data["user"]
   }]
+
+  if data["flow"]=="每週摘要":
+    functions = week
+     
+  elif data["flow"]=="其他問題":
+    functions = other_question
+
+  else:
+    functions = week + other_question
 
   response = client.chat.completions.create(
     model="gpt-3.5-turbo", 
