@@ -34,6 +34,8 @@ def get_week_summary(time=None):
   print(f"送進來的時間: {time}")
   date = get_summary(time)
 
+  print(f"拿到的結果日期 {date}")
+
   if date == None:
     res = []
     res.append(FORMAT_RESPONSE("text", {
