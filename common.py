@@ -195,6 +195,11 @@ def SHOW_MENU():
     }))
 
     res.append(FORMAT_RESPONSE("button", {
+        "content": "法規問答",
+        "function": "get_market_rule"
+    }))
+
+    res.append(FORMAT_RESPONSE("button", {
         "content": "其他問題",
         "function": "get_other_question"
     }))

@@ -162,6 +162,23 @@ week = [
   },
 ]
 
+file = [
+   {
+    "name": "get_market_rule",
+    "description": "解釋電力交易市場的法規或市場規則。若非法規或市場規則，請使用get_qa_answer。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "rule_question": {
+          "type": "string",
+          "description": "是特定的法規或市場規則，請不要修改使用者的問題。"
+        }
+      },
+      "required": ["rule_question"],
+    }
+  }, 
+]
+
 other_question = [
   {
     "name": "get_qa_answer",
@@ -177,20 +194,6 @@ other_question = [
       "required": ["issue"],
     }
   },
-  {
-    "name": "get_market_rule",
-    "description": "解釋電力交易市場的法規或市場規則。若非法規或市場規則，請使用get_qa_answer。",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "rule_question": {
-          "type": "string",
-          "description": "是特定的法規或市場規則，請不要修改使用者的問題。"
-        }
-      },
-      "required": ["rule_question"],
-    }
-  }, 
   {
     "name": "get_qa_question",
     "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題，其他問題或動作，不要使用此功能。",
@@ -271,12 +274,15 @@ def chat_with_bot():
 
   if data["flow"]=="每週摘要":
     functions = week
+  
+  elif data["flow"]=="法規問答":
+    functions = file
      
   elif data["flow"]=="其他問題":
     functions = other_question
 
   else:
-    functions = week + other_question
+    functions = week + file + other_question
 
   response = client.chat.completions.create(
     model="gpt-3.5-turbo", 
