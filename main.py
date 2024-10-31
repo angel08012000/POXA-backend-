@@ -262,10 +262,14 @@ def chat_with_bot():
 
   data = request.json  # 拿到送來的參數
   if 'user' not in data:
+    print("沒收到 user")
     return jsonify({'error': "Didn't receive what user said"}), 400
 
   if 'flow' not in data:
+     print("沒收到 flow")
      return jsonify({'error': "Didn't receive what flow user want"}), 400
+
+  print(f"前端的參數: {data}")
 
   messages = [{
     "role": "user",
