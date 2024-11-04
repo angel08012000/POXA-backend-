@@ -222,11 +222,30 @@ def find_most_relevant(qa_emb, article_emb):
             most_relevant_title = title 
     return most_relevant, most_relevant_title
 
+def extract_content(content):
+    content_str = ""
+    if isinstance(content, dict):
+        for key, value in content.items():
+            content_str += extract_content(value)  
+    elif isinstance(content, list):
+        for item in content:
+            content_str += extract_content(item)  
+    else:
+        content_str += str(content) + "\n"  
+    return content_str
 
 def generate_response(question, rel_content):
     global gpt_calls
     gpt_calls+=1
-    prompt = f"問題: {question}\n\n根據以下內容生成合理的回答:\n{rel_content}\n\n回答:"
+    question, synonym_term =synonym_analysis(question)
+    if synonym_term!=[]:
+        print("get_synonym\n")
+        print("test:",question, " ",synonym_term)
+        content_str = extract_content(rel_content) 
+        filtered_content = "\n".join([line for line in content_str.splitlines() if synonym_term in line])
+        prompt = f"問題: {question}\n根據以下內容中有關{synonym_term}的資訊回答問題:\n{filtered_content}\n\n回答詳細問題:"
+    else:
+        prompt = f"問題: {question}\n\n根據以下內容生成確實的回答:\n{rel_content}\n\n回答:"
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         temperature=0.8,
@@ -243,22 +262,18 @@ def synonym_analysis(user_input):
     
     if "E-dReg" in user_input:
         print("no replace!!")
-        return user_input
+        return user_input, []
 
     for synon in synonyms:
         if synon["term"] in user_input:
             user_input = user_input.replace(synon["term"], synon["vocabulary"])
-            break;
-    
-    return user_input
+            return user_input, synon["vocabulary"]
+    return user_input, []
 
 def get_QA_analyze(user_input):
     global gpt_calls
     final_answer = ""
     start_time = time.time()
-
-    user_input = synonym_analysis(user_input)
-    print(user_input)
 
     qa_classification = classify_question(user_input)
     print("QA's classification:", qa_classification)
@@ -269,7 +284,7 @@ def get_QA_analyze(user_input):
 
     if "數據型問題" in qa_classification:
         if classify_question_lastest(user_input) or analysis_questionTime(user_input):
-            print("search_latest_article")
+            print("search_latest_article_bert")
             latest_article = search_latest_article()
             if latest_article:
                 article_title = latest_article.get("title", "未知來源")
@@ -287,7 +302,7 @@ def get_QA_analyze(user_input):
         final_answer = f"{response}"
     else:
         if classify_question_lastest(user_input) or analysis_questionTime(user_input):
-            print("search_latest_article")
+            print("search_latest_article_keyword")
             latest_article = search_latest_article()
             if latest_article:
                 article_title = latest_article.get("title", "未知來源")

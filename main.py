@@ -3,15 +3,15 @@ import time
 import requests
 from datetime import datetime, timedelta
 
-from common import LASTEST, TOPICS, GET_NEWS_FAST, FORMAT_RESPONSE, FORMAT_NEWS, DB_LASTEST, SHOW_MENU, ADD_FILE_LINKS
+from common import FORMAT_RESPONSE, SHOW_MENU, ADD_FILE_LINKS
 from functions.week_summary import get_summary
 from functions.file_search import start_file_search
 from functions.term_explaination import get_definition
 from functions.get_QA_analyze import get_QA_analyze
 from functions.get_etp_related import get_etp_related
+from functions.team_related_QA import team_related_QA
 from config import POXA
 
-from database import r, store_news
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
@@ -140,6 +140,16 @@ def get_etp_answer(etpProblem):
    
     return res + SHOW_MENU()
 
+def get_team_related(team_related):
+    answer = team_related_QA(team_related)
+
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "content" : answer
+      }))
+   
+    return res + SHOW_MENU()
+
 
 # define functions
 week = [
@@ -157,7 +167,6 @@ week = [
           """
         },
       },
-      # "required": ["time"],
     }
   },
 ]
@@ -234,12 +243,24 @@ other_question = [
       },
       "required": ["term_question"],
     }
+  },
+  {
+    "name": "get_team_related",
+    "description": f"當使用者詢問關於此系統或是團隊成員時，使用此功能。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "team_related": {
+          "type": "string",
+          "description": "使用者詢問的完整問題。"
+        }
+      },
+      "required": ["team_related"],
+    }
   }
 ]
 
 client = OpenAI()
-
-# messages = []
 
 # flask
 from flask import Flask, request, jsonify
