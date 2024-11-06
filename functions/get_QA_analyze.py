@@ -172,7 +172,17 @@ def generate_answer(question, article, classification):
         ans_type = "綜合"
 
     gpt_calls+=1
-    prompt = f"問題: {question}\n\n根據以下文章內容生成{ans_type}的回答:\n{article}\n\n回答:"
+
+    question, synonym_term =synonym_analysis(question)
+    if synonym_term!=[]:
+        print("get_synonym\n")
+        print("test:",question, " ",synonym_term)
+        content_str = extract_content(article) 
+        filtered_content = "\n".join([line for line in content_str.splitlines() if synonym_term in line])
+        prompt = f"問題: {question}\n根據以下內容中有關{synonym_term}的資訊回答問題:\n{filtered_content}\n\n回答詳細問題:"
+    else:
+        prompt = f"問題: {question}\n\n根據以下文章內容生成{ans_type}的回答:\n{article}\n\n回答:"
+
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         temperature=0.8,
@@ -313,7 +323,8 @@ def get_QA_analyze(user_input):
             appropriate_articles = search_articles(user_input)
             if appropriate_articles:
                 article_title = appropriate_articles[0].get("title", "未知來源")
-                answer = generate_answer(user_input, appropriate_articles[0]["response"], qa_classification)
+                responses = [article["response"] for article in appropriate_articles]
+                answer = generate_answer(user_input, responses, qa_classification)
             else:
                 answer = "找不到符合問題的文章。"
         
