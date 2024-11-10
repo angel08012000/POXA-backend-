@@ -74,19 +74,8 @@ def get_define(term_question):
         definition = get_definition(term)
   if term == "":
     print("查無資料")
-    definition = start_file_search(term_question)
-    links = ADD_FILE_LINKS(definition)
-    for key, value in links.items():
-      res.append(FORMAT_RESPONSE("link", {
-                "url": value,
-                "content": f"\"{key}\"檔案連結"
-            }))
-
-  res.append(FORMAT_RESPONSE("text", {
-    "content" : definition
-  }))
-   
-  return res + SHOW_MENU()
+    res = get_qa_answer(term_question)
+  return res
 
 #獲取使用者問題
 def get_qa_question():
@@ -133,12 +122,17 @@ def get_market_rule(rule_question):
 def get_etp_answer(etpProblem):
     answer = get_etp_related(etpProblem)
 
-    res = []
-    res.append(FORMAT_RESPONSE("text", {
-        "content" : answer
-      }))
-   
-    return res + SHOW_MENU()
+    if answer == False:
+      print("no etp answer")
+      qa_response = get_qa_answer(etpProblem)
+      return qa_response
+    else:
+      res = []
+      res.append(FORMAT_RESPONSE("text", {
+          "content" : answer
+        }))
+    
+      return res + SHOW_MENU()
 
 def get_team_related(team_related):
     answer = team_related_QA(team_related)
@@ -230,20 +224,20 @@ other_question = [
         "required": ["etpProblem"],
     }
   },
-  {
-    "name": "get_define",
-    "description": f"當使用者詢問單一專有名詞的定義時，請使用此功能。若非提到定義及解釋，請使用get_qa_answer。",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "term_question": {
-          "type": "string",
-          "description": "是單一專有名詞，代表使用者要問的名詞定義。"
-        }
-      },
-      "required": ["term_question"],
-    }
-  },
+  # {
+  #   "name": "get_define",
+  #   "description": f"當使用者詢問單一專有名詞的定義時，請使用此功能。若非提到定義及解釋，請使用get_qa_answer。",
+  #   "parameters": {
+  #     "type": "object",
+  #     "properties": {
+  #       "term_question": {
+  #         "type": "string",
+  #         "description": "是單一專有名詞，代表使用者要問的名詞定義。"
+  #       }
+  #     },
+  #     "required": ["term_question"],
+  #   }
+  # },
   {
     "name": "get_team_related",
     "description": f"當使用者詢問關於此系統或是團隊成員時，使用此功能。",
