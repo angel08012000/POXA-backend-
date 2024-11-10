@@ -168,4 +168,4 @@ def get_etp_related(user_input):
             print(f"找不到檔案: {json_file}")
     else:
         print("無法解析您的問題，請確認輸入格式。")
-        return get_QA_analyze(user_input)
+        return False
