@@ -182,6 +182,23 @@ file = [
   }, 
 ]
 
+define = [
+  {
+    "name": "get_define",
+    "description": f"當使用者詢問單一專有名詞的定義時，請使用此功能。若非提到定義及解釋，請使用get_qa_answer。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "term_question": {
+          "type": "string",
+          "description": "是單一專有名詞，代表使用者要問的名詞定義。"
+        }
+      },
+      "required": ["term_question"],
+    }
+  },
+]
+
 other_question = [
   {
     "name": "get_qa_answer",
@@ -212,7 +229,7 @@ other_question = [
   },
   {
     "name": "get_etp_answer",
-    "description": "當使用者的問題完全涉及得標量、結清、非交易、或提到民營時，使用此功能。",
+    "description": "必須有得標量、結清、非交易、或民營時，才使用此功能。若不包含得標量、結清、非交易、或民營，請使用get_qa_answer",
     "parameters": {
       "type": "object",
       "properties": {
@@ -224,20 +241,6 @@ other_question = [
         "required": ["etpProblem"],
     }
   },
-  # {
-  #   "name": "get_define",
-  #   "description": f"當使用者詢問單一專有名詞的定義時，請使用此功能。若非提到定義及解釋，請使用get_qa_answer。",
-  #   "parameters": {
-  #     "type": "object",
-  #     "properties": {
-  #       "term_question": {
-  #         "type": "string",
-  #         "description": "是單一專有名詞，代表使用者要問的名詞定義。"
-  #       }
-  #     },
-  #     "required": ["term_question"],
-  #   }
-  # },
   {
     "name": "get_team_related",
     "description": f"當使用者詢問關於此系統或是團隊成員時，使用此功能。",
@@ -296,12 +299,15 @@ def chat_with_bot():
   
   elif data["flow"]=="法規問答":
     functions = file
+
+  elif data["flow"]=="名詞解釋":
+    functions = define
      
   elif data["flow"]=="其他問題":
     functions = other_question
 
   else:
-    functions = week + file + other_question
+    functions = week + file + define + other_question
 
   response = client.chat.completions.create(
     model="gpt-3.5-turbo", 

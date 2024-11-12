@@ -20,9 +20,7 @@ def extract_date_from_title(title):
 
 def search_latest_article():
     current_date = datetime.now()
-
     all_articles = list(db_readData("WebInformation","article",{}, {"title": 1})) 
-    
     closest_article = None
     closest_date_diff = float('inf') 
     article_title = ""
@@ -30,7 +28,6 @@ def search_latest_article():
     for article in all_articles:
         title = article['title']
         article_date = extract_date_from_title(title)
-        
         if article_date:
             date_diff = abs((current_date - article_date).days) 
             if date_diff < closest_date_diff:
@@ -43,12 +40,11 @@ def search_latest_article():
 
 def extract_keywords(question):
     global gpt_calls
-
+    gpt_calls+=1
     nouns = list(db_readData("WebInformation","definitions",{}))
     terms = [noun['term'] for noun in nouns]  
     terms_string = '、'.join(terms) 
  
-    gpt_calls+=1
     prompt = f"請提取以下問題中的關鍵詞，使用逗號分隔：\n問題：{question}\n\n關鍵詞："
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -103,7 +99,6 @@ def search_articles(question):
     global gpt_calls
     keywords = extract_keywords(question)
     print("Keywords:", keywords)
-    
     query = {"$text": {"$search": " ".join(keywords)}}
     results = db_readData("WebInformation","article",query)
     result_list = []
@@ -111,13 +106,11 @@ def search_articles(question):
     if results == []:
         print("Empty")
         return result_list  
-    
+       
     for result in results:
         combined_content = ""
-
         combined_content += f"段落標題: {result['title']}\n"
         combined_content += f"段落簡介: {result['content']}\n"
-
         for i, block in result['block'].items():
             combined_content += f"段落內容: {block['blockContent']}\n"
         
@@ -138,10 +131,9 @@ def search_articles(question):
         result_list.append({"title": result["title"], "response": response.choices[0].message.content.strip()})
     return result_list
 
-
 def generate_answer(question, article, classification):
     global gpt_calls
-
+    gpt_calls+=1
     ans_type = ""
     if "事實性問題" in classification:
         ans_type = "簡明"
@@ -149,8 +141,6 @@ def generate_answer(question, article, classification):
         ans_type = "詳細"
     elif "推理性問題" in classification:
         ans_type = "綜合"
-
-    gpt_calls+=1
 
     question, synonym_term =synonym_analysis(question)
     if synonym_term!=[]:
@@ -161,7 +151,6 @@ def generate_answer(question, article, classification):
         prompt = f"問題: {question}\n根據以下內容中有關{synonym_term}的資訊回答問題:\n{filtered_content}\n\n回答詳細問題:"
     else:
         prompt = f"問題: {question}\n\n根據以下文章內容生成{ans_type}的回答:\n{article}\n\n回答:"
-
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         temperature=0.8,
@@ -193,7 +182,6 @@ def article_text_embedding():
         article_embedding = text_embedding(combined_content)
         data_embedding.append((article_title, combined_content, article_embedding))  # 包含文章標題
     return data_embedding
-
 
 def cosine_similarity(embedding1, embedding2):
     return np.dot(embedding1, embedding2) / (np.linalg.norm(embedding1) * np.linalg.norm(embedding2))
@@ -231,7 +219,17 @@ def generate_response(question, rel_content):
         print("get_synonym\n")
         print("test:",question, " ",synonym_term)
         content_str = extract_content(rel_content) 
-        filtered_content = "\n".join([line for line in content_str.splitlines() if synonym_term in line])
+        # filtered_content = "\n".join([line for line in content_str.splitlines() if synonym_term in line])
+        filtered_content = []
+        for line in content_str.splitlines():
+            if synonym_term in line:
+                if "；" in line:
+                    filtered_content.append(line.split("；")[0])
+                    continue  # 換下一段
+                else:
+                    filtered_content.append(line)
+        filtered_content = "\n".join(filtered_content)
+        print("filtered_content:",filtered_content)
         prompt = f"問題: {question}\n根據以下內容中有關{synonym_term}的資訊回答問題:\n{filtered_content}\n\n回答詳細問題:"
     else:
         prompt = f"問題: {question}\n\n根據以下內容生成確實的回答:\n{rel_content}\n\n回答:"
@@ -252,7 +250,6 @@ def synonym_analysis(user_input):
     if "E-dReg" in user_input:
         print("no replace!!")
         return user_input, []
-
     for synon in synonyms:
         if synon["term"] in user_input:
             user_input = user_input.replace(synon["term"], synon["vocabulary"])
@@ -264,7 +261,6 @@ def extract_time(question):
     gpt_calls+=1
     current_date = datetime.now()
     prompt = f"問題: {question}\n這是現在的日期:{current_date}\n請分析問題中的時間關鍵字（如「昨天」、「今天」、「上週」、「上個月」等），根據現在的日期推斷，並直接返回一個最符合時間關鍵字描述的日期值`date`（格式為YYYY-MM-DD），該日期值必須是禮拜一。只需提供日期值，不需要任何額外解釋。"
-    
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         temperature=0.3,
@@ -273,14 +269,12 @@ def extract_time(question):
             {"role": "user", "content": prompt}
         ]
     )
-    # 直接取出返回的日期值
     date_values = response.choices[0].message.content.strip()
     return date_values
 
 def search_nearest_article(qa_time):
     qa_time = datetime.strptime(qa_time, "%Y-%m-%d")
     all_articles = list(db_readData("WebInformation","article",{}, {"title": 1})) 
-    
     closest_article = None
     closest_date_diff = float('inf') 
     article_title=""
@@ -288,7 +282,6 @@ def search_nearest_article(qa_time):
     for article in all_articles:
         title = article['title']
         article_date = extract_date_from_title(title)
-        
         if article_date:
             date_diff = abs((qa_time - article_date).days)
             if (qa_time - article_date).days <= 0:
@@ -296,7 +289,6 @@ def search_nearest_article(qa_time):
                     closest_date_diff = date_diff
                     closest_article = article
                     article_title = title
-
     if closest_article:
         full_article = db_readData("WebInformation","article",{"_id": closest_article["_id"]},find_one=True)
         return full_article, article_title
@@ -313,7 +305,7 @@ def get_QA_analyze(user_input):
 
     qa_classification = classify_question(user_input)
     print("QA's classification:", qa_classification)
-    print(f"Now GPT API calls: {gpt_calls}")
+    print("time:",classify_question_time(user_input))
     if classify_question_time(user_input):
         qa_time= extract_time(user_input)
         nearest_article, article_title = search_nearest_article(qa_time)
@@ -333,6 +325,7 @@ def get_QA_analyze(user_input):
             print("\nAns:", response)
             final_answer = f"{response}"
         else:
+            print("Keyword Analyze")
             appropriate_articles = search_articles(user_input)
             if appropriate_articles:
                 article_title = appropriate_articles[0].get("title", "未知來源")
