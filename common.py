@@ -200,14 +200,14 @@ def SHOW_MENU():
     }))
 
     res.append(FORMAT_RESPONSE("button", {
+        "content": "名詞解釋",
+        "function": "get_define"
+    }))
+
+    res.append(FORMAT_RESPONSE("button", {
         "content": "其他問題",
         "function": "get_other_question"
     }))
-
-    # res.append(FORMAT_RESPONSE("button", {
-    #     "content": "名詞解釋",
-    #     "function": "get_define"
-    # }))
 
     # res.append(FORMAT_RESPONSE("button", {
     #     "content": "QA 問答",
