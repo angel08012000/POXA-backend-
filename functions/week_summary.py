@@ -7,21 +7,31 @@ from openai import OpenAI
 from datetime import datetime, timedelta
 # from config import POXA, WEEK_SUMMARY_CSS_SELECTOR, WEEK_CSS_SELECTOR
 
-def get_summary(time=None):
+def get_summary(time):
     if time==None:
         date = datetime.today()
     else:
         today = datetime.today().strftime('%Y%m%d')
+
         client = OpenAI()
         response = client.chat.completions.create(
             model="gpt-3.5-turbo", 
             messages= [
                 {"role": "system", "content": f"""
-                    你是一個日期轉換工具，只會輸出八位數字（%Y%m%d），請不要輸出除了數字之外的東西
-                    若未提供%Y，請使用{today}對應的%Y
-                    若未提供%Y與%m，請使用{today}對應的%Y與%m
-                    若未提供%d，但有給定第n週，則 %d = 7*n
-                    若未提供任何能推測日期之描述，則 %d = 6
+                    你是一個日期轉換工具，只會輸出八位數字（%Y%m%d），請不要輸出除了數字之外的內容。
+
+                    %d:
+                    若有明確的數字 day，則 %d = day
+                    若指定了第n週，則先將 n 轉換為數字，而 %d 應該是該月份的第 7*n 天，即 n*7。
+                    若未指定，請默認 %d = 7
+
+                    %m:
+                    若有明確的數字 month，則 %m = month
+                    若未指定，請默認使用 {today} 中的 %m
+
+                    %Y:
+                    若有明確的數字 year，則 %Y = year
+                    若未指定，請默認使用 {today} 中的 %Y
                     """
                 },
                 {"role": "user", "content": time}

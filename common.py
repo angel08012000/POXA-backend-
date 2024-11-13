@@ -190,7 +190,7 @@ def SHOW_MENU():
     }))
     
     res.append(FORMAT_RESPONSE("button", {
-        "content": "每週摘要",
+        "content": "摘要",
         "function": "get_week_summary"
     }))
 

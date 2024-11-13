@@ -30,36 +30,41 @@ def call_function_by_name(function_name, function_args):
         raise ValueError(f"Function '{function_name}' not found or not callable.")
 
 # 本週摘要
-def get_week_summary(time=None):
+def get_week_summary(time):
   print(f"送進來的時間: {time}")
-  date = get_summary(time)
+  time = get_summary(time)
+  print(f"轉換後的時間: {time}")
 
-  print(f"拿到的結果日期 {date}")
+  # 檢查時間
+  if time == None:
+      return [FORMAT_RESPONSE("text", {
+          "tag": "span",
+          "content": "時間過早/還沒到（第一篇摘要是 2023/10/2 發布）"
+      })]
 
-  if date == None:
-    res = []
-    res.append(FORMAT_RESPONSE("text", {
-      "tag" : "span",
-      "content" : f"時間過早/還沒到（第一篇摘要是 2023/10/2 發布）"
-    }))
-    return res
-
-  res = []
-  res.append(FORMAT_RESPONSE("text", {
-    "tag" : "span",
-    "content" : f"週摘要如下（註：每週摘要由週一發佈）"
-  }))
-
-  while requests.get(f"{POXA}/report/{date}").status_code == 404:
-    date_obj = datetime.strptime(date, '%Y%m%d')
-    date_obj -= timedelta(days=7)
-    date = date_obj.strftime("%Y%m%d")
-  
-
-  res.append(FORMAT_RESPONSE("link", {
-    "url": f"{POXA}/report/{date}",
-    "content": f"{date}（點我查看）"
-  }))
+# 確定有摘要
+  res = [
+      FORMAT_RESPONSE("text", {
+          "tag": "span",
+          "content": "週摘要如下（註：每週摘要由週一發佈）"
+      })
+  ]
+    
+  # 查詢最新可用的連結
+  while True:
+      # 將日期合併成連結
+      response = requests.get(f"{POXA}/report/{time}")
+      
+      if response.status_code == 200:
+          res.append(FORMAT_RESPONSE("link", {
+              "url": f"{POXA}/report/{time}",
+              "content": f"{time}（點我查看）"
+          }))
+          break
+      # 若未找到摘要，退回一週
+      date = datetime.strptime(time, "%Y%m%d")
+      date -= timedelta(days=7)
+      time = date.strftime("%Y%m%d")
 
   return res + SHOW_MENU()
 
@@ -146,21 +151,39 @@ def get_team_related(team_related):
 
 
 # define functions
+today = datetime.today().strftime('%Y%m%d')
 week = [
    {
     "name": "get_week_summary",
-    "description": "提供指定日期的台電電力交易市場的週摘要",
+    "description": f"""
+      提供電力交易市場的摘要。
+      若給定日期，則使用該日期進行查詢。
+      若有未給定年 or 月，請使用與「{datetime.today().strftime('%Y/%m/%d')}」對應的數字。
+      若未給定日期，請回覆使用者以取得日期資訊。
+      """,
     "parameters": {
       "type": "object",
       "properties": {
         "time": {
           "type": "string",
-          "description": f"""跟時間有關的描述，不要推測使用者未提供的數據。
-          若有未給定年 or 月，請使用與「{datetime.today().strftime('%Y/%m/%d')}」對應的數字。
-          若未給定日期，請保持空白。
+          "description": f"""
+          跟時間有關的描述，不要推測使用者未提供的數據。
+          %d:
+          若有明確的數字 day，則 %d = day
+          若指定了第n週，則先將 n 轉換為數字，而 %d 應該是該月份的第 7*n 天，即 n*7。
+          若未指定，請默認 %d = 7
+
+          %m:
+          若有明確的數字 month，則 %m = month
+          若未指定，請默認使用 {today} 中的 %m
+
+          %Y:
+          若有明確的數字 year，則 %Y = year
+          若未指定，請默認使用 {today} 中的 %Y
           """
         },
       },
+      "required": ["time"],
     }
   },
 ]
@@ -294,7 +317,7 @@ def chat_with_bot():
     "content": data["user"]
   }]
 
-  if data["flow"]=="每週摘要":
+  if data["flow"]=="摘要":
     functions = week
   
   elif data["flow"]=="法規問答":
