@@ -231,7 +231,7 @@ other_question = [
       "properties": {
         "issue": {
           "type": "string",
-          "description": "使用者所問的所有問題"
+          "description": "使用者所問的所有完整問題"
         }
       },
       "required": ["issue"],
@@ -252,7 +252,7 @@ other_question = [
   },
   {
     "name": "get_etp_answer",
-    "description": "必須有得標量、結清、非交易、或民營時，才使用此功能。若不包含得標量、結清、非交易、或民營，請使用get_qa_answer",
+    "description": "必須明確有得標量、結清、非交易、民營時，才使用此功能。若不包含得標量、結清、非交易、民營，請使用get_qa_answer",
     "parameters": {
       "type": "object",
       "properties": {
