@@ -18,7 +18,7 @@ jobs:
   
       - name: Set up VPN connection
         run: |
-          echo "$VPN_CONFIG" > /soselab.ovpn
+          echo "$OPENVPN_CONFIG" > /soselab.ovpn
           sudo openvpn --config /soselab.ovpn --daemon
 
       # Deploy Application
