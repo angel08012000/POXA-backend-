@@ -25,9 +25,8 @@ jobs:
 
       - name: SSH into the server with password
         run: |
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no poxagpt@192.168.100.241 "your-command-here"
-        env:
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          sshpass -p "soselab707" ssh -o StrictHostKeyChecking=no poxagpt@192.168.100.241 "your-command-here"
+      
 
       # Deploy Application
       - name: Deploy Application
