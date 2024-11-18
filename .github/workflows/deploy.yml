@@ -13,27 +13,29 @@ jobs:
       # Checkout the code
       - uses: actions/checkout@v4
 
+      # Install OpenVPN
       - name: Install OpenVPN
         run: sudo apt-get install -y openvpn
-  
+
+      # Start VPN connection
       - name: Set up VPN connection
         run: |
           sudo openvpn --config ./vpn/soselab.ovpn --daemon
+          sleep 10  # 等待 VPN 完全啟動
 
+      # Test VPN connection
+      - name: Test VPN connection
+        run: |
+          ping -c 4 192.168.100.241
+
+      # Install sshpass
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
 
+      # SSH into the server and run the deployment script
       - name: SSH into the server with password
         run: |
           sshpass -p "soselab707" ssh -o StrictHostKeyChecking=no poxagpt@192.168.100.241 "bash /home/poxagpt/deployBack.sh"
-      
-
-      # Deploy Application
-      - name: Deploy Application
-        run: |
-          ssh -o StrictHostKeyChecking=no poxagpt@192.168.100.241 << 'EOF'
-          echo "soselab707" | sudo -S /home/poxagpt/deployBack.sh
-          EOF
 
       # Stop OpenVPN
       - name: Stop OpenVPN
