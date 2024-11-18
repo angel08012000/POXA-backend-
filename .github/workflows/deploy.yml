@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
       # Checkout the code
@@ -35,8 +35,8 @@ jobs:
       # Start OpenVPN and Verify
       - name: Start OpenVPN
         run: |
-          sudo openvpn --config ~/soselab.ovpn --log /tmp/openvpn.log --daemon
-          sleep 15
+          sudo openvpn --config ~/soselab.ovpn --log /tmp/openvpn.log --daemon --verb 4
+          sleep 30  # Increase sleep time to ensure VPN has time to connect
           ip addr show tun0 || (echo "VPN not connected. Exiting." && cat /tmp/openvpn.log && exit 1)
 
       # Deploy Application
@@ -49,4 +49,4 @@ jobs:
       # Stop OpenVPN
       - name: Stop OpenVPN
         run: |
-          sudo pkill openvpn
+          sudo killall openvpn || echo "No OpenVPN process found."
