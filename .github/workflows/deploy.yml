@@ -17,17 +17,14 @@ jobs:
       - name: Install OpenVPN
         run: sudo apt-get install -y openvpn
 
-      # Create OpenVPN configuration file from GitHub Secrets
-      - name: Create OpenVPN configuration file
-        run: |
-          echo "${{ secrets.VPN_CONFIG }}" > ./soselab.ovpn
-          chmod 600 ./soselab.ovpn
-
+      # Write OpenVPN configuration from secret to a temporary file
+      - name: Write OpenVPN configuration
+        run: echo "${{ secrets.OPENVPN_CONFIG }}" > /tmp/soselab.ovpn
 
       # Start VPN connection
-      - name: Set up VPN connection with logs
+      - name: Start VPN connection
         run: |
-          sudo openvpn --config ./soselab.ovpn --daemon
+          sudo openvpn --config /tmp/soselab.ovpn --daemon
           sleep 10
           sudo cat /var/log/syslog | grep openvpn
 
