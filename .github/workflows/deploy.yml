@@ -17,22 +17,16 @@ jobs:
       - name: Install OpenVPN
         run: sudo apt-get install -y openvpn
 
-      # Write OpenVPN configuration from secret to a temporary file
-      - name: Write OpenVPN configuration
-        run: echo "${{ secrets.OPENVPN_CONFIG }}" > /tmp/soselab.ovpn
-
       # Start VPN connection
-      - name: Start VPN connection
+      - name: Set up VPN connection with logs
         run: |
-          sudo openvpn --config /tmp/soselab.ovpn --daemon
+          sudo openvpn --config ./vpn/soselab.ovpn --daemon
           sleep 10
           sudo cat /var/log/syslog | grep openvpn
-
       # Test VPN connectivity
       - name: Test VPN connectivity
         run: |
           ping -c 4 192.168.100.241
-
       # Install sshpass
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
@@ -41,7 +35,6 @@ jobs:
       - name: SSH into the server with password
         run: |
           sshpass -p "soselab707" ssh -o StrictHostKeyChecking=no poxagpt@192.168.100.241 "bash /home/poxagpt/deployBack.sh"
-
       # Stop OpenVPN
       - name: Stop OpenVPN
         run: |
