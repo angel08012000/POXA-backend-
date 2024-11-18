@@ -25,7 +25,7 @@ jobs:
 
       - name: SSH into the server with password
         run: |
-          sshpass -p "soselab707" ssh -o StrictHostKeyChecking=no poxagpt@192.168.100.241 "your-command-here"
+          sshpass -p "soselab707" ssh -o StrictHostKeyChecking=no poxagpt@192.168.100.241 "bash /home/poxagpt/deployBack.sh"
       
 
       # Deploy Application
