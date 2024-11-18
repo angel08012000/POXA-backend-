@@ -23,6 +23,7 @@ jobs:
           echo "${{ secrets.VPN_CONFIG }}" > ./soselab.ovpn
           chmod 600 ./soselab.ovpn
 
+
       # Start VPN connection
       - name: Set up VPN connection with logs
         run: |
