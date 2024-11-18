@@ -29,7 +29,7 @@ jobs:
           ping -c 4 192.168.100.241
 
       # Install sshpass
-      - name: Install sshpass
+      - name: Install sshpass 
         run: sudo apt-get install -y sshpass
 
       # SSH into the server and run the deployment script
