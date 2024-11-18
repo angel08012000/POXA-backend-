@@ -13,35 +13,39 @@ jobs:
       # Checkout the code
       - uses: actions/checkout@v4
 
-      # Install OpenVPN and Set Up Configuration
-      - name: Set up OpenVPN
+      # Enable TUN Device
+      - name: Enable TUN Device
         run: |
-          echo "Installing OpenVPN..."
+          sudo mkdir -p /dev/net
+          sudo mknod /dev/net/tun c 10 200
+          sudo chmod 600 /dev/net/tun
+
+      # Install OpenVPN
+      - name: Install OpenVPN
+        run: |
           sudo apt-get update
           sudo apt-get install -y openvpn
 
-          echo "Creating OpenVPN configuration file..."
+      # Create OpenVPN Configuration File
+      - name: Configure OpenVPN
+        run: |
           echo "$OPENVPN_CONFIG" > ~/soselab.ovpn
 
-          echo "Starting OpenVPN connection..."
+      # Start OpenVPN and Verify
+      - name: Start OpenVPN
+        run: |
           sudo openvpn --config ~/soselab.ovpn --daemon
-
-          echo "Waiting for OpenVPN connection to establish..."
           sleep 15
-
-          echo "Verifying VPN connection..."
           ip addr show tun0 || (echo "VPN not connected. Exiting." && exit 1)
 
-      # Deploy the application via SSH
+      # Deploy Application
       - name: Deploy Application
         run: |
-          echo "Connecting to VM and deploying..."
           ssh -o StrictHostKeyChecking=no poxagpt@192.168.100.241 << 'EOF'
           echo "soselab707" | sudo -S /home/poxagpt/deployBack.sh
           EOF
 
-      # Disconnect OpenVPN
-      - name: Disconnect OpenVPN
+      # Stop OpenVPN
+      - name: Stop OpenVPN
         run: |
-          echo "Disconnecting OpenVPN..."
           sudo pkill openvpn
