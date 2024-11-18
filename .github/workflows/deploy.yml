@@ -23,9 +23,29 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      - name: Set up OpenVPN
+        run: |
+          # Install OpenVPN
+          sudo apt-get update
+          sudo apt-get install -y openvpn
+  
+          # Create OpenVPN config file from GitHub secret
+          echo "$OPENVPN_CONFIG" > ~/vpn_config.ovpn
+          
+          # Connect to OpenVPN using the configuration file
+          sudo openvpn --config ~/vpn_config.ovpn &
+          
+          # Wait for VPN connection to establish
+          sleep 10
+          
       # Runs a set of commands using the runners shell
       - name: Deploy Application
         run: |
           ssh poxagpt@192.168.100.241 << 'EOF'
-          echo "soselab707" | sudo -S /home/poxagpt/deploy.sh
+          echo "soselab707" | sudo -S /home/poxagpt/deployBack.sh
           EOF
+
+      - name: Disconnect OpenVPN
+        run: |
+          # Kill OpenVPN process to disconnect
+          sudo pkill openvpn
