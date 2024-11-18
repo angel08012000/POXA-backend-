@@ -24,18 +24,16 @@ jobs:
           chmod 600 ./soselab.ovpn
 
       # Start VPN connection
-      - name: Start VPN connection
+      - name: Set up VPN connection with logs
         run: |
           sudo openvpn --config ./soselab.ovpn --daemon
           sleep 10
           sudo cat /var/log/syslog | grep openvpn
 
-
       # Test VPN connectivity
       - name: Test VPN connectivity
         run: |
           ping -c 4 192.168.100.241
-
 
       # Install sshpass
       - name: Install sshpass
@@ -45,7 +43,6 @@ jobs:
       - name: SSH into the server with password
         run: |
           sshpass -p "soselab707" ssh -o StrictHostKeyChecking=no poxagpt@192.168.100.241 "bash /home/poxagpt/deployBack.sh"
-
 
       # Stop OpenVPN
       - name: Stop OpenVPN
