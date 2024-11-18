@@ -13,11 +13,12 @@ jobs:
       # Checkout the code
       - uses: actions/checkout@v4
 
-      # Enable TUN Device
       - name: Enable TUN Device
         run: |
           sudo mkdir -p /dev/net
-          sudo mknod /dev/net/tun c 10 200
+          if [[ ! -c /dev/net/tun ]]; then
+            sudo mknod /dev/net/tun c 10 200
+          fi
           sudo chmod 600 /dev/net/tun
 
       # Install OpenVPN
