@@ -37,7 +37,15 @@ jobs:
           
           # Wait for VPN connection to establish
           sleep 10
-          
+
+      - name: Verify VPN connection
+        run: |
+          ip addr show tun0 || (echo "VPN not connected" && exit 1)
+
+      - name: Debug SSH Connection
+        run: |
+          ssh -v poxagpt@192.168.100.241 exit
+
       # Runs a set of commands using the runners shell
       - name: Deploy Application
         run: |
