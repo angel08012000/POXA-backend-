@@ -25,18 +25,19 @@ jobs:
 
       - name: Set up OpenVPN
         run: |
-          # Install OpenVPN
           sudo apt-get update
           sudo apt-get install -y openvpn
-  
-          # Create OpenVPN config file from GitHub secret
           echo "$OPENVPN_CONFIG" > ~/soselab.ovpn
-          
-          # Connect to OpenVPN using the configuration file
-          sudo openvpn --config ~/soselab.ovpn &
-          
-          # Wait for VPN connection to establish
+      
+          echo "Starting OpenVPN..."
+          sudo openvpn --config ~/soselab.ovpn > vpn_log.txt 2>&1 &
           sleep 10
+      
+          echo "OpenVPN logs:"
+          cat vpn_log.txt
+      
+          echo "Checking VPN connection..."
+          ip addr show tun0 || (echo "VPN not connected" && exit 1)
 
       - name: Verify VPN connection
         run: |
