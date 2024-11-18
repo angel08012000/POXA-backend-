@@ -30,10 +30,10 @@ jobs:
           sudo apt-get install -y openvpn
   
           # Create OpenVPN config file from GitHub secret
-          echo "$OPENVPN_CONFIG" > ~/vpn_config.ovpn
+          echo "$OPENVPN_CONFIG" > ~/soselab.ovpn
           
           # Connect to OpenVPN using the configuration file
-          sudo openvpn --config ~/vpn_config.ovpn &
+          sudo openvpn --config ~/soselab.ovpn &
           
           # Wait for VPN connection to establish
           sleep 10
