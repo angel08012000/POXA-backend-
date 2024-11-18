@@ -20,6 +20,15 @@ jobs:
         run: |
           sudo openvpn --config ./vpn/soselab.ovpn --daemon
 
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: SSH into the server with password
+        run: |
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no poxagpt@192.168.100.241 "your-command-here"
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+
       # Deploy Application
       - name: Deploy Application
         run: |
