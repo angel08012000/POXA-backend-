@@ -35,9 +35,9 @@ jobs:
       # Start OpenVPN and Verify
       - name: Start OpenVPN
         run: |
-          sudo openvpn --config ~/soselab.ovpn --daemon
+          sudo openvpn --config ~/soselab.ovpn --log /tmp/openvpn.log --daemon
           sleep 15
-          ip addr show tun0 || (echo "VPN not connected. Exiting." && exit 1)
+          ip addr show tun0 || (echo "VPN not connected. Exiting." && cat /tmp/openvpn.log && exit 1)
 
       # Deploy Application
       - name: Deploy Application
