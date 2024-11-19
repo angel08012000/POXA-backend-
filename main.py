@@ -225,21 +225,21 @@ define = [
 other_question = [
   {
     "name": "get_qa_answer",
-    "description": "解答任何使用者問題。",
+    "description": "接收所有使用者提出的完整問題，包括單一問題或多個問題。如果問題包含多個疑問句或其他複合內容，必須使用此功能。",
     "parameters": {
-      "type": "object",
-      "properties": {
-        "issue": {
-          "type": "string",
-          "description": "使用者所問的所有問題"
-        }
-      },
-      "required": ["issue"],
+        "type": "object",
+        "properties": {
+            "issue": {
+                "type": "string",
+                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化，特別適用於包含多個問題的情況"
+            }
+        },
+        "required": ["issue"]
     }
   },
   {
     "name": "get_qa_question",
-    "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題，其他問題或動作，不要使用此功能。",
+    "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題，其他問題或動作，請使用 get_qa_answer。。",
     "parameters": {
       "type": "object",
       "properties": {
@@ -252,16 +252,16 @@ other_question = [
   },
   {
     "name": "get_etp_answer",
-    "description": "必須有得標量、結清、非交易、或民營時，才使用此功能。若不包含得標量、結清、非交易、或民營，請使用get_qa_answer",
+    "description": "當且僅當前端傳入的問題中，包含「得標量」、「結清」、「非交易」、「民營」關鍵詞，且問題為單一問題時，才使用此功能。如果問題包含多個問題或任何其他內容，請使用 get_qa_answer。",
     "parameters": {
-      "type": "object",
-      "properties": {
-        "etpProblem": {
-          "type": "string",
-          "description": "必須包含得標量、結清、非交易、或民營等關鍵詞的完整問題"
-        }
-      },
-        "required": ["etpProblem"],
+        "type": "object",
+        "properties": {
+            "etpProblem": {
+                "type": "string",
+                "description": "完整接收包含「得標量」、「結清」、「非交易」、「民營」關鍵詞的單一問題"
+            }
+        },
+        "required": ["etpProblem"]
     }
   },
   {
