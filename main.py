@@ -225,7 +225,7 @@ define = [
 other_question = [
   {
     "name": "get_qa_answer",
-    "description": "接收所有使用者提出的完整問題，包括單一問題或多個問題。如果問題包含多個疑問句或其他複合內容，必須使用此功能。",
+    "description": "接收所有使用者提出的完整問題，包括單一問題或多個問題。如果問題包含多個疑問句或其他複合內容，必須使用此功能。若使用者只是點選其他問答、輸入其他問答時，麻煩使用者輸入想詢問的問題。",
     "parameters": {
         "type": "object",
         "properties": {
@@ -235,19 +235,6 @@ other_question = [
             }
         },
         "required": ["issue"]
-    }
-  },
-  {
-    "name": "get_qa_question",
-    "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題，其他問題或動作，請使用 get_qa_answer。。",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "question": {
-          "type": "string",
-          "description": "當使用者點選QA問答、輸入QA問答時，麻煩使用者輸入想詢問的問題。"
-        }
-      }
     }
   },
   {
@@ -266,7 +253,7 @@ other_question = [
   },
   {
     "name": "get_team_related",
-    "description": f"當使用者詢問關於此系統或是團隊成員時，使用此功能。",
+    "description": f"當使用者詢問POXAGPT或是團隊成員時，使用此功能。若尚未提及，請使用 get_qa_answer。",
     "parameters": {
       "type": "object",
       "properties": {
