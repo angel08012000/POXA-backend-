@@ -305,8 +305,8 @@ def get_QA_analyze(user_input):
 
     qa_classification = classify_question(user_input)
     print("QA's classification:", qa_classification)
-    print("time:",classify_question_time(user_input))
     if classify_question_time(user_input):
+        print("Got the time!")
         qa_time= extract_time(user_input)
         nearest_article, article_title = search_nearest_article(qa_time)
         print("QA's extract time:", qa_time,"  ",article_title)
