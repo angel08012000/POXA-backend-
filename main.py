@@ -72,21 +72,13 @@ def get_define(term_question):
         term = t
         print("term: " + term)
         definition = get_definition(term)
+        res.append(definition)
   if term == "":
     print("查無資料")
-    definition = start_file_search(term_question)
-    links = ADD_FILE_LINKS(definition)
-    for key, value in links.items():
-      res.append(FORMAT_RESPONSE("link", {
-                "url": value,
-                "content": f"\"{key}\"檔案連結"
-            }))
-
-  res.append(FORMAT_RESPONSE("text", {
-    "content" : definition
-  }))
+    # res = get_qa_answer(term_question)
+    res.append("查無資料，請重新提問。")
    
-  return res + SHOW_MENU()
+  return res
 
 #獲取使用者問題
 def get_qa_question():
