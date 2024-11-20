@@ -1,4 +1,4 @@
-import openai, os
+import openai, os, re
 from openai import OpenAI
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
@@ -75,7 +75,8 @@ def response_with_preprocess(user_question, my_thread, my_assistant):
     gpt_response = messages[0].content[0].text.value
     #print(gpt_response + "\n\n...正在選擇最適合答案...\n")
     #user_message = "請從三種回答中選出一個最適合問題的答案，並用繁體中文回答問題：" + user_question
-    #messages = send_message(user_question,  my_thread, my_assistant)
+    #messages = send_message(user_message,  my_thread, my_assistant)
+    #return messages[0].content[0].text.value
     return gpt_response
 
 
@@ -106,6 +107,7 @@ def start_file_search(question):
     my_thread = client.beta.threads.create()
 
     responses = response_with_preprocess(question, my_thread, my_assistant)
+    responses = re.sub(r'【\w+】', '', responses)
     print("最終答案：\n" + responses)
     return responses
 

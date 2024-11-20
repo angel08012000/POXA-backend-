@@ -120,13 +120,13 @@ functions = [
   },
   {
     "name": "get_define",
-    "description": f"解釋使用者想知道的專有名詞定義。",
+    "description": f"解釋使用者想知道的專有名詞定義，請從問題中提取出關鍵詞，遇到以下關鍵字請勿拆解它：{term_list}。",
     "parameters": {
       "type": "object",
       "properties": {
         "question": {
           "type": "string",
-          "description": "使用者問的問題，請勿修改使用者的問題。"
+          "description": "使用者想知道的名詞"
         }
       },
       "required": ["question"],
