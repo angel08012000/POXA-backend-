@@ -82,15 +82,6 @@ def get_define(term_question):
     res = get_qa_answer(term_question)
   return res
 
-#獲取使用者問題
-def get_qa_question():
-    res = []
-    res.append(FORMAT_RESPONSE("text", {
-        "tag": "span",
-        "content": "請問您想詢問什麼問題呢？"
-    }))
-    return res
-
 # QA 問答
 def get_qa_answer(issue):
     answer,article_title,article_date = get_QA_analyze(issue)
