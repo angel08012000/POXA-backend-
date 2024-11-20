@@ -7,24 +7,49 @@ from openai import OpenAI
 from datetime import datetime, timedelta
 # from config import POXA, WEEK_SUMMARY_CSS_SELECTOR, WEEK_CSS_SELECTOR
 
-def get_summary(date=None):
-    if date==None:
+def get_summary(time):
+    if time==None:
         date = datetime.today()
     else:
+        today = datetime.today().strftime('%Y%m%d')
+
         client = OpenAI()
         response = client.chat.completions.create(
             model="gpt-3.5-turbo", 
             messages= [
-                {"role": "system", "content": f"你是一個日期轉換工具，只會輸出八位數字（%Y%m%d），請不要輸出除了數字之外的東西，若未提供年份、月份，請使用今天的年份、月份，今天是{datetime.today().strftime('%Y%m%d')}"},
-                {"role": "user", "content": date}
+                {"role": "system", "content": f"""
+                    你是一個日期轉換工具，只會輸出八位數字（%Y%m%d），請不要輸出除了數字之外的內容。
+
+                    %d:
+                    若有明確的數字 day，則 %d = day
+                    若指定了第n週，則先將 n 轉換為數字，而 %d 應該是該月份的第 7*n 天，即 n*7。
+                    若未指定，請默認 %d = 7
+
+                    %m:
+                    若有明確的數字 month，則 %m = month
+                    若未指定，請默認使用 {today} 中的 %m
+
+                    %Y:
+                    若有明確的數字 year，則 %Y = year
+                    若未指定，請默認使用 {today} 中的 %Y
+                    """
+                },
+                {"role": "user", "content": time}
             ]
         )
         date = datetime.strptime(response.choices[0].message.content, '%Y%m%d')
 
-        # print(f"轉換後的日期: {response.choices[0].message.content}")
+        start_time = datetime(2023, 10, 2)
+        if date < start_time:
+            return None
+        if date > datetime.today():
+            return None
+
+        print(f"轉換後的日期: {response.choices[0].message.content}")
 
     # 拿到前一個週一的日期
     weekday = date.weekday()  # 週一為 0，週日為 6
+    print(f"減 {weekday}")
     previous_monday = date - timedelta(days=weekday)
     previous_monday = previous_monday.strftime('%Y%m%d')
     print(f"上一個週一: {previous_monday}")

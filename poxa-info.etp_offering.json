@@ -1,0 +1,4896 @@
+[{
+  "_id": {
+    "$oid": "66b83876e4df667076551e0f"
+  },
+  "date": "2024-08-11",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.6,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113,
+  "supOffering": 8367.318,
+  "supOfferingQse": 258,
+  "tranDate": "2024-08-11",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e10"
+  },
+  "date": "2024-08-11",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 755,
+  "srOffering": 5664.218,
+  "srOfferingQse": 114.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 259.5,
+  "tranDate": "2024-08-11",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e11"
+  },
+  "date": "2024-08-11",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 259.5,
+  "tranDate": "2024-08-11",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e12"
+  },
+  "date": "2024-08-11",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 260.4,
+  "tranDate": "2024-08-11",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e13"
+  },
+  "date": "2024-08-11",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 261.5,
+  "tranDate": "2024-08-11",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e14"
+  },
+  "date": "2024-08-11",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 751.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 114.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 258.9,
+  "tranDate": "2024-08-11",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e15"
+  },
+  "date": "2024-08-11",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 108,
+  "supOffering": 8367.318,
+  "supOfferingQse": 257.3,
+  "tranDate": "2024-08-11",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e16"
+  },
+  "date": "2024-08-11",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 107.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 256.3,
+  "tranDate": "2024-08-11",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e17"
+  },
+  "date": "2024-08-11",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 755.3,
+  "srOffering": 5584.218,
+  "srOfferingQse": 108.5,
+  "supOffering": 8127.318,
+  "supOfferingQse": 247.3,
+  "tranDate": "2024-08-11",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e18"
+  },
+  "date": "2024-08-11",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 757.3,
+  "srOffering": 5584.218,
+  "srOfferingQse": 107,
+  "supOffering": 8127.318,
+  "supOfferingQse": 235.1,
+  "tranDate": "2024-08-11",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e19"
+  },
+  "date": "2024-08-11",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.4,
+  "srOffering": 5584.218,
+  "srOfferingQse": 109.7,
+  "supOffering": 8127.318,
+  "supOfferingQse": 235.6,
+  "tranDate": "2024-08-11",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e1a"
+  },
+  "date": "2024-08-11",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 758.6,
+  "srOffering": 5584.218,
+  "srOfferingQse": 110.4,
+  "supOffering": 8127.318,
+  "supOfferingQse": 236.2,
+  "tranDate": "2024-08-11",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e1b"
+  },
+  "date": "2024-08-11",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 104,
+  "supOffering": 8367.318,
+  "supOfferingQse": 232.7,
+  "tranDate": "2024-08-11",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e1c"
+  },
+  "date": "2024-08-11",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 106.2,
+  "supOffering": 8367.318,
+  "supOfferingQse": 204.5,
+  "tranDate": "2024-08-11",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e1d"
+  },
+  "date": "2024-08-11",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 106.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 202.2,
+  "tranDate": "2024-08-11",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e1e"
+  },
+  "date": "2024-08-11",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 106.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 200.1,
+  "tranDate": "2024-08-11",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e1f"
+  },
+  "date": "2024-08-11",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 100.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 191.4,
+  "tranDate": "2024-08-11",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e20"
+  },
+  "date": "2024-08-11",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 758.6,
+  "srOffering": 5664.218,
+  "srOfferingQse": 96.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 192.1,
+  "tranDate": "2024-08-11",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e21"
+  },
+  "date": "2024-08-11",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 100.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 192.9,
+  "tranDate": "2024-08-11",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e22"
+  },
+  "date": "2024-08-11",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 100.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 198.1,
+  "tranDate": "2024-08-11",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e23"
+  },
+  "date": "2024-08-11",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 102.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 202.9,
+  "tranDate": "2024-08-11",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e28"
+  },
+  "date": "2024-08-11",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 104.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 213,
+  "tranDate": "2024-08-11",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e29"
+  },
+  "date": "2024-08-11",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 112.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 245.4,
+  "tranDate": "2024-08-11",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66b83876e4df667076551e2a"
+  },
+  "date": "2024-08-11",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 757.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 112.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 245.3,
+  "tranDate": "2024-08-11",
+  "tranHour": "23:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb4f7"
+  },
+  "date": "2024-08-12",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113.2,
+  "supOffering": 8367.318,
+  "supOfferingQse": 252,
+  "tranDate": "2024-08-12",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb4f8"
+  },
+  "date": "2024-08-12",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 114.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 253.5,
+  "tranDate": "2024-08-12",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb4f9"
+  },
+  "date": "2024-08-12",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 253.5,
+  "tranDate": "2024-08-12",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb4fa"
+  },
+  "date": "2024-08-12",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 254.4,
+  "tranDate": "2024-08-12",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb4fb"
+  },
+  "date": "2024-08-12",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 255,
+  "tranDate": "2024-08-12",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb4fc"
+  },
+  "date": "2024-08-12",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 253.9,
+  "tranDate": "2024-08-12",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb4fd"
+  },
+  "date": "2024-08-12",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 251.9,
+  "tranDate": "2024-08-12",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb4fe"
+  },
+  "date": "2024-08-12",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 755.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 112.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 249.9,
+  "tranDate": "2024-08-12",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb4ff"
+  },
+  "date": "2024-08-12",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 186.5,
+  "tranDate": "2024-08-12",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb500"
+  },
+  "date": "2024-08-12",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 99.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 154,
+  "tranDate": "2024-08-12",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb501"
+  },
+  "date": "2024-08-12",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 102,
+  "supOffering": 8367.318,
+  "supOfferingQse": 154.4,
+  "tranDate": "2024-08-12",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb502"
+  },
+  "date": "2024-08-12",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 751.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 103,
+  "supOffering": 8367.318,
+  "supOfferingQse": 154.5,
+  "tranDate": "2024-08-12",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb503"
+  },
+  "date": "2024-08-12",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 748.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 95.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 137.5,
+  "tranDate": "2024-08-12",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb504"
+  },
+  "date": "2024-08-12",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 94.2,
+  "supOffering": 8367.318,
+  "supOfferingQse": 88.8,
+  "tranDate": "2024-08-12",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb505"
+  },
+  "date": "2024-08-12",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 95.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 84.3,
+  "tranDate": "2024-08-12",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb506"
+  },
+  "date": "2024-08-12",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 758.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 95,
+  "supOffering": 8367.318,
+  "supOfferingQse": 70.9,
+  "tranDate": "2024-08-12",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb507"
+  },
+  "date": "2024-08-12",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 758.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 76.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 57.2,
+  "tranDate": "2024-08-12",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb508"
+  },
+  "date": "2024-08-12",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 757.6,
+  "srOffering": 5664.218,
+  "srOfferingQse": 71.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 56.1,
+  "tranDate": "2024-08-12",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb509"
+  },
+  "date": "2024-08-12",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 758.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 74.2,
+  "supOffering": 8367.318,
+  "supOfferingQse": 51.9,
+  "tranDate": "2024-08-12",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb50a"
+  },
+  "date": "2024-08-12",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 758.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 76.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 58.8,
+  "tranDate": "2024-08-12",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb50b"
+  },
+  "date": "2024-08-12",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 758.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 79.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 65.9,
+  "tranDate": "2024-08-12",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb50f"
+  },
+  "date": "2024-08-12",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 758.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 81,
+  "supOffering": 8367.318,
+  "supOfferingQse": 86.2,
+  "tranDate": "2024-08-12",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb511"
+  },
+  "date": "2024-08-12",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 104.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 170.5,
+  "tranDate": "2024-08-12",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66b98a14e4df6670765cb512"
+  },
+  "date": "2024-08-12",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 758.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 108.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 171.5,
+  "tranDate": "2024-08-12",
+  "tranHour": "23:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec20"
+  },
+  "date": "2024-08-13",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 111.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 186.9,
+  "tranDate": "2024-08-13",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec21"
+  },
+  "date": "2024-08-13",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 755.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 112.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 258.5,
+  "tranDate": "2024-08-13",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec22"
+  },
+  "date": "2024-08-13",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 257.6,
+  "tranDate": "2024-08-13",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec23"
+  },
+  "date": "2024-08-13",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.6,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 258.4,
+  "tranDate": "2024-08-13",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec24"
+  },
+  "date": "2024-08-13",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752,
+  "srOffering": 5664.218,
+  "srOfferingQse": 112.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 259.3,
+  "tranDate": "2024-08-13",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec25"
+  },
+  "date": "2024-08-13",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 114.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 256.4,
+  "tranDate": "2024-08-13",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec26"
+  },
+  "date": "2024-08-13",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 110,
+  "supOffering": 8367.318,
+  "supOfferingQse": 252.6,
+  "tranDate": "2024-08-13",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec27"
+  },
+  "date": "2024-08-13",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.2,
+  "srOffering": 5664.218,
+  "srOfferingQse": 108.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 250.4,
+  "tranDate": "2024-08-13",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec28"
+  },
+  "date": "2024-08-13",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 189,
+  "tranDate": "2024-08-13",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec29"
+  },
+  "date": "2024-08-13",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 759.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 110.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 156,
+  "tranDate": "2024-08-13",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec2a"
+  },
+  "date": "2024-08-13",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 745.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113,
+  "supOffering": 8367.318,
+  "supOfferingQse": 156.2,
+  "tranDate": "2024-08-13",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec2b"
+  },
+  "date": "2024-08-13",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 744.2,
+  "srOffering": 5664.218,
+  "srOfferingQse": 114,
+  "supOffering": 8367.318,
+  "supOfferingQse": 155.4,
+  "tranDate": "2024-08-13",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec2c"
+  },
+  "date": "2024-08-13",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 745.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 102.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 142.1,
+  "tranDate": "2024-08-13",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec2d"
+  },
+  "date": "2024-08-13",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 102.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 99.2,
+  "tranDate": "2024-08-13",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec2e"
+  },
+  "date": "2024-08-13",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 103.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 96.4,
+  "tranDate": "2024-08-13",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec2f"
+  },
+  "date": "2024-08-13",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 103.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 71,
+  "tranDate": "2024-08-13",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec30"
+  },
+  "date": "2024-08-13",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 74.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 56.8,
+  "tranDate": "2024-08-13",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec31"
+  },
+  "date": "2024-08-13",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749.2,
+  "srOffering": 5664.218,
+  "srOfferingQse": 67.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 56.4,
+  "tranDate": "2024-08-13",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec32"
+  },
+  "date": "2024-08-13",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 70.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 55.3,
+  "tranDate": "2024-08-13",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec33"
+  },
+  "date": "2024-08-13",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 74.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 60.5,
+  "tranDate": "2024-08-13",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec34"
+  },
+  "date": "2024-08-13",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 76.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 70.3,
+  "tranDate": "2024-08-13",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec35"
+  },
+  "date": "2024-08-13",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 78,
+  "supOffering": 8367.318,
+  "supOfferingQse": 90.4,
+  "tranDate": "2024-08-13",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec36"
+  },
+  "date": "2024-08-13",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 102.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 171.1,
+  "tranDate": "2024-08-13",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66badb7fe4df66707666ec37"
+  },
+  "date": "2024-08-13",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 108.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 172.1,
+  "tranDate": "2024-08-13",
+  "tranHour": "23:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a635"
+  },
+  "date": "2024-08-14",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 746.2,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 189,
+  "tranDate": "2024-08-14",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a636"
+  },
+  "date": "2024-08-14",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 744.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115,
+  "supOffering": 8367.318,
+  "supOfferingQse": 260.6,
+  "tranDate": "2024-08-14",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a637"
+  },
+  "date": "2024-08-14",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 743,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116,
+  "supOffering": 8367.318,
+  "supOfferingQse": 259.8,
+  "tranDate": "2024-08-14",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a638"
+  },
+  "date": "2024-08-14",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 742,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116,
+  "supOffering": 8367.318,
+  "supOfferingQse": 260.5,
+  "tranDate": "2024-08-14",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a639"
+  },
+  "date": "2024-08-14",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 741.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115,
+  "supOffering": 8367.318,
+  "supOfferingQse": 261.5,
+  "tranDate": "2024-08-14",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a63a"
+  },
+  "date": "2024-08-14",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 740.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116,
+  "supOffering": 8367.318,
+  "supOfferingQse": 258.6,
+  "tranDate": "2024-08-14",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a63b"
+  },
+  "date": "2024-08-14",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 742,
+  "srOffering": 5664.218,
+  "srOfferingQse": 112.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 256.2,
+  "tranDate": "2024-08-14",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a63c"
+  },
+  "date": "2024-08-14",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 745.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 111.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 254.3,
+  "tranDate": "2024-08-14",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a63d"
+  },
+  "date": "2024-08-14",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 733.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 112.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 191.5,
+  "tranDate": "2024-08-14",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a63e"
+  },
+  "date": "2024-08-14",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 729.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 103.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 158.8,
+  "tranDate": "2024-08-14",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a63f"
+  },
+  "date": "2024-08-14",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 724.6,
+  "srOffering": 5664.218,
+  "srOfferingQse": 105.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 160,
+  "tranDate": "2024-08-14",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a640"
+  },
+  "date": "2024-08-14",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 723.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 106.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 160.2,
+  "tranDate": "2024-08-14",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a641"
+  },
+  "date": "2024-08-14",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 719.6,
+  "srOffering": 5664.218,
+  "srOfferingQse": 94.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 144.9,
+  "tranDate": "2024-08-14",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a642"
+  },
+  "date": "2024-08-14",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 724.6,
+  "srOffering": 5664.218,
+  "srOfferingQse": 94.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 103.4,
+  "tranDate": "2024-08-14",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a643"
+  },
+  "date": "2024-08-14",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 729.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 92.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 100.8,
+  "tranDate": "2024-08-14",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a644"
+  },
+  "date": "2024-08-14",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 729.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 93.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 75.5,
+  "tranDate": "2024-08-14",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a645"
+  },
+  "date": "2024-08-14",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 734.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 76.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 58.8,
+  "tranDate": "2024-08-14",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a646"
+  },
+  "date": "2024-08-14",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 747.2,
+  "srOffering": 5664.218,
+  "srOfferingQse": 69.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 57.6,
+  "tranDate": "2024-08-14",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a647"
+  },
+  "date": "2024-08-14",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 74,
+  "supOffering": 8367.318,
+  "supOfferingQse": 57.4,
+  "tranDate": "2024-08-14",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a648"
+  },
+  "date": "2024-08-14",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 78.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 65.1,
+  "tranDate": "2024-08-14",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a649"
+  },
+  "date": "2024-08-14",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 80.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 71.9,
+  "tranDate": "2024-08-14",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a64a"
+  },
+  "date": "2024-08-14",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 81.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 93,
+  "tranDate": "2024-08-14",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a64b"
+  },
+  "date": "2024-08-14",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 105.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 173.6,
+  "tranDate": "2024-08-14",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66bc815fe4df66707670a64f"
+  },
+  "date": "2024-08-14",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 109.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 175.4,
+  "tranDate": "2024-08-14",
+  "tranHour": "23:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f46"
+  },
+  "date": "2024-08-15",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 748.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 192,
+  "tranDate": "2024-08-15",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f47"
+  },
+  "date": "2024-08-15",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 746.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 260.1,
+  "tranDate": "2024-08-15",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f48"
+  },
+  "date": "2024-08-15",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 745.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 117.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 259.2,
+  "tranDate": "2024-08-15",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f49"
+  },
+  "date": "2024-08-15",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 744.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 117.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 260,
+  "tranDate": "2024-08-15",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f4a"
+  },
+  "date": "2024-08-15",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 742,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 260.9,
+  "tranDate": "2024-08-15",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f4b"
+  },
+  "date": "2024-08-15",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 740.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 117.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 258,
+  "tranDate": "2024-08-15",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f4c"
+  },
+  "date": "2024-08-15",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 741.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 114.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 254.2,
+  "tranDate": "2024-08-15",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f4d"
+  },
+  "date": "2024-08-15",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 745.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 252.4,
+  "tranDate": "2024-08-15",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f4e"
+  },
+  "date": "2024-08-15",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 746.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 118.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 194.6,
+  "tranDate": "2024-08-15",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f4f"
+  },
+  "date": "2024-08-15",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 746.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 108.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 161.8,
+  "tranDate": "2024-08-15",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f50"
+  },
+  "date": "2024-08-15",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 735.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 110.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 162,
+  "tranDate": "2024-08-15",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f51"
+  },
+  "date": "2024-08-15",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 732.6,
+  "srOffering": 5664.218,
+  "srOfferingQse": 111.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 161.2,
+  "tranDate": "2024-08-15",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f52"
+  },
+  "date": "2024-08-15",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 723.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 99.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 145.2,
+  "tranDate": "2024-08-15",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f53"
+  },
+  "date": "2024-08-15",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 732.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 97.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 121.1,
+  "tranDate": "2024-08-15",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f54"
+  },
+  "date": "2024-08-15",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 730.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 99.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 117.4,
+  "tranDate": "2024-08-15",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f55"
+  },
+  "date": "2024-08-15",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 732.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 99.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 91.1,
+  "tranDate": "2024-08-15",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f56"
+  },
+  "date": "2024-08-15",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 732.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 76.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 63.6,
+  "tranDate": "2024-08-15",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f57"
+  },
+  "date": "2024-08-15",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 733.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 69.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 62.3,
+  "tranDate": "2024-08-15",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f58"
+  },
+  "date": "2024-08-15",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 745.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 72.2,
+  "supOffering": 8367.318,
+  "supOfferingQse": 56.7,
+  "tranDate": "2024-08-15",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f59"
+  },
+  "date": "2024-08-15",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 77.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 63.5,
+  "tranDate": "2024-08-15",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f5a"
+  },
+  "date": "2024-08-15",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 81.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 72.3,
+  "tranDate": "2024-08-15",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f5c"
+  },
+  "date": "2024-08-15",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 751.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 82.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 92.9,
+  "tranDate": "2024-08-15",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f5d"
+  },
+  "date": "2024-08-15",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 751.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 106.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 173.8,
+  "tranDate": "2024-08-15",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66bd7e7fe4df667076758f5e"
+  },
+  "date": "2024-08-15",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.2,
+  "srOffering": 5664.218,
+  "srOfferingQse": 110.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 175.3,
+  "tranDate": "2024-08-15",
+  "tranHour": "23:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bd5"
+  },
+  "date": "2024-08-16",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 192.3,
+  "tranDate": "2024-08-16",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bd6"
+  },
+  "date": "2024-08-16",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 747.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 260.1,
+  "tranDate": "2024-08-16",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bd7"
+  },
+  "date": "2024-08-16",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 745.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 117.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 259.3,
+  "tranDate": "2024-08-16",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bd8"
+  },
+  "date": "2024-08-16",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 744.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 117.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 260.1,
+  "tranDate": "2024-08-16",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bd9"
+  },
+  "date": "2024-08-16",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 743.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 261.1,
+  "tranDate": "2024-08-16",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bda"
+  },
+  "date": "2024-08-16",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 742.6,
+  "srOffering": 5664.218,
+  "srOfferingQse": 117.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 258.1,
+  "tranDate": "2024-08-16",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bdb"
+  },
+  "date": "2024-08-16",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 744.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 114.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 256.1,
+  "tranDate": "2024-08-16",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bdc"
+  },
+  "date": "2024-08-16",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 747.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 253.9,
+  "tranDate": "2024-08-16",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bdd"
+  },
+  "date": "2024-08-16",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 751.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 118.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 195.7,
+  "tranDate": "2024-08-16",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bde"
+  },
+  "date": "2024-08-16",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 744.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 93.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 162.9,
+  "tranDate": "2024-08-16",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bdf"
+  },
+  "date": "2024-08-16",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 742.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 96,
+  "supOffering": 8367.318,
+  "supOfferingQse": 162.6,
+  "tranDate": "2024-08-16",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7be0"
+  },
+  "date": "2024-08-16",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 737.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 97,
+  "supOffering": 8367.318,
+  "supOfferingQse": 161.7,
+  "tranDate": "2024-08-16",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7be1"
+  },
+  "date": "2024-08-16",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 740.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 87.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 147.3,
+  "tranDate": "2024-08-16",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7be2"
+  },
+  "date": "2024-08-16",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 741.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 85.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 123.1,
+  "tranDate": "2024-08-16",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7be3"
+  },
+  "date": "2024-08-16",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 86.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 120.4,
+  "tranDate": "2024-08-16",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7be4"
+  },
+  "date": "2024-08-16",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 87,
+  "supOffering": 8367.318,
+  "supOfferingQse": 94.7,
+  "tranDate": "2024-08-16",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7be5"
+  },
+  "date": "2024-08-16",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 76.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 68.3,
+  "tranDate": "2024-08-16",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7be6"
+  },
+  "date": "2024-08-16",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749.1,
+  "srOffering": 5664.218,
+  "srOfferingQse": 70.2,
+  "supOffering": 8367.318,
+  "supOfferingQse": 66.9,
+  "tranDate": "2024-08-16",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7be7"
+  },
+  "date": "2024-08-16",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 72.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 65.8,
+  "tranDate": "2024-08-16",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7be8"
+  },
+  "date": "2024-08-16",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 77.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 72.7,
+  "tranDate": "2024-08-16",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7be9"
+  },
+  "date": "2024-08-16",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 79.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 80,
+  "tranDate": "2024-08-16",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bea"
+  },
+  "date": "2024-08-16",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 81.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 101.1,
+  "tranDate": "2024-08-16",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7beb"
+  },
+  "date": "2024-08-16",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 97.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 175,
+  "tranDate": "2024-08-16",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66becfffe4df6670767c7bec"
+  },
+  "date": "2024-08-16",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 298.2,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 101.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 177.2,
+  "tranDate": "2024-08-16",
+  "tranHour": "23:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d47"
+  },
+  "date": "2024-08-17",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.6,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115.2,
+  "supOffering": 8367.318,
+  "supOfferingQse": 191.3,
+  "tranDate": "2024-08-17",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d48"
+  },
+  "date": "2024-08-17",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 259.1,
+  "tranDate": "2024-08-17",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d49"
+  },
+  "date": "2024-08-17",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 117.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 257.8,
+  "tranDate": "2024-08-17",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d4a"
+  },
+  "date": "2024-08-17",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750,
+  "srOffering": 5584.218,
+  "srOfferingQse": 117.7,
+  "supOffering": 8127.318,
+  "supOfferingQse": 258.5,
+  "tranDate": "2024-08-17",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d4b"
+  },
+  "date": "2024-08-17",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749.4,
+  "srOffering": 5584.218,
+  "srOfferingQse": 116.7,
+  "supOffering": 8127.318,
+  "supOfferingQse": 258.9,
+  "tranDate": "2024-08-17",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d4c"
+  },
+  "date": "2024-08-17",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 748.2,
+  "srOffering": 5584.218,
+  "srOfferingQse": 117.2,
+  "supOffering": 8127.318,
+  "supOfferingQse": 256.6,
+  "tranDate": "2024-08-17",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d4d"
+  },
+  "date": "2024-08-17",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749.7,
+  "srOffering": 5584.218,
+  "srOfferingQse": 114.1,
+  "supOffering": 8127.318,
+  "supOfferingQse": 254.5,
+  "tranDate": "2024-08-17",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d4e"
+  },
+  "date": "2024-08-17",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 751.4,
+  "srOffering": 5584.218,
+  "srOfferingQse": 112,
+  "supOffering": 8127.318,
+  "supOfferingQse": 253.8,
+  "tranDate": "2024-08-17",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d4f"
+  },
+  "date": "2024-08-17",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 751.3,
+  "srOffering": 5584.218,
+  "srOfferingQse": 112.5,
+  "supOffering": 8127.318,
+  "supOfferingQse": 242.4,
+  "tranDate": "2024-08-17",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d50"
+  },
+  "date": "2024-08-17",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749.5,
+  "srOffering": 5504.218,
+  "srOfferingQse": 107.2,
+  "supOffering": 7887.318,
+  "supOfferingQse": 232,
+  "tranDate": "2024-08-17",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d51"
+  },
+  "date": "2024-08-17",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749.7,
+  "srOffering": 5504.218,
+  "srOfferingQse": 113.5,
+  "supOffering": 7887.318,
+  "supOfferingQse": 232,
+  "tranDate": "2024-08-17",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d52"
+  },
+  "date": "2024-08-17",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 748.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 114.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 231.8,
+  "tranDate": "2024-08-17",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d53"
+  },
+  "date": "2024-08-17",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 748.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 106.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 221.3,
+  "tranDate": "2024-08-17",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d54"
+  },
+  "date": "2024-08-17",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 107.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 217,
+  "tranDate": "2024-08-17",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d55"
+  },
+  "date": "2024-08-17",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 107.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 216,
+  "tranDate": "2024-08-17",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d56"
+  },
+  "date": "2024-08-17",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 102.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 215.1,
+  "tranDate": "2024-08-17",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d57"
+  },
+  "date": "2024-08-17",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 96.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 209.1,
+  "tranDate": "2024-08-17",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d58"
+  },
+  "date": "2024-08-17",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 755.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 98.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 211,
+  "tranDate": "2024-08-17",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d59"
+  },
+  "date": "2024-08-17",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 103.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 211.8,
+  "tranDate": "2024-08-17",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d5a"
+  },
+  "date": "2024-08-17",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 103.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 216.2,
+  "tranDate": "2024-08-17",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d5b"
+  },
+  "date": "2024-08-17",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 103.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 219.1,
+  "tranDate": "2024-08-17",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d5c"
+  },
+  "date": "2024-08-17",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 105.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 228.2,
+  "tranDate": "2024-08-17",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d5d"
+  },
+  "date": "2024-08-17",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 110.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 241.1,
+  "tranDate": "2024-08-17",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66c0217fe4df667076838d5e"
+  },
+  "date": "2024-08-17",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 110.3,
+  "supOffering": 8367.318,
+  "supOfferingQse": 241.7,
+  "tranDate": "2024-08-17",
+  "tranHour": "23:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85a6"
+  },
+  "date": "2024-08-18",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 753.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 114,
+  "supOffering": 8367.318,
+  "supOfferingQse": 250.7,
+  "tranDate": "2024-08-18",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85a7"
+  },
+  "date": "2024-08-18",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 751.9,
+  "srOffering": 5664.218,
+  "srOfferingQse": 115.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 255.7,
+  "tranDate": "2024-08-18",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85a8"
+  },
+  "date": "2024-08-18",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 255.7,
+  "tranDate": "2024-08-18",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85a9"
+  },
+  "date": "2024-08-18",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749.8,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 256.6,
+  "tranDate": "2024-08-18",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85aa"
+  },
+  "date": "2024-08-18",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749.3,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 257.6,
+  "tranDate": "2024-08-18",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85ab"
+  },
+  "date": "2024-08-18",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 748,
+  "srOffering": 5664.218,
+  "srOfferingQse": 116,
+  "supOffering": 8367.318,
+  "supOfferingQse": 255,
+  "tranDate": "2024-08-18",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85ac"
+  },
+  "date": "2024-08-18",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 749.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 112.8,
+  "supOffering": 8367.318,
+  "supOfferingQse": 253.5,
+  "tranDate": "2024-08-18",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85ad"
+  },
+  "date": "2024-08-18",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 750.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 111.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 253.7,
+  "tranDate": "2024-08-18",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85ae"
+  },
+  "date": "2024-08-18",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 752.2,
+  "srOffering": 5584.218,
+  "srOfferingQse": 112.9,
+  "supOffering": 8127.318,
+  "supOfferingQse": 246.2,
+  "tranDate": "2024-08-18",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85af"
+  },
+  "date": "2024-08-18",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754.2,
+  "srOffering": 5584.218,
+  "srOfferingQse": 107.8,
+  "supOffering": 8127.318,
+  "supOfferingQse": 235.9,
+  "tranDate": "2024-08-18",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85b0"
+  },
+  "date": "2024-08-18",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.3,
+  "srOffering": 5584.218,
+  "srOfferingQse": 112.6,
+  "supOffering": 8127.318,
+  "supOfferingQse": 236.5,
+  "tranDate": "2024-08-18",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85b1"
+  },
+  "date": "2024-08-18",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 755.5,
+  "srOffering": 5584.218,
+  "srOfferingQse": 116.8,
+  "supOffering": 8127.318,
+  "supOfferingQse": 236.6,
+  "tranDate": "2024-08-18",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85b2"
+  },
+  "date": "2024-08-18",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 751.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 112.7,
+  "supOffering": 8367.318,
+  "supOfferingQse": 227.3,
+  "tranDate": "2024-08-18",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85b3"
+  },
+  "date": "2024-08-18",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 109.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 222.7,
+  "tranDate": "2024-08-18",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85b4"
+  },
+  "date": "2024-08-18",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 109.6,
+  "supOffering": 8367.318,
+  "supOfferingQse": 220,
+  "tranDate": "2024-08-18",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85b5"
+  },
+  "date": "2024-08-18",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 105.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 217.4,
+  "tranDate": "2024-08-18",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85b6"
+  },
+  "date": "2024-08-18",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 100.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 213.3,
+  "tranDate": "2024-08-18",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85b7"
+  },
+  "date": "2024-08-18",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 755.5,
+  "srOffering": 5664.218,
+  "srOfferingQse": 102.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 213.9,
+  "tranDate": "2024-08-18",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85b8"
+  },
+  "date": "2024-08-18",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 105.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 214.7,
+  "tranDate": "2024-08-18",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85b9"
+  },
+  "date": "2024-08-18",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 106.4,
+  "supOffering": 8367.318,
+  "supOfferingQse": 217.3,
+  "tranDate": "2024-08-18",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85ba"
+  },
+  "date": "2024-08-18",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 106.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 221.8,
+  "tranDate": "2024-08-18",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85bb"
+  },
+  "date": "2024-08-18",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.7,
+  "srOffering": 5664.218,
+  "srOfferingQse": 108.5,
+  "supOffering": 8367.318,
+  "supOfferingQse": 231.9,
+  "tranDate": "2024-08-18",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85bc"
+  },
+  "date": "2024-08-18",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 756.4,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113.9,
+  "supOffering": 8367.318,
+  "supOfferingQse": 245.9,
+  "tranDate": "2024-08-18",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66c172ffe4df6670768a85bd"
+  },
+  "date": "2024-08-18",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 300.6,
+  "regOffering": 1447.5,
+  "regOfferingQse": 754,
+  "srOffering": 5664.218,
+  "srOfferingQse": 113.1,
+  "supOffering": 8367.318,
+  "supOfferingQse": 245.3,
+  "tranDate": "2024-08-18",
+  "tranHour": "23:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c16c"
+  },
+  "date": "2024-08-19",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 751.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 113.9,
+  "supOffering": 8219.648,
+  "supOfferingQse": 252.3,
+  "tranDate": "2024-08-19",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c16d"
+  },
+  "date": "2024-08-19",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 750.1,
+  "srOffering": 5516.548,
+  "srOfferingQse": 115.4,
+  "supOffering": 8219.648,
+  "supOfferingQse": 253.8,
+  "tranDate": "2024-08-19",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c16e"
+  },
+  "date": "2024-08-19",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 748.8,
+  "srOffering": 5516.548,
+  "srOfferingQse": 116.4,
+  "supOffering": 8219.648,
+  "supOfferingQse": 253.8,
+  "tranDate": "2024-08-19",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c16f"
+  },
+  "date": "2024-08-19",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 747.9,
+  "srOffering": 5516.548,
+  "srOfferingQse": 116.4,
+  "supOffering": 8219.648,
+  "supOfferingQse": 254.7,
+  "tranDate": "2024-08-19",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c170"
+  },
+  "date": "2024-08-19",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 747.5,
+  "srOffering": 5516.548,
+  "srOfferingQse": 116.4,
+  "supOffering": 8219.648,
+  "supOfferingQse": 255.3,
+  "tranDate": "2024-08-19",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c171"
+  },
+  "date": "2024-08-19",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 746.2,
+  "srOffering": 5516.548,
+  "srOfferingQse": 116.9,
+  "supOffering": 8219.648,
+  "supOfferingQse": 254.2,
+  "tranDate": "2024-08-19",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c172"
+  },
+  "date": "2024-08-19",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 747.9,
+  "srOffering": 5516.548,
+  "srOfferingQse": 113.6,
+  "supOffering": 8219.648,
+  "supOfferingQse": 251.1,
+  "tranDate": "2024-08-19",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c173"
+  },
+  "date": "2024-08-19",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 113.6,
+  "supOffering": 8219.648,
+  "supOfferingQse": 243.2,
+  "tranDate": "2024-08-19",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c174"
+  },
+  "date": "2024-08-19",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 749.2,
+  "srOffering": 5516.548,
+  "srOfferingQse": 116.7,
+  "supOffering": 8219.648,
+  "supOfferingQse": 186.9,
+  "tranDate": "2024-08-19",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c175"
+  },
+  "date": "2024-08-19",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 746.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 105.8,
+  "supOffering": 8219.648,
+  "supOfferingQse": 161.4,
+  "tranDate": "2024-08-19",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c176"
+  },
+  "date": "2024-08-19",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 746.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 110.1,
+  "supOffering": 8219.648,
+  "supOfferingQse": 161.8,
+  "tranDate": "2024-08-19",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c177"
+  },
+  "date": "2024-08-19",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 745.5,
+  "srOffering": 5516.548,
+  "srOfferingQse": 111.2,
+  "supOffering": 8219.648,
+  "supOfferingQse": 160.6,
+  "tranDate": "2024-08-19",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c178"
+  },
+  "date": "2024-08-19",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 741.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 98.5,
+  "supOffering": 8219.648,
+  "supOfferingQse": 147.9,
+  "tranDate": "2024-08-19",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c179"
+  },
+  "date": "2024-08-19",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 746.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 96.5,
+  "supOffering": 8219.648,
+  "supOfferingQse": 123.6,
+  "tranDate": "2024-08-19",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c17a"
+  },
+  "date": "2024-08-19",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 746.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 97.9,
+  "supOffering": 8219.648,
+  "supOfferingQse": 122.6,
+  "tranDate": "2024-08-19",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c17b"
+  },
+  "date": "2024-08-19",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 746.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 97,
+  "supOffering": 8219.648,
+  "supOfferingQse": 96.5,
+  "tranDate": "2024-08-19",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c17c"
+  },
+  "date": "2024-08-19",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 746.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 75.8,
+  "supOffering": 8219.648,
+  "supOfferingQse": 69,
+  "tranDate": "2024-08-19",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c17e"
+  },
+  "date": "2024-08-19",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 745.5,
+  "srOffering": 5516.548,
+  "srOfferingQse": 70.7,
+  "supOffering": 8219.648,
+  "supOfferingQse": 67,
+  "tranDate": "2024-08-19",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c183"
+  },
+  "date": "2024-08-19",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 72.8,
+  "supOffering": 8219.648,
+  "supOfferingQse": 66.3,
+  "tranDate": "2024-08-19",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c184"
+  },
+  "date": "2024-08-19",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 76.9,
+  "supOffering": 8219.648,
+  "supOfferingQse": 73.2,
+  "tranDate": "2024-08-19",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c185"
+  },
+  "date": "2024-08-19",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 81.8,
+  "supOffering": 8219.648,
+  "supOfferingQse": 78.8,
+  "tranDate": "2024-08-19",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c186"
+  },
+  "date": "2024-08-19",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 83.4,
+  "supOffering": 8219.648,
+  "supOfferingQse": 99.6,
+  "tranDate": "2024-08-19",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c187"
+  },
+  "date": "2024-08-19",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 106.9,
+  "supOffering": 8219.648,
+  "supOfferingQse": 173.5,
+  "tranDate": "2024-08-19",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66c2c47fe4df66707691c188"
+  },
+  "date": "2024-08-19",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1393.5,
+  "regOfferingQse": 749,
+  "srOffering": 5516.548,
+  "srOfferingQse": 110.1,
+  "supOffering": 8219.648,
+  "supOfferingQse": 174.4,
+  "tranDate": "2024-08-19",
+  "tranHour": "23:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1868"
+  },
+  "date": "2024-08-20",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 747.8,
+  "srOffering": 5486.548,
+  "srOfferingQse": 112.8,
+  "supOffering": 8151.815,
+  "supOfferingQse": 191.7,
+  "tranDate": "2024-08-20",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1869"
+  },
+  "date": "2024-08-20",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 746,
+  "srOffering": 5486.548,
+  "srOfferingQse": 114.3,
+  "supOffering": 8151.815,
+  "supOfferingQse": 259.8,
+  "tranDate": "2024-08-20",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a186a"
+  },
+  "date": "2024-08-20",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 744.7,
+  "srOffering": 5486.548,
+  "srOfferingQse": 115.3,
+  "supOffering": 8151.815,
+  "supOfferingQse": 258.9,
+  "tranDate": "2024-08-20",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a186c"
+  },
+  "date": "2024-08-20",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 743.5,
+  "srOffering": 5486.548,
+  "srOfferingQse": 115.3,
+  "supOffering": 8151.815,
+  "supOfferingQse": 259.7,
+  "tranDate": "2024-08-20",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a186d"
+  },
+  "date": "2024-08-20",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 742.9,
+  "srOffering": 5486.548,
+  "srOfferingQse": 114.3,
+  "supOffering": 8151.815,
+  "supOfferingQse": 260.6,
+  "tranDate": "2024-08-20",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a186e"
+  },
+  "date": "2024-08-20",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 741.7,
+  "srOffering": 5486.548,
+  "srOfferingQse": 115.8,
+  "supOffering": 8151.815,
+  "supOfferingQse": 257.7,
+  "tranDate": "2024-08-20",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a186f"
+  },
+  "date": "2024-08-20",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 743.6,
+  "srOffering": 5486.548,
+  "srOfferingQse": 112.7,
+  "supOffering": 8151.815,
+  "supOfferingQse": 253.9,
+  "tranDate": "2024-08-20",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1870"
+  },
+  "date": "2024-08-20",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 747.1,
+  "srOffering": 5453.815,
+  "srOfferingQse": 111.6,
+  "supOffering": 8119.082,
+  "supOfferingQse": 249.8,
+  "tranDate": "2024-08-20",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1871"
+  },
+  "date": "2024-08-20",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5453.815,
+  "srOfferingQse": 115.7,
+  "supOffering": 8119.082,
+  "supOfferingQse": 194.9,
+  "tranDate": "2024-08-20",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1872"
+  },
+  "date": "2024-08-20",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 747.2,
+  "srOffering": 5453.815,
+  "srOfferingQse": 110.2,
+  "supOffering": 8119.082,
+  "supOfferingQse": 162.1,
+  "tranDate": "2024-08-20",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1873"
+  },
+  "date": "2024-08-20",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 742.3,
+  "srOffering": 5453.815,
+  "srOfferingQse": 112.4,
+  "supOffering": 8119.082,
+  "supOfferingQse": 162.3,
+  "tranDate": "2024-08-20",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1874"
+  },
+  "date": "2024-08-20",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 741.1,
+  "srOffering": 5453.815,
+  "srOfferingQse": 113.5,
+  "supOffering": 8119.082,
+  "supOfferingQse": 161,
+  "tranDate": "2024-08-20",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1875"
+  },
+  "date": "2024-08-20",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 737.3,
+  "srOffering": 5453.815,
+  "srOfferingQse": 102.9,
+  "supOffering": 8119.082,
+  "supOfferingQse": 147.8,
+  "tranDate": "2024-08-20",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1876"
+  },
+  "date": "2024-08-20",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 742.3,
+  "srOffering": 5453.815,
+  "srOfferingQse": 102.5,
+  "supOffering": 8119.082,
+  "supOfferingQse": 125.6,
+  "tranDate": "2024-08-20",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1877"
+  },
+  "date": "2024-08-20",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 742.3,
+  "srOffering": 5453.815,
+  "srOfferingQse": 103.9,
+  "supOffering": 8119.082,
+  "supOfferingQse": 124.5,
+  "tranDate": "2024-08-20",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1878"
+  },
+  "date": "2024-08-20",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 742.3,
+  "srOffering": 5453.815,
+  "srOfferingQse": 104,
+  "supOffering": 8119.082,
+  "supOfferingQse": 100,
+  "tranDate": "2024-08-20",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1879"
+  },
+  "date": "2024-08-20",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 742.3,
+  "srOffering": 5486.548,
+  "srOfferingQse": 77.7,
+  "supOffering": 8151.815,
+  "supOfferingQse": 69.8,
+  "tranDate": "2024-08-20",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a187b"
+  },
+  "date": "2024-08-20",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 742.1,
+  "srOffering": 5486.548,
+  "srOfferingQse": 69.8,
+  "supOffering": 8151.815,
+  "supOfferingQse": 67.6,
+  "tranDate": "2024-08-20",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a187c"
+  },
+  "date": "2024-08-20",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 745.8,
+  "srOffering": 5486.548,
+  "srOfferingQse": 73.7,
+  "supOffering": 8151.815,
+  "supOfferingQse": 66.5,
+  "tranDate": "2024-08-20",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a187d"
+  },
+  "date": "2024-08-20",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 745.8,
+  "srOffering": 5486.548,
+  "srOfferingQse": 78.7,
+  "supOffering": 8151.815,
+  "supOfferingQse": 71.2,
+  "tranDate": "2024-08-20",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a187e"
+  },
+  "date": "2024-08-20",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 745.8,
+  "srOffering": 5486.548,
+  "srOfferingQse": 79.9,
+  "supOffering": 8151.815,
+  "supOfferingQse": 78.5,
+  "tranDate": "2024-08-20",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a187f"
+  },
+  "date": "2024-08-20",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 745.8,
+  "srOffering": 5486.548,
+  "srOfferingQse": 81.5,
+  "supOffering": 8151.815,
+  "supOfferingQse": 99.8,
+  "tranDate": "2024-08-20",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1884"
+  },
+  "date": "2024-08-20",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 745.8,
+  "srOffering": 5486.548,
+  "srOfferingQse": 104.3,
+  "supOffering": 8151.815,
+  "supOfferingQse": 173.7,
+  "tranDate": "2024-08-20",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66c415f6e4df6670769a1886"
+  },
+  "date": "2024-08-20",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 297.6,
+  "regOffering": 1384.5,
+  "regOfferingQse": 744.2,
+  "srOffering": 5486.548,
+  "srOfferingQse": 107.1,
+  "supOffering": 8151.815,
+  "supOfferingQse": 176.8,
+  "tranDate": "2024-08-20",
+  "tranHour": "23:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8e4"
+  },
+  "date": "2024-08-21",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 743,
+  "srOffering": 5486.548,
+  "srOfferingQse": 113.7,
+  "supOffering": 8151.815,
+  "supOfferingQse": 191.5,
+  "tranDate": "2024-08-21",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8e5"
+  },
+  "date": "2024-08-21",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 741.2,
+  "srOffering": 5486.548,
+  "srOfferingQse": 115.2,
+  "supOffering": 8151.815,
+  "supOfferingQse": 259.6,
+  "tranDate": "2024-08-21",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8e6"
+  },
+  "date": "2024-08-21",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 739.8,
+  "srOffering": 5486.548,
+  "srOfferingQse": 116.2,
+  "supOffering": 8151.815,
+  "supOfferingQse": 258.8,
+  "tranDate": "2024-08-21",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8e7"
+  },
+  "date": "2024-08-21",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 738.8,
+  "srOffering": 5486.548,
+  "srOfferingQse": 116.2,
+  "supOffering": 8151.815,
+  "supOfferingQse": 259.5,
+  "tranDate": "2024-08-21",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8e8"
+  },
+  "date": "2024-08-21",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 738.1,
+  "srOffering": 5486.548,
+  "srOfferingQse": 115.2,
+  "supOffering": 8151.815,
+  "supOfferingQse": 260.5,
+  "tranDate": "2024-08-21",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8e9"
+  },
+  "date": "2024-08-21",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 736.9,
+  "srOffering": 5486.548,
+  "srOfferingQse": 116.7,
+  "supOffering": 8151.815,
+  "supOfferingQse": 257.6,
+  "tranDate": "2024-08-21",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8ea"
+  },
+  "date": "2024-08-21",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 738.8,
+  "srOffering": 5486.548,
+  "srOfferingQse": 113.6,
+  "supOffering": 8151.815,
+  "supOfferingQse": 253.8,
+  "tranDate": "2024-08-21",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8eb"
+  },
+  "date": "2024-08-21",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 742.5,
+  "srOffering": 5453.815,
+  "srOfferingQse": 112.5,
+  "supOffering": 8119.082,
+  "supOfferingQse": 240.4,
+  "tranDate": "2024-08-21",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8ec"
+  },
+  "date": "2024-08-21",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 745.8,
+  "srOffering": 5453.815,
+  "srOfferingQse": 116.7,
+  "supOffering": 8119.082,
+  "supOfferingQse": 184,
+  "tranDate": "2024-08-21",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8ed"
+  },
+  "date": "2024-08-21",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 733.8,
+  "srOffering": 5453.815,
+  "srOfferingQse": 110.1,
+  "supOffering": 8119.082,
+  "supOfferingQse": 158.3,
+  "tranDate": "2024-08-21",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8ee"
+  },
+  "date": "2024-08-21",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 728.8,
+  "srOffering": 5453.815,
+  "srOfferingQse": 112.3,
+  "supOffering": 8119.082,
+  "supOfferingQse": 158.5,
+  "tranDate": "2024-08-21",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8ef"
+  },
+  "date": "2024-08-21",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 732.6,
+  "srOffering": 5453.815,
+  "srOfferingQse": 113.3,
+  "supOffering": 8119.082,
+  "supOfferingQse": 158,
+  "tranDate": "2024-08-21",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8f0"
+  },
+  "date": "2024-08-21",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 735.8,
+  "srOffering": 5453.815,
+  "srOfferingQse": 104.5,
+  "supOffering": 8119.082,
+  "supOfferingQse": 145.1,
+  "tranDate": "2024-08-21",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8f1"
+  },
+  "date": "2024-08-21",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 740.8,
+  "srOffering": 5453.815,
+  "srOfferingQse": 104,
+  "supOffering": 8119.082,
+  "supOfferingQse": 121.5,
+  "tranDate": "2024-08-21",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8f2"
+  },
+  "date": "2024-08-21",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 740.8,
+  "srOffering": 5453.815,
+  "srOfferingQse": 105.4,
+  "supOffering": 8119.082,
+  "supOfferingQse": 120.5,
+  "tranDate": "2024-08-21",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8f3"
+  },
+  "date": "2024-08-21",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 740.8,
+  "srOffering": 5453.815,
+  "srOfferingQse": 105.6,
+  "supOffering": 8119.082,
+  "supOfferingQse": 91.6,
+  "tranDate": "2024-08-21",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8f4"
+  },
+  "date": "2024-08-21",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 745.7,
+  "srOffering": 5486.548,
+  "srOfferingQse": 74.7,
+  "supOffering": 8151.815,
+  "supOfferingQse": 61.9,
+  "tranDate": "2024-08-21",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8f9"
+  },
+  "date": "2024-08-21",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 749.5,
+  "srOffering": 5486.548,
+  "srOfferingQse": 69.7,
+  "supOffering": 8151.815,
+  "supOfferingQse": 59.7,
+  "tranDate": "2024-08-21",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8fa"
+  },
+  "date": "2024-08-21",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5486.548,
+  "srOfferingQse": 71.9,
+  "supOffering": 8151.815,
+  "supOfferingQse": 62,
+  "tranDate": "2024-08-21",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8fb"
+  },
+  "date": "2024-08-21",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5486.548,
+  "srOfferingQse": 76.9,
+  "supOffering": 8151.815,
+  "supOfferingQse": 66.4,
+  "tranDate": "2024-08-21",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8fc"
+  },
+  "date": "2024-08-21",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1384.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5486.548,
+  "srOfferingQse": 79.6,
+  "supOffering": 8151.815,
+  "supOfferingQse": 76.2,
+  "tranDate": "2024-08-21",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8fd"
+  },
+  "date": "2024-08-21",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1393.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 81.2,
+  "supOffering": 8219.648,
+  "supOfferingQse": 97.5,
+  "tranDate": "2024-08-21",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8fe"
+  },
+  "date": "2024-08-21",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1393.5,
+  "regOfferingQse": 750.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 104,
+  "supOffering": 8219.648,
+  "supOfferingQse": 171.3,
+  "tranDate": "2024-08-21",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66c56776e4df667076a1c8ff"
+  },
+  "date": "2024-08-21",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 296.8,
+  "regOffering": 1393.5,
+  "regOfferingQse": 749.1,
+  "srOffering": 5516.548,
+  "srOfferingQse": 110.2,
+  "supOffering": 8219.648,
+  "supOfferingQse": 174.7,
+  "tranDate": "2024-08-21",
+  "tranHour": "23:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c3a"
+  },
+  "date": "2024-08-22",
+  "hour": "00:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 747,
+  "srOffering": 5516.548,
+  "srOfferingQse": 115.1,
+  "supOffering": 8219.648,
+  "supOfferingQse": 187.2,
+  "tranDate": "2024-08-22",
+  "tranHour": "00:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c3b"
+  },
+  "date": "2024-08-22",
+  "hour": "01:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 745.1,
+  "srOffering": 5516.548,
+  "srOfferingQse": 116.6,
+  "supOffering": 8219.648,
+  "supOfferingQse": 271.1,
+  "tranDate": "2024-08-22",
+  "tranHour": "01:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c3c"
+  },
+  "date": "2024-08-22",
+  "hour": "02:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 743.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 117.6,
+  "supOffering": 8219.648,
+  "supOfferingQse": 271.2,
+  "tranDate": "2024-08-22",
+  "tranHour": "02:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c3d"
+  },
+  "date": "2024-08-22",
+  "hour": "03:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 742.6,
+  "srOffering": 5516.548,
+  "srOfferingQse": 117.6,
+  "supOffering": 8219.648,
+  "supOfferingQse": 272,
+  "tranDate": "2024-08-22",
+  "tranHour": "03:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c3e"
+  },
+  "date": "2024-08-22",
+  "hour": "04:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 742.1,
+  "srOffering": 5516.548,
+  "srOfferingQse": 116.6,
+  "supOffering": 8219.648,
+  "supOfferingQse": 272.9,
+  "tranDate": "2024-08-22",
+  "tranHour": "04:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c3f"
+  },
+  "date": "2024-08-22",
+  "hour": "05:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 740.8,
+  "srOffering": 5516.548,
+  "srOfferingQse": 117.6,
+  "supOffering": 8219.648,
+  "supOfferingQse": 270,
+  "tranDate": "2024-08-22",
+  "tranHour": "05:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c40"
+  },
+  "date": "2024-08-22",
+  "hour": "06:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 741.6,
+  "srOffering": 5516.548,
+  "srOfferingQse": 115.5,
+  "supOffering": 8219.648,
+  "supOfferingQse": 266.1,
+  "tranDate": "2024-08-22",
+  "tranHour": "06:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c41"
+  },
+  "date": "2024-08-22",
+  "hour": "07:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 745.4,
+  "srOffering": 5483.815,
+  "srOfferingQse": 114.4,
+  "supOffering": 8186.915,
+  "supOfferingQse": 263.8,
+  "tranDate": "2024-08-22",
+  "tranHour": "07:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c42"
+  },
+  "date": "2024-08-22",
+  "hour": "08:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 741.2,
+  "srOffering": 5483.815,
+  "srOfferingQse": 120.7,
+  "supOffering": 8186.915,
+  "supOfferingQse": 191.6,
+  "tranDate": "2024-08-22",
+  "tranHour": "08:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c43"
+  },
+  "date": "2024-08-22",
+  "hour": "09:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 741.2,
+  "srOffering": 5483.815,
+  "srOfferingQse": 105.7,
+  "supOffering": 8186.915,
+  "supOfferingQse": 162.8,
+  "tranDate": "2024-08-22",
+  "tranHour": "09:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c44"
+  },
+  "date": "2024-08-22",
+  "hour": "10:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 735.6,
+  "srOffering": 5483.815,
+  "srOfferingQse": 108,
+  "supOffering": 8186.915,
+  "supOfferingQse": 163,
+  "tranDate": "2024-08-22",
+  "tranHour": "10:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c45"
+  },
+  "date": "2024-08-22",
+  "hour": "11:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 727.4,
+  "srOffering": 5483.815,
+  "srOfferingQse": 109,
+  "supOffering": 8186.915,
+  "supOfferingQse": 161.7,
+  "tranDate": "2024-08-22",
+  "tranHour": "11:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c46"
+  },
+  "date": "2024-08-22",
+  "hour": "12:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 728.6,
+  "srOffering": 5483.815,
+  "srOfferingQse": 100.1,
+  "supOffering": 8186.915,
+  "supOfferingQse": 148,
+  "tranDate": "2024-08-22",
+  "tranHour": "12:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c47"
+  },
+  "date": "2024-08-22",
+  "hour": "13:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 728.6,
+  "srOffering": 5483.815,
+  "srOfferingQse": 101,
+  "supOffering": 8186.915,
+  "supOfferingQse": 128.3,
+  "tranDate": "2024-08-22",
+  "tranHour": "13:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c48"
+  },
+  "date": "2024-08-22",
+  "hour": "14:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 728.6,
+  "srOffering": 5483.815,
+  "srOfferingQse": 101.2,
+  "supOffering": 8186.915,
+  "supOfferingQse": 128.2,
+  "tranDate": "2024-08-22",
+  "tranHour": "14:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c49"
+  },
+  "date": "2024-08-22",
+  "hour": "15:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 733.5,
+  "srOffering": 5483.815,
+  "srOfferingQse": 100.7,
+  "supOffering": 8186.915,
+  "supOfferingQse": 104.5,
+  "tranDate": "2024-08-22",
+  "tranHour": "15:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c4a"
+  },
+  "date": "2024-08-22",
+  "hour": "16:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 733.5,
+  "srOffering": 5516.548,
+  "srOfferingQse": 73.9,
+  "supOffering": 8219.648,
+  "supOfferingQse": 95.9,
+  "tranDate": "2024-08-22",
+  "tranHour": "16:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c4b"
+  },
+  "date": "2024-08-22",
+  "hour": "17:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 732.3,
+  "srOffering": 5516.548,
+  "srOfferingQse": 66.4,
+  "supOffering": 8219.648,
+  "supOfferingQse": 92.4,
+  "tranDate": "2024-08-22",
+  "tranHour": "17:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c4d"
+  },
+  "date": "2024-08-22",
+  "hour": "18:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 743.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 73.5,
+  "supOffering": 8219.648,
+  "supOfferingQse": 73.8,
+  "tranDate": "2024-08-22",
+  "tranHour": "18:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c4e"
+  },
+  "date": "2024-08-22",
+  "hour": "19:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 743.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 78.1,
+  "supOffering": 8219.648,
+  "supOfferingQse": 78,
+  "tranDate": "2024-08-22",
+  "tranHour": "19:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c4f"
+  },
+  "date": "2024-08-22",
+  "hour": "20:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 748.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 80.9,
+  "supOffering": 8219.648,
+  "supOfferingQse": 87.3,
+  "tranDate": "2024-08-22",
+  "tranHour": "20:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c50"
+  },
+  "date": "2024-08-22",
+  "hour": "21:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 748.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 82.5,
+  "supOffering": 8219.648,
+  "supOfferingQse": 108.1,
+  "tranDate": "2024-08-22",
+  "tranHour": "21:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c51"
+  },
+  "date": "2024-08-22",
+  "hour": "22:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 748.7,
+  "srOffering": 5516.548,
+  "srOfferingQse": 106.3,
+  "supOffering": 8219.648,
+  "supOfferingQse": 175.4,
+  "tranDate": "2024-08-22",
+  "tranHour": "22:00"
+},
+{
+  "_id": {
+    "$oid": "66c6b8f6e4df667076a93c52"
+  },
+  "date": "2024-08-22",
+  "hour": "23:00",
+  "edregOffering": 0,
+  "edregOfferingQse": 299.8,
+  "regOffering": 4614.85,
+  "regOfferingQse": 747.5,
+  "srOffering": 5516.548,
+  "srOfferingQse": 110.2,
+  "supOffering": 8219.648,
+  "supOfferingQse": 175.8,
+  "tranDate": "2024-08-22",
+  "tranHour": "23:00"
+}]
