@@ -71,19 +71,25 @@ def get_week_summary(time):
 # 名詞解釋
 def get_define(term_question):
   term = ""
+  definition = ""
   res = []
   for t in term_list:
      if t in term_question:
         term = t
         print("term: " + term)
         definition = get_definition(term)
-        res.append(definition)
-  if term == "":
+        res.append(FORMAT_RESPONSE("text", {
+          "content" : definition
+        })) 
+        break
+  if definition == "":
     print("查無資料")
     # res = get_qa_answer(term_question)
-    res.append("查無資料，請重新提問。")
+    res.append(FORMAT_RESPONSE("text", {
+      "content" : "查無資料，請重新提問。"
+    })) 
    
-  return res
+  return res + SHOW_MENU()
 
 #獲取使用者問題
 def get_qa_question():

@@ -9,8 +9,11 @@ print(term_string)
 
 def get_definition(term_to_find):
     data = db_readData("Test","definitions",{"term": term_to_find},find_one=True)
+    print("get_definition")
     if data != None:
         #print(data["definition"])
-        return data["definition"]
+        answer = data["definition"]
+        return answer
     else:
+        print("查無資料")
         return "查無資料"
