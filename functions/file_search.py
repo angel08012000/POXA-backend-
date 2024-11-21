@@ -66,7 +66,8 @@ def send_message(user_message, my_thread, my_assistant):
     return list(client.beta.threads.messages.list(thread_id=my_thread.id, run_id=run.id))
 
 def response_directly(user_question, my_thread, my_assistant):
-    messages = send_message(user_question,  my_thread, my_assistant)
+    user_message = "請用繁體中文回答以下問題。回答格式為\"檔案名：回答\"。問題如下：" + user_question
+    messages = send_message(user_message,  my_thread, my_assistant)
     return messages[0].content[0].text.value
 
 def response_with_preprocess(user_question, my_thread, my_assistant):
@@ -107,6 +108,7 @@ def start_file_search(question):
     my_thread = client.beta.threads.create()
 
     responses = response_with_preprocess(question, my_thread, my_assistant)
+    #responses = response_directly(question, my_thread, my_assistant)
     responses = re.sub(r'【\d+:\d+†source】', '', responses)
     print("最終答案：\n" + responses)
     return responses
