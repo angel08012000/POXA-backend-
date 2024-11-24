@@ -77,9 +77,12 @@ def get_define(term_question):
         term = t
         print("term: " + term)
         definition = get_definition(term)
+        res.append(definition)
   if term == "":
     print("查無資料")
-    res = get_qa_answer(term_question)
+    # res = get_qa_answer(term_question)
+    res.append("查無資料，請重新提問。")
+   
   return res
 
 #獲取使用者問題
