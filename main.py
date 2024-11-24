@@ -85,6 +85,15 @@ def get_define(term_question):
    
   return res
 
+#獲取使用者問題
+def get_qa_question():
+  res = []
+  res.append(FORMAT_RESPONSE("text", {
+      "tag": "span",
+      "content": "請問您想詢問什麼問題呢？"
+  }))
+  return res
+
 # QA 問答
 def get_qa_answer(issue):
     answer,article_title,article_date = get_QA_analyze(issue)
@@ -243,6 +252,19 @@ other_question = [
             }
         },
         "required": ["etpProblem"]
+    }
+  },
+  {
+    "name": "get_qa_question",
+    "description": "當使用者輸入「其他問題」時，麻煩使用者輸入想詢問的問題，其他問題或動作，請使用 get_qa_answer。",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "etpProblem": {
+                "type": "string",
+                "description": "當使用者輸入「其他問題」"
+            }
+        }
     }
   },
   {
