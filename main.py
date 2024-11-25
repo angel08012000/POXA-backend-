@@ -3,7 +3,6 @@ import time
 import requests
 from datetime import datetime, timedelta
 import os #Render
-from flask_cors import CORS #Render
 
 from common import FORMAT_RESPONSE, SHOW_MENU, ADD_FILE_LINKS
 from functions.week_summary import get_summary
