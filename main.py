@@ -2,6 +2,7 @@ from openai import OpenAI
 import time
 import requests
 from datetime import datetime, timedelta
+import os #Render
 
 from common import FORMAT_RESPONSE, SHOW_MENU, ADD_FILE_LINKS
 from functions.week_summary import get_summary
@@ -372,4 +373,6 @@ def chat_with_bot():
     return jsonify({'response': final_res})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    # app.run(host='0.0.0.0', debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Render
+    app.run(host="0.0.0.0", port=port)
