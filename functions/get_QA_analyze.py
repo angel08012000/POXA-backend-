@@ -211,7 +211,7 @@ def extract_content(content):
         content_str += str(content) + "\n"  
     return content_str
 
-def generate_response(question, rel_content):
+def generate_response(question, rel_content, type):
     global gpt_calls
     gpt_calls+=1
     question, synonym_term =synonym_analysis(question)
@@ -232,7 +232,17 @@ def generate_response(question, rel_content):
         print("filtered_content:",filtered_content)
         prompt = f"問題: {question}\n根據以下內容中有關{synonym_term}的資訊回答問題:\n{filtered_content}\n\n回答詳細問題:"
     else:
-        prompt = f"問題: {question}\n\n根據以下內容生成確實的回答:\n{rel_content}\n\n回答:"
+        if(type=="time"):
+            print("get time content!")
+            combined_content = ""
+            combined_content += f"段落標題: {rel_content['title']}\n"
+            combined_content += f"段落簡介: {rel_content['content']}\n"
+            for i, block in rel_content['block'].items():
+                combined_content += f"段落內容: {block['blockContent']}\n"
+        else:
+            combined_content = rel_content
+        prompt = f"問題: {question}\n\n根據以下內容生成確實的回答:\n{combined_content}\n\n回答:"
+    
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         temperature=0.8,
@@ -260,16 +270,17 @@ def extract_time(question):
     global gpt_calls
     gpt_calls+=1
     current_date = datetime.now()
-    prompt = f"問題: {question}\n這是現在的日期:{current_date}\n請分析問題中的時間關鍵字（如「昨天」、「今天」、「上週」、「上個月」等），根據現在的日期推斷，並直接返回一個最符合時間關鍵字描述的日期值`date`（格式為YYYY-MM-DD），該日期值必須是禮拜一。只需提供日期值，不需要任何額外解釋。"
+    prompt = f"問題: {question}\n這是現在的日期:{current_date}\n請分析問題中的時間關鍵字（如「昨天」、「今天」、「上週」、「上個月」等），根據現在的日期推斷，並直接返回一個最符合時間關鍵字描述的日期值格式為('%Y-%m-%d')，該日期值必須是禮拜一。只需提供('%Y-%m-%d')，不需要任何額外解釋。"
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         temperature=0.3,
         messages=[
-            {"role": "system", "content": "你是一個專業的日期分析助手，僅需提供確切的`start_date`和`end_date`日期值，不需要其他解釋或文字。"},
+            {"role": "system", "content": "你是一個專業的日期分析助手，僅需提供確切的('%Y-%m-%d')，不需要其他解釋或文字。"},
             {"role": "user", "content": prompt}
         ]
     )
     date_values = response.choices[0].message.content.strip()
+    print("date_values:",date_values)
     return date_values
 
 def search_nearest_article(qa_time):
@@ -310,7 +321,7 @@ def get_QA_analyze(user_input):
         qa_time= extract_time(user_input)
         nearest_article, article_title = search_nearest_article(qa_time)
         print("QA's extract time:", qa_time,"  ",article_title)
-        response = generate_response(user_input, nearest_article)
+        response = generate_response(user_input, nearest_article, "time")
         article_title = article_title if article_title else "未知來源"
         print("\nAns:", response)
         final_answer = f"{response}"
@@ -319,7 +330,7 @@ def get_QA_analyze(user_input):
             print("Bert Module")
             qa_embedding = text_embedding(user_input)
             article_embedding = article_text_embedding()
-            relevant_content, article_title = find_most_relevant(qa_embedding, article_embedding)
+            relevant_content, article_title = find_most_relevant(qa_embedding, article_embedding, "Bert")
             response = generate_response(user_input, relevant_content)
             article_title = article_title if article_title else "未知來源"
             print("\nAns:", response)

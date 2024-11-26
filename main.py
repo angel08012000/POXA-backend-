@@ -256,19 +256,6 @@ other_question = [
     }
   },
   {
-    "name": "get_qa_question",
-    "description": "當使用者輸入「其他問題」時，麻煩使用者輸入想詢問的問題，其他問題或動作，請使用 get_qa_answer。",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "etpProblem": {
-                "type": "string",
-                "description": "當使用者輸入「其他問題」"
-            }
-        }
-    }
-  },
-  {
     "name": "get_team_related",
     "description": f"當使用者詢問POXAGPT或是團隊成員時，使用此功能。若尚未提及，請使用 get_qa_answer。",
     "parameters": {
@@ -376,3 +363,5 @@ if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=True)
     port = int(os.environ.get("PORT", 5000))  # Render
     app.run(host="0.0.0.0", port=port)
+    # app.run(host="0.0.0.0", port=port, debug=True)
+
