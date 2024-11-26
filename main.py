@@ -280,6 +280,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/', methods=['GET'])
+def health_check():
+    return "Service is running!", 200
+
 @app.route('/greeting', methods=['GET'])
 def greeting():
   return jsonify({
