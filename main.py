@@ -2,6 +2,7 @@ from openai import OpenAI
 import time
 import requests
 from datetime import datetime, timedelta
+import os #Render
 
 from common import FORMAT_RESPONSE, SHOW_MENU, ADD_FILE_LINKS
 from functions.week_summary import get_summary
@@ -90,6 +91,15 @@ def get_define(term_question):
     })) 
    
   return res + SHOW_MENU()
+
+#獲取使用者問題
+def get_qa_question():
+  res = []
+  res.append(FORMAT_RESPONSE("text", {
+      "tag": "span",
+      "content": "請問您想詢問什麼問題呢？"
+  }))
+  return res
 
 # QA 問答
 def get_qa_answer(issue):
@@ -276,6 +286,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/', methods=['GET'])
+def health_check():
+    return "Service is running!", 200
+
 @app.route('/greeting', methods=['GET'])
 def greeting():
   return jsonify({
@@ -356,4 +370,8 @@ def chat_with_bot():
     return jsonify({'response': final_res})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    # app.run(host='0.0.0.0', debug=True)
+    # port = int(os.environ.get("PORT", 5000))  # Render
+    # print(f"Starting app on port {port}")
+    app.run(host="0.0.0.0", port=5000)
+
