@@ -307,6 +307,43 @@ def search_nearest_article(qa_time):
         print("無法找到符合日期的文章")
         return search_latest_article()
 
+def timeAnalyze(question, article_title):
+    print("Got the time!")
+    qa_time= extract_time(question)
+    nearest_article, article_title = search_nearest_article(qa_time)
+    print("QA's extract time:", qa_time,"  ",article_title)
+    response = generate_response(question, nearest_article, "time")
+    article_title = article_title if article_title else "未知來源"
+    print("\nAns:", response)
+    final_answer = f"{response}"
+    return final_answer, article_title
+
+def bertModule(question, article_title):
+    print("Bert Module")
+    qa_embedding = text_embedding(question)
+    article_embedding = article_text_embedding()
+    relevant_content, article_title = find_most_relevant(qa_embedding, article_embedding)
+    response = generate_response(question, relevant_content, "Bert")
+    article_title = article_title if article_title else "未知來源"
+    print("\nAns:", response)
+    final_answer = f"{response}"
+    return final_answer, article_title
+
+def keywordAnalyze(question, article_title, classification):
+    print("Keyword Analyze")
+    appropriate_articles = search_articles(question)
+    if appropriate_articles:
+        article_title = appropriate_articles[0].get("title", "未知來源")
+        responses = [article["response"] for article in appropriate_articles]
+        answer = generate_answer(question, responses, classification)
+    else:
+        answer = "找不到符合問題的文章。"
+        
+    answer_traditional = converter.convert(answer)
+    print("\nAns:", answer_traditional)
+    final_answer = f"{answer_traditional}"
+    return final_answer, article_title
+
 def get_QA_analyze(user_input):
     global gpt_calls 
     gpt_calls = 0
@@ -317,38 +354,13 @@ def get_QA_analyze(user_input):
     qa_classification = classify_question(user_input)
     print("QA's classification:", qa_classification)
     if classify_question_time(user_input):
-        print("Got the time!")
-        qa_time= extract_time(user_input)
-        nearest_article, article_title = search_nearest_article(qa_time)
-        print("QA's extract time:", qa_time,"  ",article_title)
-        response = generate_response(user_input, nearest_article, "time")
-        article_title = article_title if article_title else "未知來源"
-        print("\nAns:", response)
-        final_answer = f"{response}"
+        final_answer, article_title = timeAnalyze(user_input, article_title)
     else:
         if "數據型問題" in qa_classification:
-            print("Bert Module")
-            qa_embedding = text_embedding(user_input)
-            article_embedding = article_text_embedding()
-            relevant_content, article_title = find_most_relevant(qa_embedding, article_embedding, "Bert")
-            response = generate_response(user_input, relevant_content)
-            article_title = article_title if article_title else "未知來源"
-            print("\nAns:", response)
-            final_answer = f"{response}"
+            final_answer, article_title = bertModule(user_input, article_title)
         else:
-            print("Keyword Analyze")
-            appropriate_articles = search_articles(user_input)
-            if appropriate_articles:
-                article_title = appropriate_articles[0].get("title", "未知來源")
-                responses = [article["response"] for article in appropriate_articles]
-                answer = generate_answer(user_input, responses, qa_classification)
-            else:
-                answer = "找不到符合問題的文章。"
-        
-            answer_traditional = converter.convert(answer)
-            print("\nAns:", answer_traditional)
-            final_answer = f"{answer_traditional}"
-
+            final_answer, article_title = keywordAnalyze(user_input, article_title, qa_classification)
+            
     date_obj = extract_date_from_title(article_title)
     article_date = date_obj.strftime("%Y%m%d")
 
