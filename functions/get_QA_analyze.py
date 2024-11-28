@@ -330,8 +330,8 @@ def get_QA_analyze(user_input):
             print("Bert Module")
             qa_embedding = text_embedding(user_input)
             article_embedding = article_text_embedding()
-            relevant_content, article_title = find_most_relevant(qa_embedding, article_embedding, "Bert")
-            response = generate_response(user_input, relevant_content)
+            relevant_content, article_title = find_most_relevant(qa_embedding, article_embedding)
+            response = generate_response(user_input, relevant_content, "Bert")
             article_title = article_title if article_title else "未知來源"
             print("\nAns:", response)
             final_answer = f"{response}"
