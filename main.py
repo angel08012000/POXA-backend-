@@ -72,19 +72,25 @@ def get_week_summary(time):
 # 名詞解釋
 def get_define(term_question):
   term = ""
+  definition = ""
   res = []
   for t in term_list:
      if t in term_question:
         term = t
         print("term: " + term)
         definition = get_definition(term)
-        res.append(definition)
-  if term == "":
+        res.append(FORMAT_RESPONSE("text", {
+          "content" : definition
+        })) 
+        break
+  if definition == "":
     print("查無資料")
     # res = get_qa_answer(term_question)
-    res.append("查無資料，請重新提問。")
+    res.append(FORMAT_RESPONSE("text", {
+      "content" : "查無資料，請重新提問。"
+    })) 
    
-  return res
+  return res + SHOW_MENU()
 
 #獲取使用者問題
 def get_qa_question():
@@ -280,6 +286,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/', methods=['GET'])
+def health_check():
+    return "Service is running!", 200
+
 @app.route('/greeting', methods=['GET'])
 def greeting():
   return jsonify({
@@ -363,4 +373,5 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
     # port = int(os.environ.get("PORT", 5000))  # Render
     # app.run(host="0.0.0.0", port=port)
+
 
