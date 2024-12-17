@@ -349,7 +349,6 @@ def chat_with_bot():
         "response": res + SHOW_MENU()
       })
     
-    # # print(f"機器人1: {content}")
     res.append(FORMAT_RESPONSE("text", {
       "tag" : "span",
       "content" : content
