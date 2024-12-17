@@ -321,8 +321,6 @@ def chat_with_bot():
     print(f"呼叫函式的參數: {function_call.arguments}")
 
     final_res = call_function_by_name(function_call.name, eval(function_call.arguments))
-    # print(f"最終結論: {data}")
-
     end_time = time.time()
     execution_time = end_time - start_time
     print(f">>>>>>>> 本輪對話花費時間: {execution_time}")
