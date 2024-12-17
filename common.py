@@ -69,15 +69,6 @@ def GET_NEWS(url, top):
                 "topic": topic,
                 "url": link
             })
-
-            # full_text = GET_TEXT(link)
-            # summary = GET_SUMMARY_GPT(full_text, topic)
-
-            # news.append({
-            #     "topic": topic,
-            #     "summary": summary,
-            #     "url": link
-            # })
             
             i+=1
         except NoSuchElementException:
@@ -96,31 +87,6 @@ def GET_TEXT_and_SUMMARY(info):
     return info
 
 def GET_TEXT(url):
-    # 拿到網頁裡的文字，過濾標籤
-    # res = requests.get(url)
-    # full_text =  BeautifulSoup(res.text,'html.parser').get_text()
-
-    # options = webdriver.ChromeOptions()
-    # options.add_argument("--headless")
-    # driver = webdriver.Chrome(options=options)
-
-    # 用 selenium 太慢了
-    # driver = webdriver.Chrome()
-    # driver.get(url)
-    # wait = WebDriverWait(driver, 10)
-    # wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
-
-    # page_source = driver.page_source
-
-    # # 使用 BeautifulSoup 解析並獲取文本內容
-    # soup = BeautifulSoup(page_source, 'html.parser')
-    # full_text = soup.get_text()
-
-    # # 關閉瀏覽器
-    # driver.quit()
-
-    # return full_text
-
     # 這個比較快
     response = requests.get(url)
     response.raise_for_status()  # 確保請求成功
@@ -168,16 +134,6 @@ def FORMAT_NEWS(news):
                 "tag" : "span",
                 "content" : news[i]['summary']
             }))
-        
-
-        # res.append(FORMAT_RESPONSE("text", {
-        #     "tag" : "span",
-        #     "content" : f"({i+1}) {news[i]['topic']}\n{news[i]['summary']}"
-        # }))
-        # res.append(FORMAT_RESPONSE("link", {
-        #     "url" : news[i]["url"],
-        #     "content" : f"資料來源"
-        # }))
     return res
 
 def SHOW_MENU():

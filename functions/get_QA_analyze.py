@@ -169,7 +169,7 @@ def article_text_embedding():
 
     for data in datas:
         combined_content = ""
-        article_title = data['title']  # 取得文章標題
+        article_title = data['title']
         for i, block in data['block'].items():
             combined_content += f"段落內容: {block['blockContent']}\n"
         for i, section in data['section'].items():
@@ -177,7 +177,7 @@ def article_text_embedding():
         combined_content += "\n"
 
         article_embedding = text_embedding(combined_content)
-        data_embedding.append((article_title, combined_content, article_embedding))  # 包含文章標題
+        data_embedding.append((article_title, combined_content, article_embedding)) 
     return data_embedding
 
 def cosine_similarity(embedding1, embedding2):
