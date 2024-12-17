@@ -257,3 +257,15 @@ def ADD_FILE_LINKS(response):
         if key in response:
             links[key] = value
     return links
+
+def CALL_FUNCTION_BY_NAME(function_name, function_args):
+    global_symbols = globals()
+
+    # 檢查 function 是否存在＆可用
+    if function_name in global_symbols and callable(global_symbols[function_name]):
+        # 呼叫
+        function_to_call = global_symbols[function_name]
+        return function_to_call(**function_args)
+    else:
+        # 丟出錯誤
+        raise ValueError(f"Function '{function_name}' not found or not callable.")
