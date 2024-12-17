@@ -130,7 +130,6 @@ def get_team_related(team_related):
    
     return res + SHOW_MENU()
 
-
 # define functions
 today = datetime.today().strftime('%Y%m%d')
 week = [
@@ -316,18 +315,8 @@ def chat_with_bot():
 
   print(f"function_call: {function_call}")
 
-  # gpt 直接回覆
-  if content != None:
-    # print(f"機器人1: {content}")
-    res.append(FORMAT_RESPONSE("text", {
-      "tag" : "span",
-      "content" : content
-    }))
-    return jsonify({
-      'response': res
-    })
-  
-  if function_call: # 需要呼叫 function
+  # 需要呼叫 function / function_calling
+  if function_call: 
     print(f"呼叫函式的名稱: {function_call.name}")
     print(f"呼叫函式的參數: {function_call.arguments}")
 
@@ -339,6 +328,35 @@ def chat_with_bot():
     print(f">>>>>>>> 本輪對話花費時間: {execution_time}")
     
     return jsonify({'response': final_res})
+  
+  # gpt 直接回覆
+  if content != None:
+    if not any(keyword in data["user"] for keyword in ["電力", "交易", "規則", "得標", "結清", "報價", "容量", "調頻備轉", "補充備轉", "其他問題"]):
+        res.append(FORMAT_RESPONSE("text", {
+            "tag": "span",
+            "content": "無法回答此問題，請詢問與電力交易市場相關的問題。"
+        }))
+        return jsonify({
+          "response": res + SHOW_MENU()
+        })
+    
+    if not any(keyword in data["user"] for keyword in ["其他問題"]):
+      res.append(FORMAT_RESPONSE("text", {
+          "tag": "span",
+          "content": "您的問題可能不完全符合功能條件，請嘗試調整問法或補充更多細節。"
+      }))
+      return jsonify({
+        "response": res + SHOW_MENU()
+      })
+    
+    # # print(f"機器人1: {content}")
+    res.append(FORMAT_RESPONSE("text", {
+      "tag" : "span",
+      "content" : content
+    }))
+    return jsonify({
+      'response': res
+    })
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', debug=True)
