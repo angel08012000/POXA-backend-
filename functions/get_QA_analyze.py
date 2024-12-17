@@ -113,7 +113,6 @@ def search_articles(question):
         combined_content += f"段落簡介: {result['content']}\n"
         for i, block in result['block'].items():
             combined_content += f"段落內容: {block['blockContent']}\n"
-        
         for i, section in result['section'].items():
             combined_content += f"部分內容: {section['sectionContent']}\n"
         combined_content += "\n"
@@ -171,10 +170,8 @@ def article_text_embedding():
     for data in datas:
         combined_content = ""
         article_title = data['title']  # 取得文章標題
-
         for i, block in data['block'].items():
             combined_content += f"段落內容: {block['blockContent']}\n"
-        
         for i, section in data['section'].items():
             combined_content += f"部分內容: {section['sectionContent']}\n"
         combined_content += "\n"
@@ -219,7 +216,6 @@ def generate_response(question, rel_content, type):
         print("get_synonym\n")
         print("test:",question, " ",synonym_term)
         content_str = extract_content(rel_content) 
-        # filtered_content = "\n".join([line for line in content_str.splitlines() if synonym_term in line])
         filtered_content = []
         for line in content_str.splitlines():
             if synonym_term in line:
@@ -304,7 +300,7 @@ def search_nearest_article(qa_time):
         full_article = db_readData("WebInformation","article",{"_id": closest_article["_id"]},find_one=True)
         return full_article, article_title
     else:
-        print("無法找到符合日期的文章")
+        print("無法找到符合日期的相關文章")
         return search_latest_article()
 
 def timeAnalyze(question, article_title):
@@ -337,7 +333,7 @@ def keywordAnalyze(question, article_title, classification):
         responses = [article["response"] for article in appropriate_articles]
         answer = generate_answer(question, responses, classification)
     else:
-        answer = "找不到符合問題的文章。"
+        answer = "找不到符合問題的相關文章。"
         
     answer_traditional = converter.convert(answer)
     print("\nAns:", answer_traditional)
