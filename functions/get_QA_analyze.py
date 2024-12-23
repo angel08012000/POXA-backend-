@@ -274,7 +274,7 @@ def extract_time(question):
         model="gpt-3.5-turbo",
         temperature=0.3,
         messages=[
-            {"role": "system", "content": "你是一個專業的日期分析助手，僅需提供確切的('%Y-%m-%d')，不需要其他解釋或文字。"},
+            {"role": "system", "content": "你是一個專業的日期分析助手，僅回答 %Y-%m-%d，不需要其他解釋或文字。"},
             {"role": "user", "content": prompt}
         ]
     )
