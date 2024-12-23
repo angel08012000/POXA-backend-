@@ -1,4 +1,4 @@
-import re, opencc, time
+import re, opencc, time, jieba
 from pymongo.server_api import ServerApi
 from openai import OpenAI
 from datetime import datetime
@@ -228,13 +228,16 @@ def generate_response(question, rel_content, type):
         print("filtered_content:",filtered_content)
         prompt = f"問題: {question}\n根據以下內容中有關{synonym_term}的資訊回答問題:\n{filtered_content}\n\n回答詳細問題:"
     else:
-        if(type=="time"):
+        if(type=="time1"):
             print("get time content!")
             combined_content = ""
             combined_content += f"段落標題: {rel_content['title']}\n"
             combined_content += f"段落簡介: {rel_content['content']}\n"
             for i, block in rel_content['block'].items():
                 combined_content += f"段落內容: {block['blockContent']}\n"
+        elif(type=="time2"):
+            print("get block content!")
+            combined_content = rel_content        
         else:
             combined_content = rel_content
         prompt = f"問題: {question}\n\n根據以下內容生成確實的回答:\n{combined_content}\n\n回答:"
@@ -291,7 +294,8 @@ def search_nearest_article(qa_time):
         article_date = extract_date_from_title(title)
         if article_date:
             date_diff = abs((qa_time - article_date).days)
-            if (qa_time - article_date).days <= 0:
+            # if (qa_time - article_date).days <= 0:
+            if date_diff <= 4:
                 if date_diff < closest_date_diff:
                     closest_date_diff = date_diff
                     closest_article = article
@@ -302,13 +306,33 @@ def search_nearest_article(qa_time):
     else:
         print("無法找到符合日期的相關文章")
         return search_latest_article()
+    
+def blockTitleAnalyze(question, nearest_article):
+    print("blockTitle_analyze!")
+    matched_block_content = ""
+    for i, block in nearest_article['block'].items():
+        flag = 0
+        words = list(jieba.cut(block['blockTitle']))
+        for idx, word in enumerate(words):
+            if word in question:
+                flag+=1
+        if flag>=2:
+            matched_block_content += block['blockTitle'] + ":" + block['blockContent'] + "\n"
+
+    if matched_block_content:
+        print("Matched Block Content Found!")
+        print("matched_block_content:",matched_block_content)
+        return generate_response(question, matched_block_content, "time2")
+    else:
+        print("No matching blockTitle found.")
+        return generate_response(question, nearest_article, "time1")
 
 def timeAnalyze(question, article_title):
     print("Got the time!")
     qa_time= extract_time(question)
     nearest_article, article_title = search_nearest_article(qa_time)
     print("QA's extract time:", qa_time,"  ",article_title)
-    response = generate_response(question, nearest_article, "time")
+    response = blockTitleAnalyze(question, nearest_article)
     article_title = article_title if article_title else "未知來源"
     print("\nAns:", response)
     final_answer = f"{response}"
@@ -346,6 +370,8 @@ def get_QA_analyze(user_input):
     final_answer = ""
     start_time = time.time()
     article_title = "來源未知" 
+    if user_input == "其他問題":
+        return "請問你想問什麼問題 ? 麻煩詳細敘述 !"
 
     qa_classification = classify_question(user_input)
     print("QA's classification:", qa_classification)

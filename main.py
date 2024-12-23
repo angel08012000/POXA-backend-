@@ -329,7 +329,7 @@ def chat_with_bot():
   
   # gpt 直接回覆
   if content != None:
-    if not any(keyword in data["user"] for keyword in ["電力", "交易", "規則", "得標", "結清", "報價", "容量", "調頻備轉", "補充備轉", "其他問題"]):
+    if not any(keyword in data["user"] for keyword in ["電", "電力", "市場", "交易", "能源", "規則", "得標", "結清", "報價", "容量", "調頻備轉", "補充備轉", "摘要","法規問答","名詞解釋","其他問題"]):
         res.append(FORMAT_RESPONSE("text", {
             "tag": "span",
             "content": "無法回答此問題，請詢問與電力交易市場相關的問題。"
@@ -338,7 +338,7 @@ def chat_with_bot():
           "response": res + SHOW_MENU()
         })
     
-    if not any(keyword in data["user"] for keyword in ["其他問題"]):
+    if not any(keyword in data["user"] for keyword in ["摘要","法規問答","名詞解釋","其他問題"]):
       res.append(FORMAT_RESPONSE("text", {
           "tag": "span",
           "content": "您的問題可能不完全符合功能條件，請嘗試調整問法或補充更多細節。"
