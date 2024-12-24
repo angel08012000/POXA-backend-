@@ -118,7 +118,7 @@ def search_articles(question):
         combined_content += "\n"
 
         gpt_calls += 1
-        prompt = f"問題: {question}\n\n根據以下內容生成最符合的回答，回答請在600字左右:\n{combined_content}\n\n回答:"
+        prompt = f"問題: {question}\n\n根據以下內容生成最符合的回答，回答請在500字左右:\n{combined_content}\n\n回答:"
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             temperature=0.8,
