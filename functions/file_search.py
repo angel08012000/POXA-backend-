@@ -1,8 +1,18 @@
 import openai, os, re
 from openai import OpenAI
+from functions.sentence_similarity import compute_similarity
+from db_manager import db_readData
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
 client = OpenAI()
+
+# 同義詞
+def synonym_analysis(user_input):
+    synonyms = db_readData("WebInformation","synonyms",{})
+    for synon in synonyms:
+        if synon["term"] in user_input:
+            user_input = user_input.replace(synon["term"], synon["vocabulary"])
+    return user_input
 
 #上傳檔案到 vector store
 def upload_file(file_paths, my_vector_store):
@@ -74,15 +84,23 @@ def response_directly(user_question, my_thread, my_assistant):
     return messages[0].content[0].text.value
 
 def response_with_preprocess(user_question, my_thread, my_assistant):
-    user_message = "請根據以下問題選擇三個合適的檔案，分別以這些檔案提供三種回答，並用繁體中文回答。回答格式為\"檔案名：回答\"。問題如下：" + user_question
+    user_message = "請根據以下問題選擇三個合適的檔案，分別以這些檔案提供三種回答。請勿替換專有名詞，如：E-dReg、sReg。用繁體中文回答。回答格式為\"檔案名：回答\"。問題如下：" + user_question
     messages = send_message(user_message,  my_thread, my_assistant)
     gpt_response = messages[0].content[0].text.value
+    print(gpt_response)
 
-    print(gpt_response + "\n\n...正在選擇最適合答案...\n")
-    user_message = "請將上述和問題無關的回答移除，留下一到三個和問題相關的答案。"
-    messages = send_message(user_message,  my_thread, my_assistant)
-    return messages[0].content[0].text.value
-    # return gpt_response
+    # matches = gpt_response.strip().split("\n\n")
+    # print(f"正規後的回答：\n{matches}")
+    # final_res_list = compute_similarity(user_question, matches)
+    # final_res = '\n\n'.join(final_res_list)
+
+    # return final_res
+
+    # print(gpt_response + "\n\n...正在選擇最適合答案...\n")
+    # user_message = "請將上述和問題無關的回答移除，留下一到三個和問題相關的答案。"
+    # messages = send_message(user_message,  my_thread, my_assistant)
+    # return messages[0].content[0].text.value
+    return gpt_response
 
 
 
@@ -112,6 +130,8 @@ def start_file_search(question):
     print(my_assistant.name)
     my_thread = client.beta.threads.create()
 
+    question = synonym_analysis(question)
+    
     responses = response_with_preprocess(question, my_thread, my_assistant)
     # responses = response_directly(question, my_thread, my_assistant)
     responses = re.sub(r'【\d+:\d+†source】', '', responses)
