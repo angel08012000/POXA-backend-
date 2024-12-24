@@ -141,7 +141,7 @@ def SHOW_MENU():
     res.append(FORMAT_RESPONSE("text", {
         "tag" : "span",
         "content" : f"""您好～ 我是電力交易市場小助手，我能夠提供的功能類型包含:\n
-        每週摘要、規範查詢、名詞解釋、QA 問答
+        摘要、法規問答、名詞解釋、其他問題
         """
     }))
     
