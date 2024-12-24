@@ -5,7 +5,7 @@ client = OpenAI()
 def team_related_QA(user_input):
     start_time = time.time()
     answer=""
-    introduce="製作POXAGPT的主要成員有:梁晏慈、林芷穎、林珊銥，指導教授是馬尚彬老師。"
+    introduce="這個網站是由POXA Energy委託海大馬尚彬老師合作開發，團隊成員有梁晏慈、林芷穎、林珊銥。"
     prompt = f"請以下敘述回答下列問題：\n敘述：{introduce}\n問題：{user_input}\n回答："
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
