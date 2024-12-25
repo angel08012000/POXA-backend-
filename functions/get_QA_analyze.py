@@ -109,8 +109,8 @@ def search_articles(question):
        
     for result in results:
         combined_content = ""
-        combined_content += f"段落標題: {result['title']}\n"
-        combined_content += f"段落簡介: {result['content']}\n"
+        # combined_content += f"段落標題: {result['title']}\n"
+        # combined_content += f"段落簡介: {result['content']}\n"
         for i, block in result['block'].items():
             combined_content += f"段落內容: {block['blockContent']}\n"
         for i, section in result['section'].items():
