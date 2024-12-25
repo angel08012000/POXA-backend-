@@ -28,8 +28,37 @@ def call_function_by_name(function_name, function_args):
         # 丟出錯誤
         raise ValueError(f"Function '{function_name}' not found or not callable.")
 
+# def extract_time(user):
+#     llm = ChatVertexAI(
+#         model="gemini-1.5-pro",
+#         temperature=0,
+#         max_tokens=None,
+#         max_retries=6,
+#         stop=None,
+#         # other params...
+#     )
+
+#     messages = [
+#         (
+#             "system",
+#             f"""
+#             你是一個判斷工具，只能從使用者輸入中提取與時間相關的描述，並輸出原文中的相應部分。
+#             非使用者輸入，就不能出現在輸出。
+#             切勿新增任何字，也切勿進行提問或要求更多上下文。
+#             如果輸入中沒有與時間相關的內容，直接輸出空白。
+#             """,
+#         ),
+#         ("human", user),
+#     ]
+#     ai_msg = llm.invoke(messages)
+#     result = ai_msg.content
+#     print(f"提取時間: {result}")
+
+#     return result
 
 def get_summary(time):
+    # time = extract_time(user)
+
     llm = ChatVertexAI(
         model="gemini-1.5-pro",
         temperature=0,
@@ -53,23 +82,10 @@ def get_summary(time):
     ai_msg = llm.invoke(messages)
     result = ai_msg.content
 
-    # client = OpenAI()
-    # response = client.chat.completions.create(
-    #     model="gpt-3.5-turbo", 
-    #     messages= [
-    #         {"role": "system", "content": f"""
-    #             你是一個判斷工具，只會輸出 "1" 跟 "2"
-    #             若使用者所描述的時間長度大於 7 天，輸出 "1"
-    #             否則，輸出 "2"
-    #             """
-    #         },
-    #         {"role": "user", "content": time}
-    #     ]
-    # )
-    # result = response.choices[0].message.content
-
     print(f"判斷結果: {result}")
+
     if result.strip()=="1": # 整理多篇的摘要
+        today = datetime.today().strftime('%Y%m%d')
         print("多篇摘要總結")
         messages = [
             (
@@ -77,6 +93,7 @@ def get_summary(time):
                 f"""
                 你是一個日期判斷工具，只會輸出開始日期(%Y%m%d)、結尾日期(%Y%m%d)
                 中間以 "," 來分隔，不要加任何的空白
+                今天日期為 {today}
 
                 請根據使用者的描述來判斷開始、結尾日期
                 """,
@@ -85,6 +102,8 @@ def get_summary(time):
         ]
         ai_msg = llm.invoke(messages)
         result = ai_msg.content
+
+        # result = response.choices[0].message.content
         print(f"開始、結尾日期分別是: {result}")
 
         start_date_str, end_date_str = result.split(",")
@@ -109,6 +128,11 @@ def get_summary(time):
             for m in mondays:
                 all_summary += get_summary_block(m.strftime("%Y%m%d"))
 
+            if all_summary == "":
+                return [FORMAT_RESPONSE("text", {
+                    "tag": "span",
+                    "content": f"該範圍（{start_date_str}～{end_date_str}） 無摘要"
+                })]
             # with open("./test_summary", "w", encoding="utf-8") as file:
             #     file.write(all_summary)
 
@@ -166,6 +190,7 @@ def get_summary(time):
             # 若未找到摘要，退回一週
             date = datetime.strptime(previous_monday, "%Y%m%d")
             date -= timedelta(days=7)
+            print("倒退一週!")
             previous_monday = date.strftime("%Y%m%d")
 
         return res + SHOW_MENU()
@@ -198,6 +223,8 @@ def get_summary_one_week(time):
                     %Y:
                     若有明確的數字 year，則 %Y = year
                     若未指定，請默認使用 {today} 中的 %Y
+
+                    若出現「本週」，則輸出 {today}。
                     """
                 },
                 {"role": "user", "content": time}
@@ -224,6 +251,68 @@ def get_summary_one_week(time):
 
     return previous_monday
 
+
+# ver. Gemini
+# def get_summary_one_week(time):
+
+#     if time==None:
+#         date = datetime.today()
+#     else:
+#         today = datetime.today().strftime('%Y%m%d')
+
+#         llm = ChatVertexAI(
+#             model="gemini-1.5-pro",
+#             temperature=0,
+#             max_tokens=None,
+#             max_retries=6,
+#             stop=None,
+#             # other params...
+#         )
+
+#         messages = [
+#             (
+#                 "system",
+#                 f"""
+#                 你是一個日期轉換工具，只會輸出八位數字（%Y%m%d），請不要輸出除了數字之外的內容。
+
+#                 %d:
+#                 若有明確的數字 day，則 %d = day
+#                 若指定了「第n週」，則先將 n 轉換為數字，而 %d 應該是該月份的第 7*n 天，即 n*7。
+#                 若未指定，請默認 %d = 7
+
+#                 %m:
+#                 若有明確的數字 month，則 %m = month
+#                 若未指定，請默認使用 {today} 中的 %m
+
+#                 %Y:
+#                 若有明確的數字 year，則 %Y = year
+#                 若未指定，請默認使用 {today} 中的 %Y
+
+#                 若出現「本週」，則輸出 {today}。
+#                 """,
+#             ),
+#             ("human", time),
+#         ]
+#         ai_msg = llm.invoke(messages)
+#         result = ai_msg.content
+
+#         print(f"判斷出的日期: {result}")
+#         date = datetime.strptime(result, '%Y%m%d')
+
+#         start_time = datetime(2023, 10, 2)
+#         if date < start_time:
+#             return None
+#         if date > datetime.today():
+#             return None
+
+#     # 拿到前一個週一的日期
+#     weekday = date.weekday()  # 週一為 0，週日為 6
+#     print(f"減 {weekday}")
+#     previous_monday = date - timedelta(days=weekday)
+#     previous_monday = previous_monday.strftime('%Y%m%d')
+#     print(f"上一個週一: {previous_monday}")
+
+#     return previous_monday
 
 def get_all_monday(start_date, end_date):
     mondays = []

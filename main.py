@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from openai import OpenAI
 import time
 import requests
@@ -32,13 +33,10 @@ def call_function_by_name(function_name, function_args):
 
 # 本週摘要
 def get_week_summary(time):
-  print(f"送進來的時間: {time}")
+  print(f"送進來的資訊: {time}")
   result = get_summary(time)
   
   return result
-      
-
-  
 
 # 名詞解釋
 def get_define(term_question):
@@ -137,30 +135,20 @@ week = [
     "name": "get_week_summary",
     "description": f"""
       提供電力交易市場的摘要。
-      若給定日期，則使用該日期進行查詢。
-      若有未給定年 or 月，請使用與「{datetime.today().strftime('%Y/%m/%d')}」對應的數字。
       """,
       # 若未給定日期，請回覆使用者以取得日期資訊。
+      # 若給定日期，則使用該日期進行查詢。
+      # 若有未給定年 or 月，請使用與「{datetime.today().strftime('%Y/%m/%d')}」對應的數字。
     "parameters": {
       "type": "object",
       "properties": {
         "time": {
           "type": "string",
           "description": f"""
-          跟時間有關的描述，不要推測使用者未提供的數據。
+          你是一個判斷工具，只能從使用者輸入中提取與時間相關的描述，並輸出原文中的相應部分。
+          非使用者輸入，就不能出現在輸出。
+          切勿新增任何字，也切勿進行提問或要求更多上下文。
           """
-          # %d:
-          # 若有明確的數字 day，則 %d = day
-          # 若指定了第n週，則先將 n 轉換為數字，而 %d 應該是該月份的第 7*n 天，即 n*7。
-          # 若未指定，請默認 %d = 7
-
-          # %m:
-          # 若有明確的數字 month，則 %m = month
-          # 若未指定，請默認使用 {today} 中的 %m
-
-          # %Y:
-          # 若有明確的數字 year，則 %Y = year
-          # 若未指定，請默認使用 {today} 中的 %Y
         },
       },
       "required": ["time"],
