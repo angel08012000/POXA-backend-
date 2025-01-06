@@ -229,18 +229,20 @@ def generate_response(question, rel_content, type):
         prompt = f"問題: {question}\n根據以下內容中有關{synonym_term}的資訊回答問題:\n{filtered_content}\n\n回答詳細問題:"
     else:
         if(type=="time1"):
-            print("get time content!")
+            print("Need all content!")
             combined_content = ""
             combined_content += f"段落標題: {rel_content['title']}\n"
             combined_content += f"段落簡介: {rel_content['content']}\n"
             for i, block in rel_content['block'].items():
                 combined_content += f"段落內容: {block['blockContent']}\n"
+            for i, section in rel_content['section'].items():
+                combined_content += f"段落內容: {section['sectionContent']}\n"
         elif(type=="time2"):
             print("get block content!")
             combined_content = rel_content        
         else:
             combined_content = rel_content
-        prompt = f"問題: {question}\n\n根據以下內容生成確實的回答:\n{combined_content}\n\n回答:"
+        prompt = f"問題: {question}\n\n根據以下內容生成符合問題的回答(麻煩反覆確認是否符合問題再輸出):\n{combined_content}\n\n回答:"
     
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
