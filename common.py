@@ -141,7 +141,7 @@ def SHOW_MENU():
     res.append(FORMAT_RESPONSE("text", {
         "tag" : "span",
         "content" : f"""您好～ 我是電力交易市場小助手，我能夠提供的功能類型包含:\n
-        摘要、法規問答、名詞解釋、其他問題
+        摘要、法規問答、名詞解釋、資料庫查詢、其他問題
         """
     }))
     
@@ -161,14 +161,14 @@ def SHOW_MENU():
     }))
 
     res.append(FORMAT_RESPONSE("button", {
+        "content": "資料庫查詢",
+        "function": "get_etp_answer"
+    }))
+
+    res.append(FORMAT_RESPONSE("button", {
         "content": "其他問題",
         "function": "get_other_question"
     }))
-
-    # res.append(FORMAT_RESPONSE("button", {
-    #     "content": "QA 問答",
-    #     "function": "get_qa_answer"
-    # }))
     
     return res
 
