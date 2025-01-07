@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from openai import OpenAI
 import requests
 
@@ -331,8 +331,14 @@ def get_all_monday(start_date, end_date):
 
 def get_summary_block(date):
     options = webdriver.ChromeOptions()
-    options.add_argument("--headless")
-    driver = webdriver.Chrome(options=options)
+    options.add_argument("--headless")  # 啟用無頭模式
+    options.add_argument("--no-sandbox")  # 避免沙盒問題（推薦在 Linux 系統上加上這個參數）
+    options.add_argument("--disable-dev-shm-usage")  # 避免資源限制錯誤
+
+    # 自動下載並使用對應版本的 ChromeDriver
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
+
     driver.get(f"{POXA}/report/{date}")
 
     try:
