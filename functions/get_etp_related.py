@@ -1,4 +1,4 @@
-import json
+import json, re
 from openai import OpenAI
 from pymongo.server_api import ServerApi
 from functions.get_QA_analyze import get_QA_analyze
@@ -12,12 +12,11 @@ def execute_code_logic(data, prefix, is_qse, suffix):
         count = 0
         max_value = float('-inf')
         min_value = float('inf')
-
+        product_field = f"{prefix}{suffix}"
+        qse_field = f"{prefix}{suffix}Qse" if is_qse else product_field
+        print("Actually classify:", qse_field)
 
         for entry in data:
-            product_field = f"{prefix}{suffix}"
-            qse_field = f"{prefix}{suffix}Qse" if is_qse else product_field
-
             if qse_field in entry:
                 value = entry[qse_field]
                 total_value += value
@@ -109,9 +108,26 @@ def parse_and_find_closest(data_list, date_field):
 
     return matching_list
 
+def parse_by_exact_date(data_list, date_field, exact_date):
+    matching_list = []
+    for entry in data_list:
+        entry_date_str = entry[date_field]
+        if entry_date_str == exact_date:
+            matching_list.append(entry)
+    return matching_list
+
+def dateAnalyze(question):
+    match = re.search(r'(\d{4})-(\d{1,2})-(\d{1,2})', question)
+    if match:
+        return match.group(0)
+    return False
+
 def get_etp_related(user_input):
     classify = classify_question(user_input)
-    print("classify:", classify)
+    print("GPT classify:", classify)
+    check = dateAnalyze(user_input)
+    print("date:", check)
+    fault = ""
 
     is_qse = "民營" in user_input
 
@@ -151,16 +167,26 @@ def get_etp_related(user_input):
             with open(json_file, 'r', encoding='utf-8') as f:
                 existing_data = json.load(f)
 
-            closest_data = parse_and_find_closest(existing_data, date)
-            lastest_result = execute_code_logic(closest_data, prefix, is_qse, suffix)
+            if check == False:
+                print("check false!")
+                search_data = parse_and_find_closest(existing_data, date)
+            else:
+                print("check true!")
+                search_data = parse_by_exact_date(existing_data, date, check)
+                if not search_data: 
+                    print(f"未找到 {check} 的資料，改為查找最新日期。")
+                    fault = f"未找到 {check} 的資料，改為查找最新日期。"
+                    search_data = parse_and_find_closest(existing_data, date)
+            lastest_result = execute_code_logic(search_data, prefix, is_qse, suffix)
             if isinstance(lastest_result, dict):
-                answer = (f"目前最新->{closest_data[0][date]}的ETP資料:\n"
+                answer = (f"目前最新->{search_data[0][date]}的ETP資料:\n"
                           f"最大值: {lastest_result['max_value']:.2f}, "
                           f"最小值: {lastest_result['min_value']:.2f}, "
                           f"平均值: {lastest_result['avg_value']:.2f}\n")
             else:
                 answer = lastest_result 
-
+            if fault:
+                answer += f"\n{fault}\n"
             print(f"回答: {answer}")
             return answer
 
