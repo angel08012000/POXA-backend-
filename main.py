@@ -193,13 +193,13 @@ define = [
 database = [
    {
     "name": "get_etp_answer",
-    "description": "當且僅當前端傳入的問題中，包含「得標量」、「結清」、「非交易」、「民營」關鍵詞，且問題為單一問題時，才使用此功能。如果問題包含多個問題或任何其他內容，請使用 get_qa_answer。",
+    "description": "當問題中包含「得標量」、「結清」、「非交易」、「民營」關鍵詞，且問題為單一問題時，才使用此功能。",
     "parameters": {
         "type": "object",
         "properties": {
             "etpProblem": {
                 "type": "string",
-                "description": "完整接收包含「得標量」、「結清」、「非交易」、「民營」關鍵詞的單一問題"
+                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。"
             }
         },
         "required": ["etpProblem"]
@@ -323,23 +323,23 @@ def chat_with_bot():
   
   # gpt 直接回覆
   if content != None:
+    if any(keyword in data["user"] for keyword in ["資料庫查詢"]):
+      res.append(FORMAT_RESPONSE("text", {
+          "tag": "span",
+          "content": "你有什麼想在 etp 查詢的問題嗎？\n 若想針對特定日期查詢，請依照格式輸入(YYYY-MM-DD)。"
+      }))
+      return jsonify({
+        "response": res
+      })
+    
     if not any(keyword in data["user"] for keyword in ["電", "力", "市", "場", "交", "易", "能", "源", "規", "則", "得", "標", "結", "清", "價", "容", "量", "頻", "率", "調頻", "備轉", "即時", "補充", "摘要","法規問答","名詞解釋","資料庫查詢","其他問題"]):
         res.append(FORMAT_RESPONSE("text", {
             "tag": "span",
-            "content": "無法回答此問題，請詢問與電力交易市場相關的問題。"
+            "content": "無法回答此問題，請詢問與電力交易市場相關的問題，或嘗試調整問法或補充更多細節。"
         }))
         return jsonify({
           "response": res + SHOW_MENU()
         })
-    
-    if not any(keyword in data["user"] for keyword in ["摘要","法規問答","名詞解釋","資料庫查詢","其他問題"]):
-      res.append(FORMAT_RESPONSE("text", {
-          "tag": "span",
-          "content": "您的問題可能不完全符合功能條件，請嘗試調整問法或補充更多細節。"
-      }))
-      return jsonify({
-        "response": res + SHOW_MENU()
-      })
     
     res.append(FORMAT_RESPONSE("text", {
       "tag" : "span",
