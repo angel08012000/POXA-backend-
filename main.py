@@ -10,7 +10,7 @@ from functions.week_summary import get_summary
 from functions.get_rules import get_rules
 from functions.term_explaination import get_definition
 from functions.get_QA_analyze import get_QA_analyze
-from functions.get_etp_related import get_etp_related
+from functions.get_etp_related import get_etp_related, get_etp_manu
 from functions.team_related_QA import team_related_QA
 from config import POXA
 
@@ -108,8 +108,8 @@ def get_etp_answer(etpProblem):
 
     if answer == False:
       print("no etp answer")
-      qa_response = get_qa_answer(etpProblem)
-      return qa_response
+      manu_response = get_manufacturer(etpProblem)
+      return manu_response
     else:
       res = []
       res.append(FORMAT_RESPONSE("text", {
@@ -117,7 +117,18 @@ def get_etp_answer(etpProblem):
         }))
     
       return res + SHOW_MENU()
+    
+def get_manufacturer(company):
+    answer = get_etp_manu(company)
 
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "content" : answer
+    }))
+
+    return res + SHOW_MENU()
+
+#客製化問題(團隊)
 def get_team_related(team_related):
     answer = team_related_QA(team_related)
 
@@ -204,6 +215,20 @@ database = [
         },
         "required": ["etpProblem"]
     }
+  },
+  {
+    "name": "get_manufacturer",
+    "description": "當問題中沒有「E-dReg」、「調頻備轉」、「即時備轉」、「補充備轉」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用此功能。",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "company": {
+                "type": "string",
+                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。若問題中有「E-dReg」、「調頻備轉」、「即時備轉」、「補充備轉」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用get_etp_answer。"
+            }
+        },
+        "required": ["company"]
+    }
   }
 ]
 
@@ -216,7 +241,7 @@ other_question = [
         "properties": {
             "issue": {
                 "type": "string",
-                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化，特別適用於包含多個問題的情況"
+                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化，特別適用於包含多個問題的情況。"
             }
         },
         "required": ["issue"]
