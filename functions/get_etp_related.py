@@ -38,7 +38,7 @@ def execute_code_logic(data, prefix, is_qse, suffix, gpt, gemini):
                 "max_value": max_value,
                 "min_value": min_value,
                 "avg_value": avg_value
-            }
+            }, qse_field
         else:
             return "無數據可供計算"
 

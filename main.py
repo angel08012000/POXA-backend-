@@ -105,15 +105,20 @@ def get_market_rule(rule_question):
 def get_etp_answer(etpProblem):
     answer = get_etp_related(etpProblem)
 
-    res = []
-    res.append(FORMAT_RESPONSE("text", {
-        "content" : answer
-      }))
+    if answer == False:
+      print("no etp answer")
+      manu_response = get_manufacturer(etpProblem)
+      return manu_response
+    else:
+      res = []
+      res.append(FORMAT_RESPONSE("text", {
+          "content" : answer
+        }))
     
-    return res + SHOW_MENU()
+      return res + SHOW_MENU()
     
-def get_manufacturer(manuQuestion):
-    answer = get_etp_manu(manuQuestion)
+def get_manufacturer(company):
+    answer = get_etp_manu(company)
 
     res = []
     res.append(FORMAT_RESPONSE("text", {
@@ -212,16 +217,16 @@ database = [
   },
   {
     "name": "get_manufacturer",
-    "description": "當問題中有「合格交易者」、「容量」、「地址」、「統編」、「代表人」、「公司」、「電廠」關鍵詞，就使用此功能。若問題中有「投標量」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用get_etp_answer。",
+    "description": "當問題中沒有「E-dReg」、「調頻備轉」、「即時備轉」、「補充備轉」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用此功能。",
     "parameters": {
         "type": "object",
         "properties": {
-            "manuQuestion": {
+            "company": {
                 "type": "string",
-                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。"
+                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。若問題中有「E-dReg」、「調頻備轉」、「即時備轉」、「補充備轉」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用get_etp_answer。"
             }
         },
-        "required": ["manuQuestion"]
+        "required": ["company"]
     }
   }
 ]
@@ -235,7 +240,7 @@ other_question = [
         "properties": {
             "issue": {
                 "type": "string",
-                "description": "當問題與電力交易市場有關時，完整接收使用者提出的問題（原始輸入），不得改寫或簡化，特別適用於包含多個問題的情況。"
+                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化，特別適用於包含多個問題的情況。"
             }
         },
         "required": ["issue"]
