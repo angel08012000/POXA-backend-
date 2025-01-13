@@ -6,7 +6,7 @@ from langchain_google_vertexai import ChatVertexAI
 
 client = OpenAI()
 
-def execute_code_logic(data, prefix, is_qse, suffix):
+def execute_code_logic(data, prefix, is_qse, suffix, gpt, gemini):
     try:
         total_value = 0
         count = 0
@@ -14,10 +14,13 @@ def execute_code_logic(data, prefix, is_qse, suffix):
         min_value = float('inf')
         product_field = f"{prefix}{suffix}"
         qse_field = f"{prefix}{suffix}Qse" if is_qse else product_field
+        target = gemini
+        if qse_field==gpt and gemini!=gpt:
+            target = qse_field
 
         for entry in data:
-            if qse_field in entry:
-                value = entry[qse_field]
+            if target in entry:
+                value = entry[target]
                 total_value += value
                 count += 1
 
@@ -110,6 +113,7 @@ def classify_question(question):
     ai_msg = llm.invoke(messages)
     result = ai_msg.content
 
+    # answer->GPT   result->Gemini
     return answer, result
 
 def parse_and_find_closest(data_list, date_field):
@@ -252,7 +256,7 @@ def get_etp_related(user_input):
                     print(f"未找到 {check} 的資料，改為查找最新日期。")
                     fault = f"未找到 {check} 的資料，改為查找最新日期。"
                     search_data = parse_and_find_closest(existing_data, date)
-            lastest_result, classification = execute_code_logic(search_data, prefix, is_qse, suffix)
+            lastest_result, classification = execute_code_logic(search_data, prefix, is_qse, suffix, classify_gpt, classify_gemini)
             print("GPT VS Gemini VS Actually classify: ", classify_gpt," VS ",classify_gemini," VS ",classification)
             if isinstance(lastest_result, dict):
                 answer = (f"目前最新->{search_data[0][date]}的ETP資料:\n"
