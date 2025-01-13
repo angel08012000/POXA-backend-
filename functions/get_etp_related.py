@@ -15,8 +15,11 @@ def execute_code_logic(data, prefix, is_qse, suffix, gpt, gemini):
         min_value = float('inf')
         product_field = f"{prefix}{suffix}"
         qse_field = f"{prefix}{suffix}Qse" if is_qse else product_field
+<<<<<<< HEAD
         print("GPT VS Gemini VS Actually classify: ", gpt," VS ",gemini," VS ",qse_field)
 
+=======
+>>>>>>> f2d11aa (Update query etp contract)
         target = gemini
         if qse_field==gpt and gemini!=gpt:
             target = qse_field

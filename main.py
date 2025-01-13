@@ -240,7 +240,7 @@ other_question = [
         "properties": {
             "issue": {
                 "type": "string",
-                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化，特別適用於包含多個問題的情況。"
+                "description": "當問題與電力交易市場有關時，完整接收使用者提出的問題（原始輸入），不得改寫或簡化，特別適用於包含多個問題的情況。"
             }
         },
         "required": ["issue"]
