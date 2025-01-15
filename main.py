@@ -204,7 +204,7 @@ define = [
 database = [
    {
     "name": "get_etp_answer",
-    "description": "當問題中包含「得標量」、「結清」、「非交易」、「民營」關鍵詞，且問題為單一問題時，才使用此功能。",
+    "description": "當問題中包含「投標量」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，且問題為單一問題時，才使用此功能。",
     "parameters": {
         "type": "object",
         "properties": {
@@ -218,13 +218,13 @@ database = [
   },
   {
     "name": "get_manufacturer",
-    "description": "當問題中沒有「E-dReg」、「調頻備轉」、「即時備轉」、「補充備轉」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用此功能。",
+    "description": "當問題中沒有「投標量」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用此功能。",
     "parameters": {
         "type": "object",
         "properties": {
             "company": {
                 "type": "string",
-                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。若問題中有「E-dReg」、「調頻備轉」、「即時備轉」、「補充備轉」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用get_etp_answer。"
+                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。若問題中有「投標量」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用get_etp_answer。"
             }
         },
         "required": ["company"]
