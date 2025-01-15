@@ -204,7 +204,7 @@ define = [
 database = [
    {
     "name": "get_etp_answer",
-    "description": "當問題中包含「得標量」、「結清」、「非交易」、「民營」關鍵詞，且問題為單一問題時，才使用此功能。",
+    "description": "當問題中包含「投標量」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，且問題為單一問題時，才使用此功能。",
     "parameters": {
         "type": "object",
         "properties": {
