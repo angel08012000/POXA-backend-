@@ -45,11 +45,21 @@ def execute_code_logic(data, prefix, is_qse, suffix, gpt, gemini):
 def classify_question(question):
     rule = """
     字首: 當問題提到E-dReg，prefix=edreg；提到調頻備轉，prefix=reg；提到即時備轉，prefix=sr；提到補充備轉，prefix=sup。
-    字中: 當問題提到得標量，midfix=Bid；提到非交易，midfix=BidNontrade；提到結清價格，midfix=Price；若沒有提到得標量、非交易和結清價格，midfix=Offering。
+    字中: 當問題提到投標量，midfix=Offering；提到得標量，midfix=Bid；提到非交易，midfix=BidNontrade；提到結清價格，midfix=Price。
     字尾: 當問題中提到民營，suffix=Qse。若未提到則無suffix。
     輸出: 僅輸出 prefix+midfix+suffix，不需加入其他文字和解釋。
     """
+    sample = """
+    1. 問題：「請問調頻備轉的得標量？」 -> 輸出：regBid
+    2. 問題：「民營的即時備轉結清價格是？」 -> 輸出：srPriceQse
+    3. 問題：「補充備轉的結清價格？」 -> 輸出：supPrice
+    4. 問題：「請問E-dReg非交易的得標量？」 -> 輸出：edregBidNontrade
+    5. 問題：「民營調頻備轉投標量？」 -> 輸出：regOfferingQse
+    6. 問題：「非交易調頻備轉的得標量？」 -> 輸出：regBidNontrade
+    7. 問題：「即時備轉的投標量？」 -> 輸出：srOffering
+    """
 
+    # GPT
     prompt = f"""
     根據以下規則，判斷該問題查詢的資料庫項目，並嚴格按照格式「prefix+midfix+suffix」輸出結果。如果 suffix 不存在則略過 suffix。請只輸出資料庫項目，**不要加入任何解釋、引言、或其他文字**。
     
@@ -59,16 +69,8 @@ def classify_question(question):
     {rule}
     
     範例：
-    1. 問題：「請問調頻備轉的得標量？」 -> 輸出：regBid
-    2. 問題：「民營的即時備轉結清價格是？」 -> 輸出：srPriceQse
-    3. 問題：「補充備轉的結清價格？」 -> 輸出：supPrice
-    4. 問題：「請問E-dReg非交易的得標量？」 -> 輸出：edregBidNontrade
-    5. 問題：「民營調頻備轉？」 -> 輸出：regOfferingQse
-    6. 問題：「非交易調頻備轉的得標量？」 -> 輸出：regBidNontrade
-    7. 問題：「即時備轉的價格？」 -> 輸出：srOffering
+    {sample}
     """
-    
-    # 生成回答
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         temperature=0,
@@ -77,12 +79,12 @@ def classify_question(question):
             {"role": "user", "content": prompt}
         ]
     )
-    
     answer = response.choices[0].message.content.strip()
     
     if "：" in answer or ":" in answer:
         answer = answer.split("：")[-1].strip()
 
+    # Gemini
     llm = ChatVertexAI(
         model="gemini-1.5-pro",
         temperature=0,
@@ -90,7 +92,6 @@ def classify_question(question):
         max_retries=6,
         stop=None,
     )
-
     messages = [(
             "system",
             f"""
@@ -100,13 +101,7 @@ def classify_question(question):
             {rule}
             
             範例：
-            1. 問題：「請問調頻備轉的得標量？」 -> regBid
-            2. 問題：「民營的即時備轉結清價格是？」 -> srPriceQse
-            3. 問題：「補充備轉的結清價格？」 -> supPrice
-            4. 問題：「請問E-dReg非交易的得標量？」 -> edregBidNontrade
-            5. 問題：「民營調頻備轉？」 -> regOfferingQse
-            6. 問題：「非交易調頻備轉的得標量？」 -> regBidNontrade
-            7. 問題：「即時備轉的價格？」 -> 輸出：srOffering
+            {sample}
             """,
         ),("human", question),
     ]
@@ -230,8 +225,10 @@ def get_etp_related(user_input):
         suffix = "Price"
     elif "得標量" in user_input:
         suffix = "Bid"
-    else:
+    elif "投標量" in user_input:
         suffix = "Offering"
+    else:
+        suffix = None
 
     if suffix != "Offering":
         json_file = 'poxa-info.etp_settle_value_query.json'
