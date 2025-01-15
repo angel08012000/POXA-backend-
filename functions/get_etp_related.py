@@ -14,6 +14,8 @@ def execute_code_logic(data, prefix, is_qse, suffix, gpt, gemini):
         min_value = float('inf')
         product_field = f"{prefix}{suffix}"
         qse_field = f"{prefix}{suffix}Qse" if is_qse else product_field
+        print("GPT VS Gemini VS Actually classify: ", gpt," VS ",gemini," VS ",qse_field)
+
         target = gemini
         if qse_field==gpt and gemini!=gpt:
             target = qse_field
@@ -35,7 +37,7 @@ def execute_code_logic(data, prefix, is_qse, suffix, gpt, gemini):
                 "max_value": max_value,
                 "min_value": min_value,
                 "avg_value": avg_value
-            }, qse_field
+            }
         else:
             return "無數據可供計算"
 
@@ -81,8 +83,12 @@ def classify_question(question):
     )
     answer = response.choices[0].message.content.strip()
     
-    if "：" in answer or ":" in answer:
+    if "：" in answer :
         answer = answer.split("：")[-1].strip()
+    elif ":" in answer :
+        answer = answer.split(":")[-1].strip()
+    elif "->" in answer :
+        answer = answer.split("->")[-1].strip()
 
     # Gemini
     llm = ChatVertexAI(
@@ -95,7 +101,7 @@ def classify_question(question):
     messages = [(
             "system",
             f"""
-            根據以下規則，判斷該問題查詢的資料庫項目，並嚴格按照格式「prefix+midfix+suffix」輸出結果。如果 suffix 不存在則略過 suffix。請只輸出資料庫項目，**不要加入任何解釋、引言、或其他文字**。
+            根據以下規則，判斷該問題查詢的資料庫項目，並嚴格按照格式「prefix+midfix+suffix」輸出結果。如果 suffix 不存在則略過 suffix。請只輸出資料庫項目，**不要加入任何解釋、引言、空格、換行或其他文字**。
 
             規則:
             {rule}
@@ -106,7 +112,7 @@ def classify_question(question):
         ),("human", question),
     ]
     ai_msg = llm.invoke(messages)
-    result = ai_msg.content
+    result = ai_msg.content.strip()
 
     # answer->GPT   result->Gemini
     return answer, result
@@ -253,8 +259,7 @@ def get_etp_related(user_input):
                     print(f"未找到 {check} 的資料，改為查找最新日期。")
                     fault = f"未找到 {check} 的資料，改為查找最新日期。"
                     search_data = parse_and_find_closest(existing_data, date)
-            lastest_result, classification = execute_code_logic(search_data, prefix, is_qse, suffix, classify_gpt, classify_gemini)
-            print("GPT VS Gemini VS Actually classify: ", classify_gpt," VS ",classify_gemini," VS ",classification)
+            lastest_result = execute_code_logic(search_data, prefix, is_qse, suffix, classify_gpt, classify_gemini)
             if isinstance(lastest_result, dict):
                 answer = (f"目前最新->{search_data[0][date]}的ETP資料:\n"
                           f"最大值: {lastest_result['max_value']:.2f}, "
