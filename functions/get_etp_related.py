@@ -15,11 +15,9 @@ def execute_code_logic(data, prefix, is_qse, suffix, gpt, gemini):
         min_value = float('inf')
         product_field = f"{prefix}{suffix}"
         qse_field = f"{prefix}{suffix}Qse" if is_qse else product_field
-<<<<<<< HEAD
+
         print("GPT VS Gemini VS Actually classify: ", gpt," VS ",gemini," VS ",qse_field)
 
-=======
->>>>>>> f2d11aa (Update query etp contract)
         target = gemini
         if qse_field==gpt and gemini!=gpt:
             target = qse_field
@@ -41,7 +39,7 @@ def execute_code_logic(data, prefix, is_qse, suffix, gpt, gemini):
                 "max_value": max_value,
                 "min_value": min_value,
                 "avg_value": avg_value
-            }, qse_field
+            }
         else:
             return "無數據可供計算"
 
@@ -409,6 +407,7 @@ def get_etp_related(user_input):
                 print(f"未找到 {check} 的資料，改為查找最新日期。")
                 fault = f"未找到 {check} 的資料，改為查找最新日期。"
                 search_data = parse_and_find_closest(existing_data, date)
+<<<<<<< HEAD
         lastest_result = execute_code_logic(search_data, prefix, is_qse, suffix, classify_gpt, classify_gemini)
         if isinstance(lastest_result, dict):
             answer = (f"目前最新->{search_data[0][date]}的ETP資料:\n"
@@ -421,6 +420,30 @@ def get_etp_related(user_input):
             answer += f"\n{fault}\n"
         print(f"回答: {answer}")
         return answer
+=======
+            else:
+                print("check true!")
+                search_data = parse_by_exact_date(existing_data, date, check)
+                if not search_data: 
+                    print(f"未找到 {check} 的資料，改為查找最新日期。")
+                    fault = f"未找到 {check} 的資料，改為查找最新日期。"
+                    search_data = parse_and_find_closest(existing_data, date)
+            lastest_result = execute_code_logic(search_data, prefix, is_qse, suffix, classify_gpt, classify_gemini)
+            if isinstance(lastest_result, dict):
+                answer = (f"目前最新->{search_data[0][date]}的ETP資料:\n"
+                          f"最大值: {lastest_result['max_value']:.2f}, "
+                          f"最小值: {lastest_result['min_value']:.2f}, "
+                          f"平均值: {lastest_result['avg_value']:.2f}\n")
+            else:
+                answer = lastest_result 
+            if fault:
+                answer += f"\n{fault}\n"
+            print(f"回答: {answer}")
+            return answer
+
+        except FileNotFoundError:
+            print(f"找不到檔案: {json_file}")
+>>>>>>> 2620bce (Update query etp offering(Qse))
     else:
         print("無法解析您的問題，請確認輸入格式。")
         responce = get_etp_manu(user_input)
