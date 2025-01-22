@@ -3,6 +3,7 @@ from openai import OpenAI
 from pymongo.server_api import ServerApi
 from datetime import datetime
 from langchain_google_vertexai import ChatVertexAI
+from db_manager import db_readData
 
 client = OpenAI()
 
@@ -159,21 +160,39 @@ def dateAnalyze(question):
     return False
 
 def get_etp_manu(user_input):
-    info = "廠商:"
-    check = dateAnalyze(user_input)
-    print("date:", check)
+    info = "以下皆是合格交易者:\n"
+    mark = 0
+    # check = dateAnalyze(user_input)
+    # print("date:", check)
 
-    json_file = 'poxa-info.etp_qse_list_query.json'
-    with open(json_file, 'r', encoding='utf-8') as f:
-        manufacturer_data = json.load(f)
-
+    manufacturer_data = list(db_readData("JsonInformation", "manufacturer", {}))
     manu_query = manufacturer_data[0]["query"]
     data = manu_query["data"]
+
+    baseInfo=["統編","地址","代表人","成為合格交易者","裝置容量"]
+    for i in range(len(baseInfo)):
+        if baseInfo[i] in user_input:
+            mark = 1 #基本資料
+    
     for i in range(len(data)):
+        typeName = ""
         cap = data[i]['capacitySummary']
         capacity = cap['regresTotal'] + cap['spinresTotal'] + cap['suppresTotal'] + cap['edregTotal']
-        info += f"{i+1}:{data[i]['plantName']}的參與容量是{capacity}MW。\n"
-    # print(info)
+        info += f"{i+1}:{data[i]['plantName']}的"
+        if data[i]['resourceTypeName'] is None:
+            typeName = "民營公司"
+            if mark == 0:
+                info += f"參與容量是{capacity}MW，調頻備轉容量是{cap['regresTotal']}MW，電能移轉複合動態調節備轉容量是{cap['edregTotal']}MW，即時備轉容量是{cap['spinresTotal']}MW，補充備轉容量是{cap['suppresTotal']}MW"
+            else:
+                info += f"統編是{data[i]['plantId']}，地址是{data[i]['companyAddr']}，代表人是{data[i]['companyDirector']}，成為合格交易者日期是{data[i]['operationDate']}"
+        else:
+            typeName = "國營發電廠"
+            if mark == 0:
+                info += f"參與容量是{capacity}MW，調頻備轉容量是{cap['regresTotal']}MW，即時備轉容量是{cap['spinresTotal']}MW，補充備轉容量是{cap['suppresTotal']}MW"
+            else:
+                info += f"裝置容量是{data[i]['maxCapacity']}，地址是{data[i]['companyAddr']}"
+        info += f"，它是一間{typeName}。\n"
+    print(info)
     prompt = f"問題: {user_input}\n\n根據以下文章內容生成回答，若以下內容無法準確回答，即回覆資料不足即可\n文章內容:{info}"
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -195,8 +214,8 @@ def get_etp_manu(user_input):
     messages = [(
             "system",
             f"""
-            你是一個專業的問題解答助手，你只會根據資料內容回答問題，不會回答不存在於資料內容的資訊。
-            你會根據以下資訊內容生成回答，若以下內容無法回答問題，你會回覆'無法回答該問題，請補充問題細節或換個問法。'。
+            你是一個專業的問題解答助手，你只會根據所接收到的資料內容回答問題，不會回答不存在於資料內容的資訊。
+            若以下內容無法回答問題，你會回覆'無法回答該問題，請補充問題細節或換個問法。'。
             資訊內容:{info}
             """,
         ),("human", user_input),
