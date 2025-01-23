@@ -117,8 +117,8 @@ def get_etp_answer(etpProblem):
     
       return res + SHOW_MENU()
     
-def get_manufacturer(company):
-    answer = get_etp_manu(company)
+def get_manufacturer(manuQuestion):
+    answer = get_etp_manu(manuQuestion)
 
     res = []
     res.append(FORMAT_RESPONSE("text", {
@@ -217,16 +217,16 @@ database = [
   },
   {
     "name": "get_manufacturer",
-    "description": "當問題中沒有「投標量」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用此功能。",
+    "description": "當問題中有「合格交易者」、「容量」、「地址」、「統編」、「代表人」、「公司」、「電廠」關鍵詞，就使用此功能。若問題中有「投標量」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用get_etp_answer。",
     "parameters": {
         "type": "object",
         "properties": {
-            "company": {
+            "manuQuestion": {
                 "type": "string",
-                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。若問題中有「投標量」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用get_etp_answer。"
+                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。"
             }
         },
-        "required": ["company"]
+        "required": ["manuQuestion"]
     }
   }
 ]
