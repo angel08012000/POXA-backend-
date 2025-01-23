@@ -1,4 +1,4 @@
-import json, re
+import json, re, time
 from openai import OpenAI
 from pymongo.server_api import ServerApi
 from datetime import datetime
@@ -160,8 +160,11 @@ def dateAnalyze(question):
     return False
 
 def get_etp_manu(user_input):
+    start_time = time.time()
     info = "以下皆是合格交易者:\n"
     mark = 0
+    
+    # # 取得日期
     # check = dateAnalyze(user_input)
     # print("date:", check)
 
@@ -177,7 +180,7 @@ def get_etp_manu(user_input):
     for i in range(len(data)):
         typeName = ""
         cap = data[i]['capacitySummary']
-        capacity = cap['regresTotal'] + cap['spinresTotal'] + cap['suppresTotal'] + cap['edregTotal']
+        capacity = round(cap['regresTotal'] + cap['spinresTotal'] + cap['suppresTotal'] + cap['edregTotal'], 2)
         info += f"{i+1}:{data[i]['plantName']}的"
         if data[i]['resourceTypeName'] is None:
             typeName = "民營公司"
@@ -193,16 +196,21 @@ def get_etp_manu(user_input):
                 info += f"裝置容量是{data[i]['maxCapacity']}，地址是{data[i]['companyAddr']}"
         info += f"，它是一間{typeName}。\n"
     print(info)
-    prompt = f"問題: {user_input}\n\n根據以下文章內容生成回答，若以下內容無法準確回答，即回覆資料不足即可\n文章內容:{info}"
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        temperature=0.8,
-        messages=[
-            {"role": "system", "content": "你是一個專業的問題解答助手，你只會根據資料內容回答問題，不會提供額外的解釋和背景資訊，或是不存在於資料內容的回答。"},
-            {"role": "user", "content": prompt}
-        ]
-    )
 
+    # # GPT
+    # prompt = f"問題: {user_input}\n\n根據以下文章內容生成回答，若以下內容無法準確回答，即回覆資料不足即可\n文章內容:{info}"
+    # response = client.chat.completions.create(
+    #     model="gpt-3.5-turbo",
+    #     temperature=0.8,
+    #     messages=[
+    #         {"role": "system", "content": "你是一個專業的問題解答助手，你只會根據資料內容回答問題，不會提供額外的解釋和背景資訊，或是不存在於資料內容的回答。"},
+    #         {"role": "user", "content": prompt}
+    #     ]
+    # )
+    # answer = response.choices[0].message.content.strip()
+    answer = "暫停使用~"
+
+    #Gemini
     llm = ChatVertexAI(
         model="gemini-1.5-pro",
         temperature=0,
@@ -223,7 +231,11 @@ def get_etp_manu(user_input):
     ai_msg = llm.invoke(messages)
     result = ai_msg.content
 
-    return "GPT Ans:" + response.choices[0].message.content.strip() + "\n\nGemini Ans:" + result
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"Gemini_manufacturer_running_time : {elapsed_time:.2f} s")
+
+    return "GPT Ans:" + answer + "\n\nGemini Ans:" + result
 
 def get_etp_related(user_input):
     classify_gpt, classify_gemini = classify_question(user_input)
@@ -255,44 +267,36 @@ def get_etp_related(user_input):
     else:
         suffix = None
 
-    if suffix != "Offering":
-        json_file = 'poxa-info.etp_settle_value_query.json'
+    if suffix != "Offering": 
+        existing_data = list(db_readData("JsonInformation", "settle_value", {}))
         date = "tranDate"
     else:
-        json_file = 'poxa-info.etp_offering.json'
+        existing_data = list(db_readData("JsonInformation", "offering", {}))
         date = "date"
-    print(f"Using JSON file: {json_file}")\
     
     if prefix and suffix is not None:
-        try:
-            with open(json_file, 'r', encoding='utf-8') as f:
-                existing_data = json.load(f)
-
-            if check == False:
-                print("check false!")
+        if check == False:
+            print("check false!")
+            search_data = parse_and_find_closest(existing_data, date)
+        else:
+            print("check true!")
+            search_data = parse_by_exact_date(existing_data, date, check)
+            if not search_data: 
+                print(f"未找到 {check} 的資料，改為查找最新日期。")
+                fault = f"未找到 {check} 的資料，改為查找最新日期。"
                 search_data = parse_and_find_closest(existing_data, date)
-            else:
-                print("check true!")
-                search_data = parse_by_exact_date(existing_data, date, check)
-                if not search_data: 
-                    print(f"未找到 {check} 的資料，改為查找最新日期。")
-                    fault = f"未找到 {check} 的資料，改為查找最新日期。"
-                    search_data = parse_and_find_closest(existing_data, date)
-            lastest_result = execute_code_logic(search_data, prefix, is_qse, suffix, classify_gpt, classify_gemini)
-            if isinstance(lastest_result, dict):
-                answer = (f"目前最新->{search_data[0][date]}的ETP資料:\n"
-                          f"最大值: {lastest_result['max_value']:.2f}, "
-                          f"最小值: {lastest_result['min_value']:.2f}, "
-                          f"平均值: {lastest_result['avg_value']:.2f}\n")
-            else:
-                answer = lastest_result 
-            if fault:
-                answer += f"\n{fault}\n"
-            print(f"回答: {answer}")
-            return answer
-
-        except FileNotFoundError:
-            print(f"找不到檔案: {json_file}")
+        lastest_result = execute_code_logic(search_data, prefix, is_qse, suffix, classify_gpt, classify_gemini)
+        if isinstance(lastest_result, dict):
+            answer = (f"目前最新->{search_data[0][date]}的ETP資料:\n"
+                        f"最大值: {lastest_result['max_value']:.2f}, "
+                        f"最小值: {lastest_result['min_value']:.2f}, "
+                        f"平均值: {lastest_result['avg_value']:.2f}\n")
+        else:
+            answer = lastest_result 
+        if fault:
+            answer += f"\n{fault}\n"
+        print(f"回答: {answer}")
+        return answer
     else:
         print("無法解析您的問題，請確認輸入格式。")
         return False
