@@ -54,7 +54,6 @@ def get_define(term_question):
         break
   if definition == "":
     print("查無資料")
-    # res = get_qa_answer(term_question)
     res.append(FORMAT_RESPONSE("text", {
       "content" : "查無資料，請重新提問。"
     })) 
@@ -282,7 +281,6 @@ def greeting():
     "response": SHOW_MENU()
   })
 
-
 @app.route('/chat', methods=['POST'])
 def chat_with_bot():
   start_time = time.time()
@@ -334,7 +332,7 @@ def chat_with_bot():
 
   print(f"function_call: {function_call}")
 
-  # 需要呼叫 function / function_calling
+  # function_calling
   if function_call: 
     print(f"呼叫函式的名稱: {function_call.name}")
     print(f"呼叫函式的參數: {function_call.arguments}")
@@ -346,7 +344,7 @@ def chat_with_bot():
     
     return jsonify({'response': final_res})
   
-  # gpt 直接回覆
+  # gpt 直接回覆 (function calling 無)
   if content != None:
     if any(keyword in data["user"] for keyword in ["資料庫查詢"]):
       res.append(FORMAT_RESPONSE("text", {
