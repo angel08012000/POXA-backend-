@@ -13,7 +13,7 @@ from config import POXA
 # gemini
 from langchain_google_vertexai import ChatVertexAI
 import os
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = './poxa-443807-5fec254a4a5f.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'D:/master_stuff/POXA_chatbot/pdftest/POXA-backend-/functions/poxa-443807-5fec254a4a5f.json'
 
 
 def call_function_by_name(function_name, function_args):

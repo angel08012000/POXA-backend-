@@ -7,7 +7,7 @@ import os #Render
 
 from common import FORMAT_RESPONSE, SHOW_MENU, ADD_FILE_LINKS
 from functions.week_summary import get_summary
-from functions.file_search import start_file_search
+from functions.get_rules import get_rules
 from functions.term_explaination import get_definition
 from functions.get_QA_analyze import get_QA_analyze
 from functions.get_etp_related import get_etp_related
@@ -87,7 +87,7 @@ def get_qa_answer(issue):
 
 #電力交易市場規則
 def get_market_rule(rule_question):
-  response = start_file_search(rule_question)
+  response = get_rules(rule_question)
   res = []
   res.append(FORMAT_RESPONSE("text", {
       "content" : response
@@ -153,11 +153,11 @@ week = [
       },
       "required": ["time"],
     }
-  },
+  }
 ]
 
 file = [
-   {
+  {
     "name": "get_market_rule",
     "description": "解釋電力交易市場的法規或市場規則。若非法規或市場規則，請使用get_qa_answer。",
     "parameters": {
@@ -165,12 +165,12 @@ file = [
       "properties": {
         "rule_question": {
           "type": "string",
-          "description": "是特定的法規或市場規則，請不要修改使用者的問題。"
+          "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。"
         }
       },
       "required": ["rule_question"],
     }
-  }, 
+  }
 ]
 
 define = [
@@ -187,7 +187,7 @@ define = [
       },
       "required": ["term_question"],
     }
-  },
+  }
 ]
 
 database = [
@@ -350,8 +350,8 @@ def chat_with_bot():
     })
 
 if __name__ == '__main__':
-    # app.run(host='0.0.0.0', debug=True)
-    port = int(os.environ.get("PORT", 5000))  # Render
-    app.run(host="0.0.0.0", port=port)
+    app.run(host='0.0.0.0', debug=True)
+    # port = int(os.environ.get("PORT", 5000))  # Render
+    # app.run(host="0.0.0.0", port=port)
 
 
