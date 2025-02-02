@@ -6,6 +6,8 @@ from openai import OpenAI
 import requests
 
 from datetime import datetime, timedelta
+import re
+from db_manager import db_readData
 from common import FORMAT_RESPONSE, SHOW_MENU
 from config import POXA
 # from config import POXA, WEEK_SUMMARY_CSS_SELECTOR, WEEK_CSS_SELECTOR
@@ -123,10 +125,21 @@ def get_summary(time):
             })]
 
         else:
-            mondays = get_all_monday(start_date, end_date)
+            # mondays = get_all_monday(start_date, end_date)
+            year = start_date.strftime("%Y")
+            month = start_date.strftime("%m").lstrip("0")
+            day = start_date.strftime("%d").lstrip("0")
+            date_pattern = rf"{year} {month}/"
+            print(f"date pattern: {date_pattern}")
+
+            query = {"title": {"$regex": date_pattern, "$options": "i"}}
+            articles = db_readData("WebInformation", "article", query, find_one=False)
+            # print(f"as:\n{articles}")
+            
             all_summary = ""
-            for m in mondays:
-                all_summary += get_summary_block(m.strftime("%Y%m%d"))
+            for article in articles:
+                print(f"title: {article["title"]}")
+                all_summary += get_summary_block(article)
 
             if all_summary == "":
                 return [FORMAT_RESPONSE("text", {
@@ -329,22 +342,40 @@ def get_all_monday(start_date, end_date):
 
     return mondays
 
-def get_summary_block(date):
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless")  # 啟用無頭模式
-    options.add_argument("--no-sandbox")  # 避免沙盒問題（推薦在 Linux 系統上加上這個參數）
-    options.add_argument("--disable-dev-shm-usage")  # 避免資源限制錯誤
-
-    # 自動下載並使用對應版本的 ChromeDriver
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
-
-    driver.get(f"{POXA}/report/{date}")
-
-    try:
-        summary = driver.find_element(By.XPATH, '//*[@id="__next"]/div/div[2]/article/div[3]')
-        return summary.text.strip() # 提取文字內容
+def get_summary_block(article):
+    summary = ""
+    for i, bk in article["block"].items():
+        # print(bk)
+        summary = summary + bk["blockContent"]
+    return summary
+    # try:
+    #     summary = ""
+    #     article = db_readData("WebInformation","article",{"title": title},find_one=True)
+    #     for bk in article["block"]:
+    #         print(bk)
+    #         summary = summary + bk["blockContent"]
+    #     return summary
     
-    except Exception as e:
-        print(f"找不到摘要區塊")
-        return ""
+    # except Exception as e:
+    #     print(f"找不到摘要區塊{e}")
+    #     return ""
+
+# def get_summary_block(date):
+#     options = webdriver.ChromeOptions()
+#     options.add_argument("--headless")  # 啟用無頭模式
+#     options.add_argument("--no-sandbox")  # 避免沙盒問題（推薦在 Linux 系統上加上這個參數）
+#     options.add_argument("--disable-dev-shm-usage")  # 避免資源限制錯誤
+
+#     # 自動下載並使用對應版本的 ChromeDriver
+#     service = Service(ChromeDriverManager().install())
+#     driver = webdriver.Chrome(service=service, options=options)
+
+#     driver.get(f"{POXA}/report/{date}")
+
+#     try:
+#         summary = driver.find_element(By.XPATH, '//*[@id="__next"]/div/div[2]/article/div[3]')
+#         return summary.text.strip() # 提取文字內容
+    
+#     except Exception as e:
+#         print(f"找不到摘要區塊")
+#         return ""
