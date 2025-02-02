@@ -4,7 +4,7 @@ from google.cloud.dialogflowcx_v3beta1.services.sessions import SessionsClient
 from google.cloud.dialogflowcx_v3beta1.types import session
 
 # 路徑
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'poxa-443807-975b2060b33f.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = './poxa-443807-975b2060b33f.json'
 
 def start_conversational_agent(question):
     PROJECT_ID = "poxa-443807"

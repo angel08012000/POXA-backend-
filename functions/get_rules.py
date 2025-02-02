@@ -20,7 +20,7 @@ def define_prompt(question):
     if prompt != "":
         prompt_to_send = prompt
     else:
-        prompt_to_send =  f"請根據以下問題選擇三個合適的檔案，並針對問題分別以這些檔案提供三種回答，回答格式為\"檔案名：回答\"，並在每個答案中間換行。問題如下：\n{question}"
+        prompt_to_send =  f"請根據已提供的資料，針對以下問題提供三種回答，並註明你參考到的資料檔案名稱，回答格式為\"檔案名：回答\"，並在每個答案中間換行。問題如下：\n{question}"
     return prompt_to_send
 
 def get_rules(question):
