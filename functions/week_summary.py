@@ -129,10 +129,11 @@ def get_summary(time):
             year = start_date.strftime("%Y")
             month = start_date.strftime("%m").lstrip("0")
             day = start_date.strftime("%d").lstrip("0")
-            date_pattern = rf"{year} {month}/"
-            print(f"date pattern: {date_pattern}")
 
-            query = {"title": {"$regex": date_pattern, "$options": "i"}}
+            query = {"$or": [
+                {"title": {"$regex": rf"{year}/{month}/", "$options": "i"}},
+                {"title": {"$regex": rf"{year} {month}/", "$options": "i"}}
+            ]}
             articles = db_readData("WebInformation", "article", query, find_one=False)
             # print(f"as:\n{articles}")
             
