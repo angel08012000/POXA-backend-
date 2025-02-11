@@ -159,9 +159,86 @@ def dateAnalyze(question):
         return match.group(0)
     return False
 
+# def find_max_capacity(data):
+#     max_values = {
+#         "regresTotal": {"value": 0, "name": ""},
+#         "spinresTotal": {"value": 0, "name": ""},
+#         "suppresTotal": {"value": 0, "name": ""},
+#         "edregTotal": {"value": 0, "name": ""}
+#     }
+
+#     for d in data:
+#         cap = d['capacitySummary']
+#         plant_name = d['plantName']
+
+#         for key in max_values.keys():
+#             if cap[key] > max_values[key]["value"]:
+#                 max_values[key]["value"] = cap[key]
+#                 max_values[key]["name"] = plant_name
+
+#     return max_values
+
+def find_extreme_capacity(data, target_type=None):
+    max_min = {
+        "regresTotal": {"max": {"value": 0, "name": ""}, "min": {"value": float("inf"), "name": []}},
+        "spinresTotal": {"max": {"value": 0, "name": ""}, "min": {"value": float("inf"), "name": []}},
+        "suppresTotal": {"max": {"value": 0, "name": ""}, "min": {"value": float("inf"), "name": []}},
+        "edregTotal": {"max": {"value": 0, "name": ""}, "min": {"value": float("inf"), "name": []}}
+    }
+
+    for d in data:
+        cap = d['capacitySummary']
+        plant_name = d['plantName']
+        company_type = "民營公司" if d['resourceTypeName'] is None else "國營發電廠"
+        if target_type and target_type != company_type:
+            continue
+
+        for key in max_min.keys():
+            if cap[key] > max_min[key]["max"]["value"]:
+                max_min[key]["max"]["value"] = cap[key]
+                max_min[key]["max"]["name"] = plant_name
+
+            if cap[key] < max_min[key]["min"]["value"]:
+                max_min[key]["min"]["value"] = cap[key]
+                max_min[key]["min"]["name"] = [plant_name]  
+            elif cap[key] == max_min[key]["min"]["value"]:
+                max_min[key]["min"]["name"].append(plant_name)
+
+    return max_min
+
+def analyze_user_query(user_input):
+    llm = ChatVertexAI(
+        model="gemini-1.5-pro", 
+        temperature=0,
+        max_tokens=None,
+        max_retries=6,
+        stop=None,
+        )
+    
+    system_prompt = """
+    你是一個專業的問題分析助手，負責判斷使用者是否在詢問最大或最小的容量，
+    並找出問題中涉及的容量類別（調頻備轉容量、即時備轉容量、補充備轉容量、電能移轉複合動態調節備轉容量）
+    以及篩選條件（國營發電廠、民營公司、合格交易者）。
+    
+    你的輸出必須是 JSON 格式:
+    {
+        "compare": "最大" 或 "最小" 或 "無",
+        "target_types": ["調頻備轉容量", "即時備轉容量"] (可能包含 1-4 種),
+        "filter": "國營發電廠" 或 "民營公司" 或 "合格交易者"
+    }
+
+    如果問題不涉及比較最大或最小，請回傳 {"compare": "無"}
+    """
+    messages = [("system", system_prompt), ("human", user_input)]
+    ai_msg = llm.invoke(messages)
+    response = ai_msg.content
+    analysis = json.loads(response.strip("```json").strip("```").strip())
+    print(analysis)
+    return analysis
+
 def get_etp_manu(user_input):
     start_time = time.time()
-    info = "以下皆是合格交易者:\n"
+    info = ""
     mark = 0
     
     # # 取得日期
@@ -171,31 +248,66 @@ def get_etp_manu(user_input):
     manufacturer_data = list(db_readData("JsonInformation", "manufacturer", {}))
     manu_query = manufacturer_data[0]["query"]
     data = manu_query["data"]
-
-    baseInfo=["統編","地址","代表人","成為合格交易者","裝置容量"]
-    for i in range(len(baseInfo)):
-        if baseInfo[i] in user_input:
-            mark = 1 #基本資料
+    # max = find_max_capacity(data)
+    analysis = analyze_user_query(user_input)
+    target_type = None if analysis["filter"] == "合格交易者" else analysis["filter"]
     
-    for i in range(len(data)):
-        typeName = ""
-        cap = data[i]['capacitySummary']
-        capacity = round(cap['regresTotal'] + cap['spinresTotal'] + cap['suppresTotal'] + cap['edregTotal'], 2)
-        info += f"{i+1}:{data[i]['plantName']}的"
-        if data[i]['resourceTypeName'] is None:
-            typeName = "民營公司"
-            if mark == 0:
-                info += f"參與容量是{capacity}MW，調頻備轉容量是{cap['regresTotal']}MW，電能移轉複合動態調節備轉容量是{cap['edregTotal']}MW，即時備轉容量是{cap['spinresTotal']}MW，補充備轉容量是{cap['suppresTotal']}MW"
+    if analysis["compare"] != "無":
+        mark = 3
+        max_min = find_extreme_capacity(data, target_type)
+
+        info += f"\n擁有{analysis['compare']}容量的{analysis['filter']}:\n"
+        for target in analysis["target_types"]:
+            key_map = {
+                "調頻備轉容量": "regresTotal",
+                "即時備轉容量": "spinresTotal",
+                "補充備轉容量": "suppresTotal",
+                "電能移轉複合動態調節備轉容量": "edregTotal"
+            }
+            key = key_map[target]
+            m_m = max_min[key][analysis["compare"] == "最大" and "max" or "min"]
+            info += f"{target}{analysis['compare']}者: {m_m['name']} ({m_m['value']}MW)\n"
+            # m_m = max_min[key]["max" if analysis["compare"] == "最大" else "min"]
+            # names = m_m['name']
+            # if isinstance(names, list):
+            #     name_str = "、".join(names)
+            # else:
+            #     name_str = names
+            # info += f"{target}{analysis['compare']}者: {name_str} ({m_m['value']}MW)\n"
+    else:
+        info += "以下皆是合格交易者:\n"
+        baseInfo=["統編","地址","代表人","成為合格交易者","裝置容量"]
+        for i in range(len(baseInfo)):
+            if baseInfo[i] in user_input:
+                mark = 1 #基本資料
+        
+        for i in range(len(data)):
+            typeName = ""
+            cap = data[i]['capacitySummary']
+            capacity = round(cap['regresTotal'] + cap['spinresTotal'] + cap['suppresTotal'] + cap['edregTotal'], 2)
+            info += f"{i+1}:{data[i]['plantName']}的"
+            if data[i]['resourceTypeName'] is None:
+                typeName = "民營公司"
+                if mark == 0:
+                    info += f"參與容量是{capacity}MW，調頻備轉容量是{cap['regresTotal']}MW，電能移轉複合動態調節備轉容量是{cap['edregTotal']}MW，即時備轉容量是{cap['spinresTotal']}MW，補充備轉容量是{cap['suppresTotal']}MW"
+                else:
+                    info += f"統編是{data[i]['plantId']}，地址是{data[i]['companyAddr']}，代表人是{data[i]['companyDirector']}，成為合格交易者日期是{data[i]['operationDate']}"
             else:
-                info += f"統編是{data[i]['plantId']}，地址是{data[i]['companyAddr']}，代表人是{data[i]['companyDirector']}，成為合格交易者日期是{data[i]['operationDate']}"
-        else:
-            typeName = "國營發電廠"
-            if mark == 0:
-                info += f"參與容量是{capacity}MW，調頻備轉容量是{cap['regresTotal']}MW，即時備轉容量是{cap['spinresTotal']}MW，補充備轉容量是{cap['suppresTotal']}MW"
-            else:
-                info += f"裝置容量是{data[i]['maxCapacity']}，地址是{data[i]['companyAddr']}"
-        info += f"，它是一間{typeName}。\n"
-    print(info)
+                typeName = "國營發電廠"
+                if mark == 0:
+                    info += f"參與容量是{capacity}MW，調頻備轉容量是{cap['regresTotal']}MW，即時備轉容量是{cap['spinresTotal']}MW，補充備轉容量是{cap['suppresTotal']}MW"
+                else:
+                    info += f"裝置容量是{data[i]['maxCapacity']}，地址是{data[i]['companyAddr']}"
+            info += f"，它是一間{typeName}。\n"
+
+    # # find_max_capacity (新增一個比較最大的function)
+    # info += f"\n擁有最大容量的合格交易者:\n"
+    # info += f"調頻備轉容量最大者: {max['regresTotal']['name']} ({max['regresTotal']['value']}MW)\n"
+    # info += f"即時備轉容量最大者: {max['spinresTotal']['name']} ({max['spinresTotal']['value']}MW)\n"
+    # info += f"補充備轉容量最大者: {max['suppresTotal']['name']} ({max['suppresTotal']['value']}MW)\n"
+    # info += f"電能移轉複合動態調節備轉容量最大者: {max['edregTotal']['name']} ({max['edregTotal']['value']}MW)\n"
+
+    print("info:",info)
 
     # # GPT
     # prompt = f"問題: {user_input}\n\n根據以下文章內容生成回答，若以下內容無法準確回答，即回覆資料不足即可\n文章內容:{info}"
@@ -218,19 +330,28 @@ def get_etp_manu(user_input):
         max_retries=6,
         stop=None,
     )
-
-    messages = [(
-            "system",
-            f"""
-            你是一個專業的問題解答助手，你只會根據所接收到的資料內容回答問題，不會回答不存在於資料內容的資訊。
-            若以下內容無法回答問題，你會回覆'無法回答該問題，請補充問題細節或換個問法。'。
-            資訊內容:{info}
-            """,
-        ),("human", user_input),
-    ]
+    if mark == 3:
+        messages = [(
+                "system",
+                f"""
+                你是一個專業的問題解答助手，你會根據所接收到的資料內容修飾過後，再回答問題，回答完不會再提供其他額外的解釋。
+                資訊內容:{info}
+                """,
+            ),("human", user_input),
+        ]
+    else:
+        messages = [(
+                "system",
+                f"""
+                你是一個專業的問題解答助手，你只會根據所接收到的資料內容回答問題，不會回答不存在於資料內容的資訊。
+                若以下內容無法回答問題，你會回覆'無法回答該問題，請補充問題細節或換個問法。'。
+                資訊內容:{info}
+                """,
+            ),("human", user_input),
+        ]
     ai_msg = llm.invoke(messages)
     result = ai_msg.content
-
+    
     end_time = time.time()
     elapsed_time = end_time - start_time
     print(f"Gemini_manufacturer_running_time : {elapsed_time:.2f} s")
@@ -299,4 +420,5 @@ def get_etp_related(user_input):
         return answer
     else:
         print("無法解析您的問題，請確認輸入格式。")
-        return False
+        responce = get_etp_manu(user_input)
+        return responce

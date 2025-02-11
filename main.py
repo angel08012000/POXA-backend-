@@ -105,17 +105,12 @@ def get_market_rule(rule_question):
 def get_etp_answer(etpProblem):
     answer = get_etp_related(etpProblem)
 
-    if answer == False:
-      print("no etp answer")
-      manu_response = get_manufacturer(etpProblem)
-      return manu_response
-    else:
-      res = []
-      res.append(FORMAT_RESPONSE("text", {
-          "content" : answer
-        }))
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "content" : answer
+      }))
     
-      return res + SHOW_MENU()
+    return res + SHOW_MENU()
     
 def get_manufacturer(manuQuestion):
     answer = get_etp_manu(manuQuestion)
