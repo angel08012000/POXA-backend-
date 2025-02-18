@@ -15,7 +15,6 @@ def execute_code_logic(data, prefix, is_qse, suffix, gpt, gemini):
         min_value = float('inf')
         product_field = f"{prefix}{suffix}"
         qse_field = f"{prefix}{suffix}Qse" if is_qse else product_field
-
         print("GPT VS Gemini VS Actually classify: ", gpt," VS ",gemini," VS ",qse_field)
 
         target = gemini
