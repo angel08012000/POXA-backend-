@@ -36,7 +36,7 @@ def get_week_summary(time):
   print(f"送進來的資訊: {time}")
   result = get_summary(time)
   
-  return result
+  return result + SHOW_MENU()
 
 # 名詞解釋
 def get_define(term_question):

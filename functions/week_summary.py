@@ -15,7 +15,7 @@ from config import POXA
 # gemini
 from langchain_google_vertexai import ChatVertexAI
 import os
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'D:/master_stuff/POXA_chatbot/pdftest/POXA-backend-/functions/poxa-443807-5fec254a4a5f.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = './poxa-443807-5fec254a4a5f.json'
 
 
 def call_function_by_name(function_name, function_args):
@@ -86,6 +86,8 @@ def get_summary(time):
 
     print(f"判斷結果: {result}")
 
+    res = list()
+
     if result.strip()=="1": # 整理多篇的摘要
         today = datetime.today().strftime('%Y%m%d')
         print("多篇摘要總結")
@@ -125,7 +127,8 @@ def get_summary(time):
             })]
 
         else:
-            # mondays = get_all_monday(start_date, end_date)
+            mondays = get_all_monday(start_date, end_date)
+
             year = start_date.strftime("%Y")
             month = start_date.strftime("%m").lstrip("0")
             day = start_date.strftime("%d").lstrip("0")
@@ -161,16 +164,24 @@ def get_summary(time):
             ]
             ai_msg = llm.invoke(messages)
             result = ai_msg.content
-            
-            return [FORMAT_RESPONSE("text", {
-                "tag": "span",
-                "content": f"{start_date_str}～{end_date_str} 的摘要重點彙整如下:"
-            }),
-            FORMAT_RESPONSE("text", {
-                "tag": "span",
-                "content": result
-            }),
-            ]
+
+            res.extend([
+                FORMAT_RESPONSE("text", {
+                    "tag": "span",
+                    "content": f"{start_date_str}～{end_date_str} 的摘要重點彙整如下:"
+                }),
+                FORMAT_RESPONSE("text", {
+                    "tag": "span",
+                    "content": result
+                })
+            ])
+
+            for m in mondays:
+                date = m.strftime("%Y%m%d")
+                res.append(FORMAT_RESPONSE("link", {
+                    "url": f"{POXA}/report/{date}",
+                    "content": f"{date}（點我查看）"
+                }))
             
 
     else: # 單篇摘要
@@ -183,12 +194,12 @@ def get_summary(time):
             })]
         
         # 單篇摘要
-        res = [
+        res.append(
             FORMAT_RESPONSE("text", {
                 "tag": "span",
                 "content": "週摘要如下（註：每週摘要由週一發佈）"
             })
-        ]
+        )
             
         # 查詢最新可用的連結
         while True:
@@ -207,7 +218,7 @@ def get_summary(time):
             print("倒退一週!")
             previous_monday = date.strftime("%Y%m%d")
 
-        return res + SHOW_MENU()
+    return res
         
         
 
