@@ -216,18 +216,18 @@ def analyze_user_query(user_input):
         )
     
     system_prompt = """
-    你是一個專業的問題分析助手，負責判斷使用者是否在詢問最大或最小的容量，
-    並找出問題中涉及的容量類別（調頻備轉容量、即時備轉容量、補充備轉容量、電能移轉複合動態調節備轉容量）
-    以及篩選條件（國營發電廠、民營公司、合格交易者）。
+    你是一個專業的問題分析助手，負責判斷使用者是否在詢問max(最大、最多、最高)或min(最小、最少、最低)的容量，
+    並找出問題中涉及的容量類別（調頻備轉容量、即時備轉容量、補充備轉容量、電能移轉複合動態調節備轉容量(E-dReg)）
+    以及篩選條件（國營發電廠(國營、發電廠)、民營公司(民營、公司)、合格交易者）。
     
     你的輸出必須是 JSON 格式:
     {
-        "compare": "最大" 或 "最小" 或 "無",
+        "compare": "max" 或 "min" 或 "nothing",
         "target_types": ["調頻備轉容量", "即時備轉容量"] (可能包含 1-4 種),
         "filter": "國營發電廠" 或 "民營公司" 或 "合格交易者"
     }
 
-    如果問題不涉及比較最大或最小，請回傳 {"compare": "無"}
+    如果問題不涉及比較最大或最小，請回傳 {"compare": "nothing"}
     """
     messages = [("system", system_prompt), ("human", user_input)]
     ai_msg = llm.invoke(messages)
@@ -252,7 +252,7 @@ def get_etp_manu(user_input):
     analysis = analyze_user_query(user_input)
     target_type = None if analysis["filter"] == "合格交易者" else analysis["filter"]
     
-    if analysis["compare"] != "無":
+    if analysis["compare"] != "nothing":
         mark = 3
         max_min = find_extreme_capacity(data, target_type)
 
@@ -265,7 +265,7 @@ def get_etp_manu(user_input):
                 "電能移轉複合動態調節備轉容量": "edregTotal"
             }
             key = key_map[target]
-            m_m = max_min[key][analysis["compare"] == "最大" and "max" or "min"]
+            m_m = max_min[key][analysis["compare"]] # == "最大" and "max" or "min"
             info += f"{target}{analysis['compare']}者: {m_m['name']} ({m_m['value']}MW)\n"
             # m_m = max_min[key]["max" if analysis["compare"] == "最大" else "min"]
             # names = m_m['name']
