@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from openai import OpenAI
 import time
 import requests

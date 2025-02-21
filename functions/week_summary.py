@@ -142,7 +142,7 @@ def get_summary(time):
             
             all_summary = ""
             for article in articles:
-                print(f"title: {article["title"]}")
+                print(f"title: {article['title']}")
                 all_summary += get_summary_block(article)
 
             if all_summary == "":
