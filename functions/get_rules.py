@@ -15,7 +15,7 @@ def define_prompt(question):
         data = db_readData("MarketRulesData", collection, None, find_one=False)
         for d in data:
             if d["tag"] in question:
-                prompt = f"請將下列文字與已提供的檔案作為背景知識，內容如下：\n{d["content"]}\n\n請根據已有的資訊，針對問題提供三種回答，回答格式為\"檔案名：回答\"，並在每個答案中間換行。問題如下：\n{question}"
+                prompt = f"請將下列文字與已提供的檔案作為背景知識，內容如下：\n{d['content']}\n\n請根據已有的資訊，針對問題提供三種回答，回答格式為\"檔案名：回答\"，並在每個答案中間換行。問題如下：\n{question}"
                 break
     if prompt != "":
         prompt_to_send = prompt
