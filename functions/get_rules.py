@@ -32,10 +32,11 @@ def get_rules(question):
     response_with_gpt = start_file_search(prompt_to_send)
     print("=" * 25)
     # gemini
-    response_with_gemini = start_conversational_agent(prompt_to_send)
+    # response_with_gemini = start_conversational_agent(prompt_to_send)
 
-    responses = f"gpt:\n{response_with_gpt}\n\ngemini:\n{response_with_gemini}"
+    # responses = f"gpt:\n{response_with_gpt}\n\ngemini:\n{response_with_gemini}"
     # print("最終答案：\n" + responses)
+    responses = f"gpt:\n{response_with_gpt}\n"
     return responses
 
 
