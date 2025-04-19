@@ -70,7 +70,8 @@ def response_directly(user_question, my_thread, my_assistant):
     return messages[0].content[0].text.value
 
 def response_with_preprocess(user_question, my_thread, my_assistant):
-    user_message = "請根據以下問題選擇三個合適的檔案，分別以這些檔案提供三種回答，並用繁體中文回答。回答格式為\"檔案名：回答\"。問題如下：" + user_question
+    #user_message = "請根據以下問題選擇三個合適的檔案，分別以這些檔案提供三種回答，並用繁體中文回答。回答格式為\"檔案名：回答\"。問題如下：" + user_question
+    user_message = "請用繁體中文回答以下問題。回答格式為\"檔案名：回答\"。問題如下：" + user_question
     messages = send_message(user_message,  my_thread, my_assistant)
     gpt_response = messages[0].content[0].text.value
     #print(gpt_response + "\n\n...正在選擇最適合答案...\n")
