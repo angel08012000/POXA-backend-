@@ -69,15 +69,6 @@ def GET_NEWS(url, top):
                 "topic": topic,
                 "url": link
             })
-
-            # full_text = GET_TEXT(link)
-            # summary = GET_SUMMARY_GPT(full_text, topic)
-
-            # news.append({
-            #     "topic": topic,
-            #     "summary": summary,
-            #     "url": link
-            # })
             
             i+=1
         except NoSuchElementException:
@@ -96,31 +87,6 @@ def GET_TEXT_and_SUMMARY(info):
     return info
 
 def GET_TEXT(url):
-    # 拿到網頁裡的文字，過濾標籤
-    # res = requests.get(url)
-    # full_text =  BeautifulSoup(res.text,'html.parser').get_text()
-
-    # options = webdriver.ChromeOptions()
-    # options.add_argument("--headless")
-    # driver = webdriver.Chrome(options=options)
-
-    # 用 selenium 太慢了
-    # driver = webdriver.Chrome()
-    # driver.get(url)
-    # wait = WebDriverWait(driver, 10)
-    # wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
-
-    # page_source = driver.page_source
-
-    # # 使用 BeautifulSoup 解析並獲取文本內容
-    # soup = BeautifulSoup(page_source, 'html.parser')
-    # full_text = soup.get_text()
-
-    # # 關閉瀏覽器
-    # driver.quit()
-
-    # return full_text
-
     # 這個比較快
     response = requests.get(url)
     response.raise_for_status()  # 確保請求成功
@@ -168,16 +134,6 @@ def FORMAT_NEWS(news):
                 "tag" : "span",
                 "content" : news[i]['summary']
             }))
-        
-
-        # res.append(FORMAT_RESPONSE("text", {
-        #     "tag" : "span",
-        #     "content" : f"({i+1}) {news[i]['topic']}\n{news[i]['summary']}"
-        # }))
-        # res.append(FORMAT_RESPONSE("link", {
-        #     "url" : news[i]["url"],
-        #     "content" : f"資料來源"
-        # }))
     return res
 
 def SHOW_MENU():
@@ -185,7 +141,7 @@ def SHOW_MENU():
     res.append(FORMAT_RESPONSE("text", {
         "tag" : "span",
         "content" : f"""您好～ 我是電力交易市場小助手，我能夠提供的功能類型包含:\n
-        每週摘要、名詞解釋、QA 問答、規則查詢
+        摘要、法規問答、名詞解釋、資料庫查詢、其他問題
         """
     }))
     
@@ -205,60 +161,35 @@ def SHOW_MENU():
     }))
 
     res.append(FORMAT_RESPONSE("button", {
+        "content": "資料庫查詢",
+        "function": "get_etp_answer"
+    }))
+
+    res.append(FORMAT_RESPONSE("button", {
         "content": "其他問題",
         "function": "get_other_question"
     }))
-
-    # res.append(FORMAT_RESPONSE("button", {
-    #     "content": "QA 問答",
-    #     "function": "get_qa_answer"
-    # }))
-
-    # res.append(FORMAT_RESPONSE("button", {
-    #     "content": "電力交易市場規則",
-    #     "function": "get_market_rule"
-    # }))
     
     return res
 
 def ADD_FILE_LINKS(response):
     links = dict()
-    file_links = {
-                '市場總覽':'https://drive.google.com/file/d/14YO3VEXliKn4TCM3e6MD8-4DvrNRvTcn/view?usp=sharing',
-                '專業人員資格證明之取得程序':'https://drive.google.com/file/d/1NFzwPNrHgqcHzUqaWhNOzoSPaBdOboJ2/view?usp=sharing',
-                '併網型儲能設備併網申請作業程序':'https://drive.google.com/file/d/1DvHfTtp0XqyExOnhGdTUipwRoY9GydNC/view?usp=sharing',
-                '保證金收取、退還及參與費用收取程序':'https://drive.google.com/file/d/1cG2eAwoyA5g2agIET-xHqd5R11TZk7zA/view?usp=sharing',
-                'SD-WAN VPN通道設定':'https://drive.google.com/file/d/1pa7FXjKXtfrNfCY-QuqG5ukEkv9zuKK3/view?usp=sharing',
-                'E-dReg通訊API說明':'https://drive.google.com/file/d/1ouh-N6xVw6LruHjmlpmFHibCUnPWkBIM/view?usp=sharing',
-                '通訊能力測試說明文件':'https://drive.google.com/file/d/1g48cpPG_6jl8kDoD58ManGnRShJYm9jG/view?usp=sharing',
-                '輔助服務執行能力測試說明文件':'https://drive.google.com/file/d/1u8NYoAmEz_ka4yKMzfrXf0tIKYATPODx/view?usp=sharing',
-                '日前輔助服務市場之交易表計設置位置錯誤態樣說明文件':'https://drive.google.com/file/d/10CdnOh4O-r_H2-sJuB9Ppy_4gs6aAKnh/view?usp=sharing',
-                '交易資源變比器得採行措施之說明文件':'https://drive.google.com/file/d/1s44ARrc7gTese1LjjxeDcUjfDSFUnWwK/view?usp=sharing',
-                '報價代碼重新測試說明文件':'https://drive.google.com/file/d/1YkelP1e7Vb9G8dQoGraaQQC8q3Qxn__y/view?usp=sharing',
-                'E-dReg電能移轉排程之升降載率設定說明文件':'https://drive.google.com/file/d/1LQauvoylRz-REKfSU9BUrUTb0896uD1i/view?usp=sharing',
-                'E-dReg遇59.50Hz作動模式說明文件':'https://drive.google.com/file/d/1i_tqjMZUEnxAwrl-UIBOGZkQAExR5bH-/view?usp=sharing',
-                '日前輔助服務市場之價金結算付款程序':'https://drive.google.com/file/d/1MMEjD1s8o2Q5WimPXAstRBTs87b0Ndgy/view?usp=sharing',
-                '日前輔助服務市場需求量估算方式說明文件':'https://drive.google.com/file/d/12mTk0FAK0L-9R-sOBufkMZ-Z5PpMSr7s/view?usp=sharing',
-                '日前輔助服務市場月結算價金結算說明文件':'https://drive.google.com/file/d/1LdLMlg9hRKoHJNLl5OlxHvtyK03KjOMc/view?usp=sharing',
-                '自用發電設備表計設置規定及結算方式說明文件':'https://drive.google.com/file/d/1Wwih8OAkzlWaSFAYkGQpIaWRKb9dRh17/view?usp=sharing',
-                '需量反應交易表計設置規定及執行容量計算基準認定說明文件':'https://drive.google.com/file/d/16msI3qVO3v6l9PvRwpZh8cIAYdJGO9bN/view?usp=sharing',
-                '備用容量市場參與及交易媒合程序':'https://drive.google.com/file/d/1rslEPlaQEESaZy7BsC8YVt1Iay4o9EZV/view?usp=sharing',
-                '資訊公開項目':'https://drive.google.com/file/d/1ZMpLh3301P5Kb9KrfdoHQl9KMgURFt58/view?usp=sharing',
-                '太陽光電發電設備結合儲能系統餘電合約':'https://drive.google.com/file/d/1pjYBRrwz1dgpjWWU-xxFCijzHUsY1jTu/view?usp=sharing',
-                '備用供電容量管理辦法':'https://drive.google.com/file/d/1wGxoiAlRaW55U6rjkxLT4hYNi7G07Aa2/view?usp=sharing',
-                '電力交易平台市場管理系統服務使用條款':'https://drive.google.com/file/d/1ih4tf53tW6emugDnoTgnER7cEAE3Waau/view?usp=sharing',
-                '電力交易平台排除「政府採購法」函':'https://drive.google.com/file/d/17ZQ0mpajTJoptoo6NTqwOM3QbaNhw5bl/view?usp=sharing',
-                '電力交易平台設置規則 逐條說明':'https://drive.google.com/file/d/1AVuFDzBRxUM0bICoW_c7NUbyOotF_3vm/view?usp=sharing',
-                '電力交易平台管理規範及作業程序 - 113年7月經濟部核定函與台電公告文':'https://drive.google.com/file/d/19lwtBwg6mYRdpl1pe85zJFTnywD5Pxc6/view?usp=sharing',
-                '電力交易平台管理規範及作業程序 - 全文':'https://drive.google.com/file/d/1GQ7vcm-BYMRX9Ge1XQvjCAW_IhD2aPqc/view?usp=sharing',
-                '電力交易平台管理規範及作業程序 - 經濟部核定函與台電公告':'https://drive.google.com/file/d/1xohngxSdATSTh-5sKwUheEg0o05Emv-7/view?usp=sharing',
-                '電力交易平台管理規範及作業程序 - 總說明與對照表(版次：TPC-MT-v02)':'https://drive.google.com/file/d/1mBAOFGPBBMR5kIjHVJYIb1PBkryvtM0-/view?usp=sharing',
-                '電力交易平台管理規範及作業程序 - 總說明與對照表(版次：TPC-MT-v04)':'https://drive.google.com/file/d/1b3l_Xx9UVCjzmNIRfMJhBSWwojz_zUvG/view?usp=sharing',
-                '電力交易平台管理規範及作業程序附件五表5-4及附件九表9-2_113經濟部核定函與台電公告':'https://drive.google.com/file/d/1iIFnAfpb4L9jNqmPDi27OXCNCCGYgLKs/view?usp=sharing',
-                '電力交易平台管理規範及作業程序附件五表5-4及附件九表9-2_規定、修正總說明及對照表':'https://drive.google.com/file/d/1dsPM1wTypgS-cRhbOYcQsia9fhCvtD5d/view?usp=sharing',
-                }
-    
-    for key, value in file_links.items():
-        if key in response:
-            links[key] = value
+    with open('./gdrive_file_links.json', 'r', encoding="utf-8") as file:
+        json_data = file.read()
+    res = json.loads(json_data)
+    for file in res:
+        if file['file_name'] in response:
+            links[file['file_name']] = file['file_link']
     return links
+
+def CALL_FUNCTION_BY_NAME(function_name, function_args):
+    global_symbols = globals()
+
+    # 檢查 function 是否存在＆可用
+    if function_name in global_symbols and callable(global_symbols[function_name]):
+        # 呼叫
+        function_to_call = global_symbols[function_name]
+        return function_to_call(**function_args)
+    else:
+        # 丟出錯誤
+        raise ValueError(f"Function '{function_name}' not found or not callable.")

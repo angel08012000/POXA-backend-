@@ -2,13 +2,14 @@ from openai import OpenAI
 import time
 import requests
 from datetime import datetime, timedelta
+import os #Render
 
 from common import FORMAT_RESPONSE, SHOW_MENU, ADD_FILE_LINKS
 from functions.week_summary import get_summary
-from functions.file_search import start_file_search
+from functions.get_rules import get_rules
 from functions.term_explaination import get_definition
 from functions.get_QA_analyze import get_QA_analyze
-from functions.get_etp_related import get_etp_related
+from functions.get_etp_related import get_etp_related, get_etp_manu
 from functions.team_related_QA import team_related_QA
 from config import POXA
 
@@ -31,68 +32,41 @@ def call_function_by_name(function_name, function_args):
 
 # 本週摘要
 def get_week_summary(time):
-  print(f"送進來的時間: {time}")
-  time = get_summary(time)
-  print(f"轉換後的時間: {time}")
-
-  # 檢查時間
-  if time == None:
-      return [FORMAT_RESPONSE("text", {
-          "tag": "span",
-          "content": "時間過早/還沒到（第一篇摘要是 2023/10/2 發布）"
-      })]
-
-# 確定有摘要
-  res = [
-      FORMAT_RESPONSE("text", {
-          "tag": "span",
-          "content": "週摘要如下（註：每週摘要由週一發佈）"
-      })
-  ]
-    
-  # 查詢最新可用的連結
-  while True:
-      # 將日期合併成連結
-      response = requests.get(f"{POXA}/report/{time}")
-      
-      if response.status_code == 200:
-          res.append(FORMAT_RESPONSE("link", {
-              "url": f"{POXA}/report/{time}",
-              "content": f"{time}（點我查看）"
-          }))
-          break
-      # 若未找到摘要，退回一週
-      date = datetime.strptime(time, "%Y%m%d")
-      date -= timedelta(days=7)
-      time = date.strftime("%Y%m%d")
-
-  return res + SHOW_MENU()
+  print(f"送進來的資訊: {time}")
+  result = get_summary(time)
+  
+  return result + SHOW_MENU()
 
 # 名詞解釋
 def get_define(term_question):
   term = ""
+  definition = ""
   res = []
   for t in term_list:
      if t in term_question:
         term = t
         print("term: " + term)
         definition = get_definition(term)
-        res.append(definition)
-  if term == "":
+        res.append(FORMAT_RESPONSE("text", {
+          "content" : definition
+        })) 
+        break
+  if definition == "":
     print("查無資料")
-    # res = get_qa_answer(term_question)
-    res.append("查無資料，請重新提問。")
+    res.append(FORMAT_RESPONSE("text", {
+      "content" : "查無資料，請重新提問。"
+    })) 
    
-  return res
+  return res + SHOW_MENU()
 
 #獲取使用者問題
 def get_qa_question():
-    res = []
-    res.append(FORMAT_RESPONSE("text", {
-        "tag": "span",
-        "content": "請問您想詢問什麼問題呢？"
-    }))
-    return res
+  res = []
+  res.append(FORMAT_RESPONSE("text", {
+      "tag": "span",
+      "content": "請問您想詢問什麼問題呢？"
+  }))
+  return res
 
 # QA 問答
 def get_qa_answer(issue):
@@ -111,7 +85,7 @@ def get_qa_answer(issue):
 
 #電力交易市場規則
 def get_market_rule(rule_question):
-  response = start_file_search(rule_question)
+  response = get_rules(rule_question)
   res = []
   res.append(FORMAT_RESPONSE("text", {
       "content" : response
@@ -130,18 +104,24 @@ def get_market_rule(rule_question):
 def get_etp_answer(etpProblem):
     answer = get_etp_related(etpProblem)
 
-    if answer == False:
-      print("no etp answer")
-      qa_response = get_qa_answer(etpProblem)
-      return qa_response
-    else:
-      res = []
-      res.append(FORMAT_RESPONSE("text", {
-          "content" : answer
-        }))
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "content" : answer
+      }))
     
-      return res + SHOW_MENU()
+    return res + SHOW_MENU()
+    
+def get_manufacturer(manuQuestion):
+    answer = get_etp_manu(manuQuestion)
 
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "content" : answer
+    }))
+
+    return res + SHOW_MENU()
+
+#客製化問題(團隊)
 def get_team_related(team_related):
     answer = team_related_QA(team_related)
 
@@ -152,7 +132,6 @@ def get_team_related(team_related):
    
     return res + SHOW_MENU()
 
-
 # define functions
 today = datetime.today().strftime('%Y%m%d')
 week = [
@@ -160,39 +139,29 @@ week = [
     "name": "get_week_summary",
     "description": f"""
       提供電力交易市場的摘要。
-      若給定日期，則使用該日期進行查詢。
-      若有未給定年 or 月，請使用與「{datetime.today().strftime('%Y/%m/%d')}」對應的數字。
-      若未給定日期，請回覆使用者以取得日期資訊。
       """,
+      # 若未給定日期，請回覆使用者以取得日期資訊。
+      # 若給定日期，則使用該日期進行查詢。
+      # 若有未給定年 or 月，請使用與「{datetime.today().strftime('%Y/%m/%d')}」對應的數字。
     "parameters": {
       "type": "object",
       "properties": {
         "time": {
           "type": "string",
           "description": f"""
-          跟時間有關的描述，不要推測使用者未提供的數據。
-          %d:
-          若有明確的數字 day，則 %d = day
-          若指定了第n週，則先將 n 轉換為數字，而 %d 應該是該月份的第 7*n 天，即 n*7。
-          若未指定，請默認 %d = 7
-
-          %m:
-          若有明確的數字 month，則 %m = month
-          若未指定，請默認使用 {today} 中的 %m
-
-          %Y:
-          若有明確的數字 year，則 %Y = year
-          若未指定，請默認使用 {today} 中的 %Y
+          你是一個判斷工具，只能從使用者輸入中提取與時間相關的描述，並輸出原文中的相應部分。
+          非使用者輸入，就不能出現在輸出。
+          切勿新增任何字，也切勿進行提問或要求更多上下文。
           """
         },
       },
       "required": ["time"],
     }
-  },
+  }
 ]
 
 file = [
-   {
+  {
     "name": "get_market_rule",
     "description": "解釋電力交易市場的法規或市場規則。若非法規或市場規則，請使用get_qa_answer。",
     "parameters": {
@@ -200,12 +169,12 @@ file = [
       "properties": {
         "rule_question": {
           "type": "string",
-          "description": "是特定的法規或市場規則，請不要修改使用者的問題。"
+          "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。"
         }
       },
       "required": ["rule_question"],
     }
-  }, 
+  }
 ]
 
 define = [
@@ -222,36 +191,53 @@ define = [
       },
       "required": ["term_question"],
     }
-  },
+  }
 ]
 
-other_question = [
-  {
-    "name": "get_qa_answer",
-    "description": "接收所有使用者提出的完整問題，包括單一問題或多個問題。如果問題包含多個疑問句或其他複合內容，必須使用此功能。若使用者只是點選其他問答、輸入其他問答時，麻煩使用者輸入想詢問的問題。",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "issue": {
-                "type": "string",
-                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化，特別適用於包含多個問題的情況"
-            }
-        },
-        "required": ["issue"]
-    }
-  },
-  {
+database = [
+   {
     "name": "get_etp_answer",
-    "description": "當且僅當前端傳入的問題中，包含「得標量」、「結清」、「非交易」、「民營」關鍵詞，且問題為單一問題時，才使用此功能。如果問題包含多個問題或任何其他內容，請使用 get_qa_answer。",
+    "description": "當問題中包含「投標量」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，且問題為單一問題時，才使用此功能。當問題中有「合格交易者」、「容量」、「地址」、「統編」、「代表人」、「公司」、「電廠」關鍵詞，就使用get_manufacturer。",
     "parameters": {
         "type": "object",
         "properties": {
             "etpProblem": {
                 "type": "string",
-                "description": "完整接收包含「得標量」、「結清」、「非交易」、「民營」關鍵詞的單一問題"
+                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。"
             }
         },
         "required": ["etpProblem"]
+    }
+  },
+  {
+    "name": "get_manufacturer",
+    "description": "當問題中有「合格交易者」、「容量」、「地址」、「統編」、「代表人」、「公司」、「電廠」關鍵詞，就使用此功能。若問題中有「投標量」、「得標量」、「結清」、「非交易」、「民營」關鍵詞，就使用get_etp_answer。",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "manuQuestion": {
+                "type": "string",
+                "description": "完整接收使用者提出的問題（原始輸入），不得改寫或簡化。"
+            }
+        },
+        "required": ["manuQuestion"]
+    }
+  }
+]
+
+other_question = [
+  {
+    "name": "get_qa_answer",
+    "description": "當問題與電力交易市場有關時，接收所有使用者提出的完整問題，包括單一問題或多個問題。如果問題包含多個疑問句或其他複合內容，必須使用此功能。若使用者只是點選其他問答、輸入其他問答時，麻煩使用者輸入想詢問的問題。",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "issue": {
+                "type": "string",
+                "description": "當問題與電力交易市場有關時，完整接收使用者提出的問題（原始輸入），不得改寫或簡化，特別適用於包含多個問題的情況。"
+            }
+        },
+        "required": ["issue"]
     }
   },
   {
@@ -279,12 +265,15 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/', methods=['GET'])
+def health_check():
+    return "Service is running!", 200
+
 @app.route('/greeting', methods=['GET'])
 def greeting():
   return jsonify({
     "response": SHOW_MENU()
   })
-
 
 @app.route('/chat', methods=['POST'])
 def chat_with_bot():
@@ -315,12 +304,15 @@ def chat_with_bot():
 
   elif data["flow"]=="名詞解釋":
     functions = define
+
+  elif data["flow"]=="資料庫查詢":
+    functions = database
      
   elif data["flow"]=="其他問題":
     functions = other_question
 
   else:
-    functions = week + file + define + other_question
+    functions = week + file + define + database + other_question
 
   response = client.chat.completions.create(
     model="gpt-3.5-turbo", 
@@ -334,9 +326,38 @@ def chat_with_bot():
 
   print(f"function_call: {function_call}")
 
-  # gpt 直接回覆
+  # function_calling
+  if function_call: 
+    print(f"呼叫函式的名稱: {function_call.name}")
+    print(f"呼叫函式的參數: {function_call.arguments}")
+
+    final_res = call_function_by_name(function_call.name, eval(function_call.arguments))
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f">>>>>>>> 本輪對話花費時間: {execution_time}")
+    
+    return jsonify({'response': final_res})
+  
+  # gpt 直接回覆 (function calling 無)
   if content != None:
-    # print(f"機器人1: {content}")
+    if any(keyword in data["user"] for keyword in ["資料庫查詢"]):
+      res.append(FORMAT_RESPONSE("text", {
+          "tag": "span",
+          "content": "你有什麼想在 etp 查詢的問題嗎？\n 若想針對特定日期查詢，請依照格式輸入(YYYY-MM-DD)。"
+      }))
+      return jsonify({
+        "response": res
+      })
+    
+    if not any(keyword in data["user"] for keyword in ["電", "力", "市", "場", "交", "易", "能", "源", "規", "則", "得", "標", "結", "清", "價格", "容量", "頻", "率", "調頻", "備轉", "即時", "補充", "摘要","法規問答","名詞解釋","資料庫查詢","其他問題"]):
+        res.append(FORMAT_RESPONSE("text", {
+            "tag": "span",
+            "content": "無法回答此問題，請詢問與電力交易市場相關的問題，或嘗試調整問法或補充更多細節。"
+        }))
+        return jsonify({
+          "response": res + SHOW_MENU()
+        })
+    
     res.append(FORMAT_RESPONSE("text", {
       "tag" : "span",
       "content" : content
@@ -344,19 +365,10 @@ def chat_with_bot():
     return jsonify({
       'response': res
     })
-  
-  if function_call: # 需要呼叫 function
-    print(f"呼叫函式的名稱: {function_call.name}")
-    print(f"呼叫函式的參數: {function_call.arguments}")
-
-    final_res = call_function_by_name(function_call.name, eval(function_call.arguments))
-    # print(f"最終結論: {data}")
-
-    end_time = time.time()
-    execution_time = end_time - start_time
-    print(f">>>>>>>> 本輪對話花費時間: {execution_time}")
-    
-    return jsonify({'response': final_res})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
+    # port = int(os.environ.get("PORT", 5000))  # Render
+    # app.run(host="0.0.0.0", port=port)
+
+
