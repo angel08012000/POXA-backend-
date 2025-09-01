@@ -3,7 +3,7 @@ from openai import OpenAI
 # from functions.sentence_similarity import compute_similarity
 # from db_manager import db_readData
 
-openai.api_key = os.getenv('OPENAI_API_KEY')
+# openai.api_key = os.getenv('OPENAI_API_KEY')
 client = OpenAI()
 
 def send_message(user_message, my_thread, my_assistant):
