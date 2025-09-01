@@ -7,7 +7,7 @@ from google import genai
 from google.genai import types
 from typing import Tuple
 
-from image_processing import get_line_graphs_by_title, get_filtered_lines
+from image_process.image_processing import get_line_graphs_by_title, get_filtered_lines
 
 GEMINI_API_KEY = "AIzaSyAsO1xPnKc6YDfA3C01fEuG3-wF_7rEWEM"
 
