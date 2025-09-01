@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from openai import OpenAI
 import time
 import requests
@@ -36,7 +35,7 @@ def get_week_summary(time):
   print(f"送進來的資訊: {time}")
   result = get_summary(time)
   
-  return result
+  return result + SHOW_MENU()
 
 # 名詞解釋
 def get_define(term_question):
@@ -105,17 +104,12 @@ def get_market_rule(rule_question):
 def get_etp_answer(etpProblem):
     answer = get_etp_related(etpProblem)
 
-    if answer == False:
-      print("no etp answer")
-      manu_response = get_manufacturer(etpProblem)
-      return manu_response
-    else:
-      res = []
-      res.append(FORMAT_RESPONSE("text", {
-          "content" : answer
-        }))
+    res = []
+    res.append(FORMAT_RESPONSE("text", {
+        "content" : answer
+      }))
     
-      return res + SHOW_MENU()
+    return res + SHOW_MENU()
     
 def get_manufacturer(manuQuestion):
     answer = get_etp_manu(manuQuestion)

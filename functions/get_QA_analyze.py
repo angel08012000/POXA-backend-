@@ -296,7 +296,6 @@ def search_nearest_article(qa_time):
         article_date = extract_date_from_title(title)
         if article_date:
             date_diff = abs((qa_time - article_date).days)
-            # if (qa_time - article_date).days <= 0:
             if date_diff <= 4:
                 if date_diff < closest_date_diff:
                     closest_date_diff = date_diff

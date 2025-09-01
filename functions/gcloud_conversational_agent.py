@@ -34,7 +34,7 @@ def start_conversational_agent(question):
     response = session_client.detect_intent(request=request)
 
     print("=" * 20)
-    print(f"Query text: {response.query_result.text}")
+    # print(f"Query text: {response.query_result.text}")
     response_messages = ""
     for msg in response.query_result.response_messages:
         response_messages = "\n".join(msg.text.text) 
