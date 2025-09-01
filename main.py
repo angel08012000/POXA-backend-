@@ -388,6 +388,8 @@ def upload_file():
 
     # 取得折線圖和每張圖的 Y 軸值
     chart_images, y_vals = test_ai_y_value(file_bytes)
+    if not chart_images:
+        return jsonify({"error": "No charts"}), 400
     # 取得折線圖和平均線的二值化圖
     line_graphs = line_graphs_processing(chart_images)
     get_line_graph_values(chart_images, line_graphs, y_vals)

@@ -50,6 +50,7 @@ def get_line_graphs_by_title(image_data: bytes) -> np.ndarray:
         custom_config = r'--oem 3 --psm 4 -l chi_tra+eng'   # 設定參數提高中文辨識
         data = pytesseract.image_to_data(thresh, config=custom_config, output_type=pytesseract.Output.DICT)
 
+        print("[debug] text detected: ", data['text'])
         # 找出文字區塊
         title_boxes_y = []
         for i, text in enumerate(data['text']):
@@ -60,6 +61,8 @@ def get_line_graphs_by_title(image_data: bytes) -> np.ndarray:
         # 擷取折線圖
         chart_images = []
         print(f"[debug] num of chart y: {len(title_boxes_y)}")
+        if len(title_boxes_y) == 0:
+            return None
 
         for i in range(len(title_boxes_y)):
             y_start = title_boxes_y[i][1]   # 最上面的 y

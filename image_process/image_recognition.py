@@ -44,6 +44,9 @@ def get_line_graph_y_value_ai_v2(img: np.ndarray) -> str:
 def test_ai_y_value(image_data: bytes) -> Tuple[np.ndarray, list]:
     # 裁切出折線圖
     chart_images = get_line_graphs_by_title(image_data)
+    if not chart_images:
+        print("[error] no images cutted")
+        return None, None
 
     y_vals = list()
     for i in range(len(chart_images)):
