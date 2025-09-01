@@ -4,6 +4,8 @@ import requests
 from datetime import datetime, timedelta
 import os #Render
 
+import numpy as np
+
 from common import FORMAT_RESPONSE, SHOW_MENU, ADD_FILE_LINKS
 from functions.week_summary import get_summary
 from functions.get_rules import get_rules
@@ -262,6 +264,9 @@ client = OpenAI()
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+from image_process.image_recognition import test_ai_y_value, get_line_graph_values
+from image_process.image_processing import line_graphs_processing
+
 app = Flask(__name__)
 CORS(app)
 
@@ -364,6 +369,36 @@ def chat_with_bot():
     }))
     return jsonify({
       'response': res
+    })
+
+# image processing test api
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part"}), 400
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return jsonify({"error": "No selected file"}), 400
+
+    # 將上傳的圖片讀取成 numpy array (用 OpenCV)
+    file_bytes = np.frombuffer(file.read(), np.uint8)
+    hourly_data = []
+
+    # 取得折線圖和每張圖的 Y 軸值
+    chart_images, y_vals = test_ai_y_value(file_bytes)
+    # 取得折線圖和平均線的二值化圖
+    line_graphs = line_graphs_processing(chart_images)
+    get_line_graph_values(chart_images, line_graphs, y_vals)
+    # img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+
+    # --- 這裡放你的圖像處理邏輯 ---
+    # processed_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    # 回傳處理後的結果（示範：回傳處理後圖片的大小）
+    return jsonify({
+        "message": "File uploaded and processed successfully"
     })
 
 if __name__ == '__main__':
