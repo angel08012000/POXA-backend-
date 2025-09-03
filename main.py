@@ -264,7 +264,7 @@ client = OpenAI()
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from image_process.image_recognition import test_ai_y_value, get_line_graph_values
+from image_process.image_recognition import color_mapping, test_ai_y_value, get_line_graph_values
 from image_process.image_processing import line_graphs_processing
 
 app = Flask(__name__)
@@ -384,7 +384,8 @@ def upload_file():
 
     # 將上傳的圖片讀取成 numpy array (用 OpenCV)
     file_bytes = np.frombuffer(file.read(), np.uint8)
-    hourly_data = []
+
+    color_recg_result = color_mapping(file_bytes, '2024-02-25')
 
     # 取得折線圖和每張圖的 Y 軸值
     chart_images, y_vals = test_ai_y_value(file_bytes)
@@ -392,7 +393,7 @@ def upload_file():
         return jsonify({"error": "No charts"}), 400
     # 取得折線圖和平均線的二值化圖
     line_graphs = line_graphs_processing(chart_images)
-    get_line_graph_values(chart_images, line_graphs, y_vals)
+    chart_recg_result = get_line_graph_values(chart_images, line_graphs, y_vals)
     # img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
     # --- 這裡放你的圖像處理邏輯 ---
@@ -400,7 +401,9 @@ def upload_file():
 
     # 回傳處理後的結果（示範：回傳處理後圖片的大小）
     return jsonify({
-        "message": "File uploaded and processed successfully"
+        "message": "File uploaded and processed successfully",
+        "weekly_color": color_recg_result,
+        "line_chart": chart_recg_result
     })
 
 if __name__ == '__main__':

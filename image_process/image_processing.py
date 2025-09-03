@@ -32,6 +32,52 @@ def find_color_table(image_data: bytes) -> Tuple[np.ndarray, tuple[int, int, int
             target_rect = (x, y, w, h)
     return img, target_rect
 
+# 裁切著色圖
+def get_color_table(image_data: bytes) -> np.ndarray:
+    # 取得表格範圍
+    img, target_rect = find_color_table(image_data)
+
+    # 裁切表格
+    if target_rect:
+        x, y, w, h = target_rect
+        table_area = img[y:y+h, x:x+w]
+    
+    return table_area
+
+def get_mask_total(img_rgb: np.ndarray) -> np.ndarray:
+    # 定義顏色範圍
+    lower_null = np.array([240, 240, 240])
+    upper_null = np.array([255, 255, 255])
+
+    lower_blue = np.array([150, 200, 220])
+    upper_blue = np.array([170, 210, 240])
+
+    lower_red = np.array([230, 145, 150])
+    upper_red = np.array([255, 165, 170])
+
+    lower_orange = np.array([230, 170, 120])
+    upper_orange = np.array([255, 200, 160])
+
+    lower_yellow = np.array([230, 220, 30])
+    upper_yellow = np.array([255, 255, 100])
+
+    lower_green = np.array([120, 190, 120])
+    upper_green = np.array([160, 225, 150])
+
+    # 創建遮罩
+    mask_null = cv2.inRange(img_rgb, lower_null, upper_null)
+    mask_blue = cv2.inRange(img_rgb, lower_blue, upper_blue)
+    mask_red = cv2.inRange(img_rgb, lower_red, upper_red)
+    mask_orange = cv2.inRange(img_rgb, lower_orange, upper_orange)
+    mask_yellow = cv2.inRange(img_rgb, lower_yellow, upper_yellow)
+    mask_green = cv2.inRange(img_rgb, lower_green, upper_green)
+
+    # 將遮罩合併
+    mask_total = mask_null + mask_blue + mask_red + mask_orange + mask_yellow + mask_green
+    # mask_total = mask_blue + mask_red + mask_orange + mask_yellow + mask_green
+    mask_total = np.clip(mask_total, 0, 255)
+    return mask_total
+
 # 裁切折線圖(用標題去裁)
 def get_line_graphs_by_title(image_data: bytes) -> np.ndarray:
     img, table_cord = find_color_table(image_data)
@@ -49,8 +95,6 @@ def get_line_graphs_by_title(image_data: bytes) -> np.ndarray:
         # 提取文字(座標)
         custom_config = r'--oem 3 --psm 4 -l chi_tra+eng'   # 設定參數提高中文辨識
         data = pytesseract.image_to_data(thresh, config=custom_config, output_type=pytesseract.Output.DICT)
-
-        print("[debug] text detected: ", data['text'])
         # 找出文字區塊
         title_boxes_y = []
         for i, text in enumerate(data['text']):

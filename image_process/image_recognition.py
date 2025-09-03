@@ -7,9 +7,89 @@ from google import genai
 from google.genai import types
 from typing import Tuple
 
-from image_process.image_processing import get_line_graphs_by_title, get_filtered_lines
+from image_process.image_processing import get_color_table, get_mask_total, get_line_graphs_by_title, get_filtered_lines
 
 GEMINI_API_KEY = "AIzaSyAsO1xPnKc6YDfA3C01fEuG3-wF_7rEWEM"
+
+def color_mapping(image_data: bytes, start_date_str: str) -> dict:
+    img = get_color_table(image_data)
+    # 轉換圖片從 BGR 到 RGB
+    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    height, width, _ = img_rgb.shape
+
+    color_ranges = {
+        0: (np.array([240, 240, 240]), np.array([255, 255, 255])),  # null
+        1: (np.array([150, 200, 220]), np.array([170, 210, 240])),  # blue
+        2: (np.array([230, 140, 150]), np.array([255, 165, 170])),  # red
+        3: (np.array([230, 170, 120]), np.array([255, 200, 160])),  # orange
+        4: (np.array([230, 220, 30]), np.array([255, 255, 100])),  # yellow
+        5: (np.array([120, 190, 120]), np.array([160, 225, 150]))   # green
+    }
+
+    # 取得橫線
+    filtered_lines, _ = get_filtered_lines(img)
+
+    date_of_row = datetime.datetime.strptime(start_date_str, '%Y-%m-%d')
+    # cell_height = height // rows
+    rows = len(filtered_lines) - 1
+    cols = 7
+    cell_width = width // cols
+    sample = 50
+    result = dict()
+
+    for r in range(rows):
+        row_data = []
+        # print(date_of_row)
+        for c in range(cols):
+            # 取中間像素
+            # y = r * cell_height + cell_height // 2
+            # x = c * cell_width + cell_width // 2
+            # pixel = img_rgb[y, x]
+
+            # y = r * cell_height
+            y1 = filtered_lines[r]
+            y2 = filtered_lines[r+1]
+            x = c * cell_width
+            # pixel = get_center_patch_mean(img_rgb[y:y+cell_height, x:x+cell_width])
+            cell_img = img_rgb[y1:y2, x:x+cell_width]
+
+            h, w = cell_img.shape[:2]
+            code_dct = defaultdict(int)
+            code = 9
+            num_of_pixel = 0
+            # 隨機取樣
+            for _ in range(sample):
+                x = np.random.randint(int(w*0.1), int(w*0.9))
+                y = np.random.randint(int(h*0.1), int(h*0.9))
+                pixel = cell_img[y, x]
+                for k, (lower, upper) in color_ranges.items(): # 判斷是哪個顏色
+                    if np.all(pixel >= lower) and np.all(pixel <= upper):
+                        code_dct[k] = code_dct[k] + 1
+                        num_of_pixel = num_of_pixel + 1
+                        break
+            # 計算各顏色的占比
+            for c in range(1, 6):
+                # print(f"{c}: {code_dct[c]}")
+                if code_dct[c] / num_of_pixel > 0.6:
+                    code = c
+            # print("="*10)
+            # 若沒抓到顏色(code = 9)則用其他方法判斷(mask+bitwise_and)
+            if code == 9:
+                mask_total = get_mask_total(cell_img)
+                cell_output = cv2.bitwise_and(cell_img, cell_img, mask=mask_total)
+                
+                nonzero_pixels = cell_output[np.any(cell_output != 0, axis=-1)] # 取出非零像素
+                if len(nonzero_pixels) > 0:
+                    avg_color = np.mean(nonzero_pixels, axis=0).astype(np.uint8)
+                    for k, (lower, upper) in color_ranges.items():
+                        if np.all(avg_color >= lower) and np.all(avg_color <= upper):
+                            code = k
+            row_data.append(code)
+        
+        result[date_of_row.strftime('%Y-%m-%d')] = row_data
+        date_of_row = date_of_row + datetime.timedelta(days=7)
+    
+    return result
 
 # 一次傳多張圖
 def get_line_graph_y_value_ai_v2(img: np.ndarray) -> str:
@@ -72,6 +152,7 @@ def pixel_to_kw(y_val_start, y_val_end, y_pixel_start, y_pixel_end, y):
 # 抓座標對應值
 def get_line_graph_values(chart_images: np.ndarray, line_graphs: np.ndarray, y_vals: list):
     i: int = 0
+    result = list()
     if not line_graphs:
         print("no image received")
         return
@@ -118,3 +199,6 @@ def get_line_graph_values(chart_images: np.ndarray, line_graphs: np.ndarray, y_v
                 hour_to_kw[h] = round(pixel_to_kw(y_val_start, y_val_end, y_pixel_start, y_pixel_end, y_avg))
         i = i + 1
         print(f"{i}:\n{hour_to_kw}")
+        result.append(hour_to_kw)
+    
+    return result
