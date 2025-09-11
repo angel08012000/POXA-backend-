@@ -68,7 +68,7 @@ def color_mapping(image_data: bytes, start_date_str: str) -> dict:
                         num_of_pixel = num_of_pixel + 1
                         break
             # 計算各顏色的占比
-            print("[debug] num_of_pixel: ", num_of_pixel)
+            # print("[debug] num_of_pixel: ", num_of_pixel)
             if num_of_pixel > 0:
                 for c in range(1, 6):
                     # print(f"{c}: {code_dct[c]}")

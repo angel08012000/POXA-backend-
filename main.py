@@ -268,6 +268,7 @@ from image_process.image_recognition import color_mapping, test_ai_y_value, get_
 from image_process.image_processing import line_graphs_processing
 
 app = Flask(__name__)
+app.config["APPLICATION_ROOT"] = "/api"
 CORS(app)
 
 @app.route('/', methods=['GET'])
@@ -382,7 +383,7 @@ def upload_file():
     if file.filename == '':
         return jsonify({"error": "No selected file"}), 400
 
-    # 將上傳的圖片讀取成 numpy array (用 OpenCV)
+    # 將上傳的圖片讀取成 numpy array
     file_bytes = np.frombuffer(file.read(), np.uint8)
 
     color_recg_result = color_mapping(file_bytes, '2024-02-25')
@@ -396,10 +397,8 @@ def upload_file():
     chart_recg_result = get_line_graph_values(chart_images, line_graphs, y_vals)
     # img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-    # --- 這裡放你的圖像處理邏輯 ---
     # processed_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    # 回傳處理後的結果（示範：回傳處理後圖片的大小）
     return jsonify({
         "message": "File uploaded and processed successfully",
         "weekly_color": color_recg_result,
