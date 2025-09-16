@@ -1,8 +1,16 @@
 import cv2
 import pytesseract
+import re
 import numpy as np
 from typing import Tuple
 
+
+# 提取文字(座標)
+def extract_tick_values(thresh):
+    # 設定參數提高中文辨識
+    custom_config = r'--oem 3 --psm 4 -l chi_tra+eng'
+    data = pytesseract.image_to_data(thresh, config=custom_config, output_type=pytesseract.Output.DICT)
+    return data
 
 # 定位著色圖座標
 def find_color_table(image_data: bytes) -> Tuple[np.ndarray, tuple[int, int, int, int]]:
@@ -31,6 +39,33 @@ def find_color_table(image_data: bytes) -> Tuple[np.ndarray, tuple[int, int, int
             max_area = area
             target_rect = (x, y, w, h)
     return img, target_rect
+
+def get_color_table_first_date(img_data):
+    img_nparry = np.fromstring(img_data, np.uint8)
+    img = cv2.imdecode(img_nparry, cv2.IMREAD_COLOR)
+    if img is None:
+        print("圖片讀取失敗，請檢查路徑或檔案名稱")
+        exit()    
+    
+    h = img.shape[0]
+    w = img.shape[1]
+    y = round(h * 0.2)
+    x = round(w * 0.12)
+
+    date_text_area = img[0:y, 0:x]
+
+    # 轉灰階 + 二值化
+    gray = cv2.cvtColor(date_text_area, cv2.COLOR_BGR2GRAY)
+    _, thresh = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY)
+
+    data = extract_tick_values(thresh)    
+    print(data['text'])
+
+    for text in data['text']:
+        match = re.search(r"\d+-\d+-\d+", text)
+        if match:
+            print("[test] first date of color table: ", text)
+            return text
 
 # 裁切著色圖
 def get_color_table(image_data: bytes) -> np.ndarray:
@@ -64,6 +99,9 @@ def get_mask_total(img_rgb: np.ndarray) -> np.ndarray:
     lower_green = np.array([120, 190, 120])
     upper_green = np.array([160, 225, 150])
 
+    lower_purple = np.array([200, 160, 190])
+    upper_purple = np.array([220, 170, 210])
+
     # 創建遮罩
     mask_null = cv2.inRange(img_rgb, lower_null, upper_null)
     mask_blue = cv2.inRange(img_rgb, lower_blue, upper_blue)
@@ -71,10 +109,10 @@ def get_mask_total(img_rgb: np.ndarray) -> np.ndarray:
     mask_orange = cv2.inRange(img_rgb, lower_orange, upper_orange)
     mask_yellow = cv2.inRange(img_rgb, lower_yellow, upper_yellow)
     mask_green = cv2.inRange(img_rgb, lower_green, upper_green)
+    mask_purple = cv2.inRange(img_rgb, lower_purple, upper_purple)
 
     # 將遮罩合併
-    mask_total = mask_null + mask_blue + mask_red + mask_orange + mask_yellow + mask_green
-    # mask_total = mask_blue + mask_red + mask_orange + mask_yellow + mask_green
+    mask_total = mask_null + mask_blue + mask_red + mask_orange + mask_yellow + mask_green + mask_purple
     mask_total = np.clip(mask_total, 0, 255)
     return mask_total
 
@@ -93,8 +131,8 @@ def get_line_graphs_by_title(image_data: bytes) -> np.ndarray:
         _, thresh = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY)
 
         # 提取文字(座標)
-        custom_config = r'--oem 3 --psm 4 -l chi_tra+eng'   # 設定參數提高中文辨識
-        data = pytesseract.image_to_data(thresh, config=custom_config, output_type=pytesseract.Output.DICT)
+        data = extract_tick_values(thresh)
+
         # 找出文字區塊
         title_boxes_y = []
         for i, text in enumerate(data['text']):
@@ -187,14 +225,40 @@ def line_graphs_processing(chart_images: np.ndarray) -> np.ndarray:
     return line_graphs
 
 # 提取橫線
-def get_filtered_lines(img: np.ndarray) -> Tuple[list, list]:
+def get_filtered_lines(img: np.ndarray, method: str) -> Tuple[list, list]:
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    if method == 'color':
+        # 邊緣偵測
+        v = np.median(gray)
+        edges = cv2.Canny(gray, int(0.03 * v), int(0.2 * v))
+        projection = np.sum(edges, axis=1)  # 每一列的白點數
+        threshold = np.max(projection) * 0.5
+        line_y = np.where(projection > threshold)[0]
 
-    # 邊緣偵測
-    edges = cv2.Canny(gray, 10, 80, apertureSize=3)
+        # 去重複、合併相近的 y 值
+        filtered_y = []
+        for y in line_y:
+            if not filtered_y or abs(y - filtered_y[-1]) > 5:
+                filtered_y.append(y)
 
-    # 偵測橫向線段
-    lines = cv2.HoughLinesP(edges, 1, np.pi / 180, threshold=20, minLineLength=100, maxLineGap=10)
+        # 找每條水平線的 X 範圍
+        line_segments = []
+        for y in filtered_y:
+            row = edges[y, :]   # 該行的所有像素
+            x_positions = np.where(row > 0)[0]  # 該行白點位置
+            if len(x_positions) > 0:
+                x1, x2 = x_positions.tolist()[0], x_positions.tolist()[-1]
+                line_segments.append([x1, y.item(), x2, y.item()])
+        lines = np.array(line_segments, dtype=np.int64).reshape(-1, 1, 4)
+
+    elif method == 'line':
+        gray = cv2.GaussianBlur(gray, (3,3), 0)   # 平滑雜訊
+        gray = cv2.equalizeHist(gray)             # 均衡化，拉高線條對比
+        # 邊緣偵測
+        edges = cv2.Canny(gray, 10, 80, apertureSize=3)
+        # 偵測橫向線段
+        minLine = img.shape[1] * 0.6
+        lines = cv2.HoughLinesP(edges, 1, np.pi / 180, threshold=10, minLineLength=minLine, maxLineGap=10)
     
     draw_lines = []
     # 提取橫線 y 座標

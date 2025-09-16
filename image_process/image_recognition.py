@@ -23,11 +23,12 @@ def color_mapping(image_data: bytes, start_date_str: str) -> dict:
         2: (np.array([230, 140, 150]), np.array([255, 165, 170])),  # red
         3: (np.array([230, 170, 120]), np.array([255, 200, 160])),  # orange
         4: (np.array([230, 220, 30]), np.array([255, 255, 100])),  # yellow
-        5: (np.array([120, 190, 120]), np.array([160, 225, 150]))   # green
+        5: (np.array([120, 190, 120]), np.array([160, 225, 150])),   # green
+        6: (np.array([200, 160, 190]), np.array([220, 170, 210]))   # purple
     }
 
     # 取得橫線
-    filtered_lines, _ = get_filtered_lines(img)
+    filtered_lines, _ = get_filtered_lines(img, 'color')
 
     date_of_row = datetime.datetime.strptime(start_date_str, '%Y-%m-%d')
     # cell_height = height // rows
@@ -39,18 +40,11 @@ def color_mapping(image_data: bytes, start_date_str: str) -> dict:
 
     for r in range(rows):
         row_data = []
-        # print(date_of_row)
         for c in range(cols):
             # 取中間像素
-            # y = r * cell_height + cell_height // 2
-            # x = c * cell_width + cell_width // 2
-            # pixel = img_rgb[y, x]
-
-            # y = r * cell_height
             y1 = filtered_lines[r]
             y2 = filtered_lines[r+1]
             x = c * cell_width
-            # pixel = get_center_patch_mean(img_rgb[y:y+cell_height, x:x+cell_width])
             cell_img = img_rgb[y1:y2, x:x+cell_width]
 
             h, w = cell_img.shape[:2]
@@ -164,7 +158,7 @@ def get_line_graph_values(chart_images: np.ndarray, line_graphs: np.ndarray, y_v
         y_val_start = y_vals[i][0]
         y_val_end = y_vals[i][1]
 
-        horizen_lines, draw_lines = get_filtered_lines(chart_images[i])
+        horizen_lines, draw_lines = get_filtered_lines(chart_images[i], 'line')
         sorted_horizen = sorted(horizen_lines)
         y_pixel_start = sorted_horizen[0]
         y_pixel_end = sorted_horizen[len(sorted_horizen) -1]

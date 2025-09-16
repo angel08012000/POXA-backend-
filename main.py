@@ -265,7 +265,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 from image_process.image_recognition import color_mapping, test_ai_y_value, get_line_graph_values
-from image_process.image_processing import line_graphs_processing
+from image_process.image_processing import line_graphs_processing, get_color_table_first_date
 
 app = Flask(__name__)
 app.config["APPLICATION_ROOT"] = "/api"
@@ -386,7 +386,8 @@ def upload_file():
     # 將上傳的圖片讀取成 numpy array
     file_bytes = np.frombuffer(file.read(), np.uint8)
 
-    color_recg_result = color_mapping(file_bytes, '2024-02-25')
+    start_date_str = get_color_table_first_date(file_bytes)
+    color_recg_result = color_mapping(file_bytes, start_date_str)
 
     # 取得折線圖和每張圖的 Y 軸值
     chart_images, y_vals = test_ai_y_value(file_bytes)
