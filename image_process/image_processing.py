@@ -58,8 +58,7 @@ def get_color_table_first_date(img_data):
     gray = cv2.cvtColor(date_text_area, cv2.COLOR_BGR2GRAY)
     _, thresh = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY)
 
-    data = extract_tick_values(thresh)    
-    print(data['text'])
+    data = extract_tick_values(thresh)
 
     for text in data['text']:
         match = re.search(r"\d+-\d+-\d+", text)
