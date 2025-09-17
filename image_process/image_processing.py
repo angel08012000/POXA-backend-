@@ -226,38 +226,31 @@ def line_graphs_processing(chart_images: np.ndarray) -> np.ndarray:
 # 提取橫線
 def get_filtered_lines(img: np.ndarray, method: str) -> Tuple[list, list]:
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    if method == 'color':
-        # 邊緣偵測
-        v = np.median(gray)
-        edges = cv2.Canny(gray, int(0.03 * v), int(0.2 * v))
-        projection = np.sum(edges, axis=1)  # 每一列的白點數
-        threshold = np.max(projection) * 0.5
-        line_y = np.where(projection > threshold)[0]
+    # 邊緣偵測
+    v = np.median(gray)
+    print("[debug] v = ", v)
+    edges = cv2.Canny(gray, int(0.03 * v), int(0.2 * v))
 
-        # 去重複、合併相近的 y 值
-        filtered_y = []
-        for y in line_y:
-            if not filtered_y or abs(y - filtered_y[-1]) > 5:
-                filtered_y.append(y)
+    projection = np.sum(edges, axis=1)  # 每一列的白點數
+    threshold = np.max(projection) * 0.5
+    line_y = np.where(projection > threshold)[0]
 
-        # 找每條水平線的 X 範圍
-        line_segments = []
-        for y in filtered_y:
-            row = edges[y, :]   # 該行的所有像素
-            x_positions = np.where(row > 0)[0]  # 該行白點位置
-            if len(x_positions) > 0:
-                x1, x2 = x_positions.tolist()[0], x_positions.tolist()[-1]
-                line_segments.append([x1, y.item(), x2, y.item()])
-        lines = np.array(line_segments, dtype=np.int64).reshape(-1, 1, 4)
+    # 去重複、合併相近的 y 值
+    filtered_y = []
+    for y in line_y:
+        if not filtered_y or abs(y - filtered_y[-1]) > 5:
+            filtered_y.append(y)
 
-    elif method == 'line':
-        gray = cv2.GaussianBlur(gray, (3,3), 0)   # 平滑雜訊
-        gray = cv2.equalizeHist(gray)             # 均衡化，拉高線條對比
-        # 邊緣偵測
-        edges = cv2.Canny(gray, 10, 80, apertureSize=3)
-        # 偵測橫向線段
-        minLine = img.shape[1] * 0.6
-        lines = cv2.HoughLinesP(edges, 1, np.pi / 180, threshold=10, minLineLength=minLine, maxLineGap=10)
+    # 找每條水平線的 X 範圍
+    line_segments = []
+    for y in filtered_y:
+        row = edges[y, :]   # 該行的所有像素
+        x_positions = np.where(row > 0)[0]  # 該行白點位置
+        if len(x_positions) > 0:
+            x1, x2 = x_positions.tolist()[0], x_positions.tolist()[-1]
+            line_segments.append([x1, y.item(), x2, y.item()])
+    # print(line_segments)
+    lines = np.array(line_segments, dtype=np.int64).reshape(-1, 1, 4)
     
     draw_lines = []
     # 提取橫線 y 座標

@@ -161,7 +161,7 @@ def get_line_graph_values(chart_images: np.ndarray, line_graphs: np.ndarray, y_v
         horizen_lines, draw_lines = get_filtered_lines(chart_images[i], 'line')
         sorted_horizen = sorted(horizen_lines)
         y_pixel_start = sorted_horizen[0]
-        y_pixel_end = sorted_horizen[len(sorted_horizen) -1]
+        y_pixel_end = sorted_horizen[-1]
         # print(f'y_pixel_start: {y_pixel_start}\ny_pixel_end: {y_pixel_end}')
 
         # 找平均線輪廓
