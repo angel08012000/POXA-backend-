@@ -7,7 +7,7 @@ from google import genai
 from google.genai import types
 from typing import Tuple
 
-from image_process.image_processing import get_color_table, get_mask_total, get_line_graphs_by_title, get_filtered_lines
+from image_process.image_processing import get_color_table, get_mask_total, get_chart_by_hsv, get_filtered_lines
 
 GEMINI_API_KEY = "AIzaSyAsO1xPnKc6YDfA3C01fEuG3-wF_7rEWEM"
 
@@ -28,7 +28,7 @@ def color_mapping(image_data: bytes, start_date_str: str) -> dict:
     }
 
     # 取得橫線
-    filtered_lines, _ = get_filtered_lines(img, 'color')
+    filtered_lines, _ = get_filtered_lines(img)
 
     date_of_row = datetime.datetime.strptime(start_date_str, '%Y-%m-%d')
     # cell_height = height // rows
@@ -119,7 +119,7 @@ def get_line_graph_y_value_ai_v2(img: np.ndarray) -> str:
 
 def test_ai_y_value(image_data: bytes) -> Tuple[np.ndarray, list]:
     # 裁切出折線圖
-    chart_images = get_line_graphs_by_title(image_data)
+    chart_images = get_chart_by_hsv(image_data)
     if not chart_images:
         print("[error] no images cutted")
         return None, None
@@ -158,11 +158,10 @@ def get_line_graph_values(chart_images: np.ndarray, line_graphs: np.ndarray, y_v
         y_val_start = y_vals[i][0]
         y_val_end = y_vals[i][1]
 
-        horizen_lines, draw_lines = get_filtered_lines(chart_images[i], 'line')
+        horizen_lines, draw_lines = get_filtered_lines(chart_images[i])
         sorted_horizen = sorted(horizen_lines)
         y_pixel_start = sorted_horizen[0]
         y_pixel_end = sorted_horizen[-1]
-        # print(f'y_pixel_start: {y_pixel_start}\ny_pixel_end: {y_pixel_end}')
 
         # 找平均線輪廓
         contours, _ = cv2.findContours(graph, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
@@ -178,7 +177,6 @@ def get_line_graph_values(chart_images: np.ndarray, line_graphs: np.ndarray, y_v
         sorted_p = sorted(points, key=lambda p: p[0])
         x_pixel_start = sorted_p[0][0]
         x_pixel_end = sorted_p[len(sorted_p) - 1][0]
-        # print(f'x_pixel_start: {x_pixel_start}\nx_pixel_end: {x_pixel_end}')
 
         # 建立一個每小時 (整數) 的對應值（可用最接近的點）
         hours = np.arange(1, 25)
