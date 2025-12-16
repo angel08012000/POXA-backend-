@@ -9,30 +9,21 @@ from typing import Tuple
 
 from image_process.image_processing import get_color_table, get_mask_total, get_chart_by_hsv, get_filtered_lines
 
-GEMINI_API_KEY = "AIzaSyAsO1xPnKc6YDfA3C01fEuG3-wF_7rEWEM"
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import config
 
 def color_mapping(image_data: bytes, start_date_str: str) -> dict:
-    img = get_color_table(image_data)
+    img, circle_colors = get_color_table(image_data)
     # 轉換圖片從 BGR 到 RGB
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     height, width, _ = img_rgb.shape
 
-    color_ranges = {
-        0: (np.array([240, 240, 240]), np.array([255, 255, 255])),  # null
-        1: (np.array([150, 200, 220]), np.array([170, 210, 240])),  # blue
-        2: (np.array([230, 140, 150]), np.array([255, 165, 170])),  # red
-        3: (np.array([230, 170, 120]), np.array([255, 200, 160])),  # orange
-        4: (np.array([230, 220, 30]), np.array([255, 255, 100])),  # yellow
-        5: (np.array([120, 190, 120]), np.array([160, 225, 150])),   # green
-        6: (np.array([200, 160, 190]), np.array([220, 170, 210]))   # purple
-    }
-
     # 取得橫線
-    filtered_lines, _ = get_filtered_lines(img)
+    horizontal_filtered_lines, vertical_filtered_lines, _ = get_filtered_lines(img)
 
     date_of_row = datetime.datetime.strptime(start_date_str, '%Y-%m-%d')
     # cell_height = height // rows
-    rows = len(filtered_lines) - 1
+    rows = len(horizontal_filtered_lines) - 1
     cols = 7
     cell_width = width // cols
     sample = 50
@@ -40,48 +31,27 @@ def color_mapping(image_data: bytes, start_date_str: str) -> dict:
 
     for r in range(rows):
         row_data = []
-        for c in range(cols):
-            # 取中間像素
-            y1 = filtered_lines[r]
-            y2 = filtered_lines[r+1]
-            x = c * cell_width
-            cell_img = img_rgb[y1:y2, x:x+cell_width]
+        y1 = horizontal_filtered_lines[r]
+        y2 = horizontal_filtered_lines[r+1]
+        # print(date_of_row)
+        for col in range(cols):
+            x1 = vertical_filtered_lines[col]
+            x2 = vertical_filtered_lines[col+1]
+            cell_img = img_rgb[y1:y2, x1:x2]
 
             h, w = cell_img.shape[:2]
             code_dct = defaultdict(int)
             code = 9
-            num_of_pixel = 0
-            # 隨機取樣
-            for _ in range(sample):
-                x = np.random.randint(int(w*0.1), int(w*0.9))
-                y = np.random.randint(int(h*0.1), int(h*0.9))
-                pixel = cell_img[y, x]
-                for k, (lower, upper) in color_ranges.items(): # 判斷是哪個顏色
-                    if np.all(pixel >= lower) and np.all(pixel <= upper):
-                        code_dct[k] = code_dct[k] + 1
-                        num_of_pixel = num_of_pixel + 1
-                        break
-            # 計算各顏色的占比
-            # print("[debug] num_of_pixel: ", num_of_pixel)
-            if num_of_pixel > 0:
-                for c in range(1, 7):
-                    # print(f"{c}: {code_dct[c]}")
-                    if code_dct[c] / num_of_pixel > 0.6:
-                        code = c
-            # print("="*10)
-            # 若沒抓到顏色(code = 9)則用其他方法判斷(mask+bitwise_and)
-            if code == 9:
-                mask_total = get_mask_total(cell_img)
-                cell_output = cv2.bitwise_and(cell_img, cell_img, mask=mask_total)
-                
-                nonzero_pixels = cell_output[np.any(cell_output != 0, axis=-1)] # 取出非零像素
-                if len(nonzero_pixels) > 0:
-                    avg_color = np.mean(nonzero_pixels, axis=0).astype(np.uint8)
-                    for k, (lower, upper) in color_ranges.items():
-                        if np.all(avg_color >= lower) and np.all(avg_color <= upper):
-                            code = k
+            min_dist = float('inf')
+            avg_color = np.mean(cell_img, axis=0).astype(np.uint8)
+            for k, circle_rgb in circle_colors.items():
+                dist = np.linalg.norm(avg_color - np.array(circle_rgb))
+                if dist < min_dist:
+                    min_dist = dist
+                    code = k
             row_data.append(code)
         
+        # print(row_data)
         result[date_of_row.strftime('%Y-%m-%d')] = row_data
         date_of_row = date_of_row + datetime.timedelta(days=7)
     
@@ -107,7 +77,7 @@ def get_line_graph_y_value_ai_v2(img: np.ndarray) -> str:
         mime_type="image/png"
     )
 
-    client = genai.Client(api_key=GEMINI_API_KEY)
+    client = genai.Client(api_key=config.GEMINI_API_KEY)
     response = client.models.generate_content(
         model="gemini-2.0-flash",
         contents=[

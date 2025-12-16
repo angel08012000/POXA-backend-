@@ -3,6 +3,7 @@ import pytesseract
 import re
 import numpy as np
 from typing import Tuple
+from collections import defaultdict
 
 
 # 提取文字(座標)
@@ -75,8 +76,62 @@ def get_color_table(image_data: bytes) -> np.ndarray:
     if target_rect:
         x, y, w, h = target_rect
         table_area = img[y:y+h, x:x+w]
+        legend_with_title = img[0:target_rect[1], target_rect[0]:target_rect[0]+target_rect[2]]
+        legend_with_title_copied = legend_with_title.copy()
+        gray = cv2.cvtColor(legend_with_title_copied, cv2.COLOR_BGR2GRAY)
+        _, thresh = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY)
+        data = extract_tick_values(thresh)
+        for i, text in enumerate(data['text']):
+            if text != "":
+                yt, ht = data['top'][i], data['height'][i]
+                break
+        deviation_h = yt + ht
+        legend = img[deviation_h:target_rect[1], target_rect[0]:target_rect[0]+target_rect[2]]
+        circle_colors = get_legend_level_circles(target_rect, legend, img, deviation_h)
     
-    return table_area
+    return table_area, circle_colors
+
+def get_legend_level_circles(target_rect: tuple, legend: np.array, img: np.array, deviation_h: int) -> defaultdict:
+    img_cpy = img.copy()
+    gray = cv2.cvtColor(legend, cv2.COLOR_BGR2GRAY)
+    # 模糊讓邊界平滑
+    blur = cv2.medianBlur(gray, 5)
+
+    # 霍夫圓偵測
+    circles = cv2.HoughCircles(
+        blur,
+        cv2.HOUGH_GRADIENT,
+        dp=1,
+        minDist=40,
+        param1=50,
+        param2=10,  # 調小讓它更容易偵測弱邊緣圓
+        minRadius=5,
+        maxRadius=15
+    )
+
+    if circles is not None:
+        color_code = defaultdict(list)
+        circles = np.uint16(np.around(circles[0, :]))
+        circles = sorted(circles, key=lambda c: c[0])  # 左 -> 右
+
+        for i, (x1, y1, radius) in enumerate(circles):
+            cx = x1 + target_rect[0]
+            cy = y1 + deviation_h
+
+            # 遮罩
+            mask = np.zeros(img.shape[:2], dtype=np.uint8)
+            cv2.circle(mask, (cx, cy), radius, 255, -1)
+
+            mean_color = cv2.mean(img, mask=mask)
+            b, g, r = mean_color[:3]
+            color_code[i+1] = [int(b), int(g), int(r)]
+            # print(f"第{i+1}顆圓心位置 = ({cx}, {cy}), 半徑={radius}, 顏色(BGR)=({b:.1f}, {g:.1f}, {r:.1f})")
+            cv2.circle(img_cpy, (cx, cy), radius, (0, 255, 0), 2)
+        color_code[0] = [245, 245, 245]
+        return color_code
+    else:
+        print("[error] circles not found")
+        return None
 
 def get_mask_total(img_rgb: np.ndarray) -> np.ndarray:
     # 定義顏色範圍
