@@ -364,7 +364,7 @@ def get_filtered_lines(img: np.ndarray) -> Tuple[list, list, list]:
     # 找每條水平線的 X 範圍
     line_segments_y = []
     for y in filtered_y:
-        row = edges[y, :]   # 該行的所有像素
+        row = edges[y, :]   # 該列的所有像素
         x_positions = np.where(row > 0)[0]  # 該行白點位置
         if len(x_positions) > 0:
             x1, x2 = x_positions.tolist()[0], x_positions.tolist()[-1]
@@ -375,8 +375,8 @@ def get_filtered_lines(img: np.ndarray) -> Tuple[list, list, list]:
     # 找每條垂直線的 Y 範圍
     line_segments_x = []
     for x in filtered_x:
-        row = edges[x, :]   # 該行的所有像素
-        y_positions = np.where(row > 0)[0]  # 該行白點位置
+        col = edges[:, x]   # 該行的所有像素
+        y_positions = np.where(col > 0)[0]  # 該行白點位置
         if len(y_positions) > 0:
             y1, y2 = 0, img.shape[0]
             line_segments_x.append([x.item(), y1, x.item(), y2])
