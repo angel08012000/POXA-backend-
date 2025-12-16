@@ -332,7 +332,7 @@ def adaptive_color_mask(img: np.ndarray):
     return s_threshold
 
 # 提取橫線
-def get_filtered_lines(img: np.ndarray) -> Tuple[list, list]:
+def get_filtered_lines(img: np.ndarray) -> Tuple[list, list, list]:
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     # 邊緣偵測
@@ -344,39 +344,74 @@ def get_filtered_lines(img: np.ndarray) -> Tuple[list, list]:
     threshold = np.max(projection) * 0.5
     line_y = np.where(projection > threshold)[0]
 
+    projection = np.sum(edges, axis=0)  # 每一行的白點數
+    threshold = np.max(projection) * 0.5
+    line_x = np.where(projection > threshold)[0]
+
     # 去重複、合併相近的 y 值
     filtered_y = []
     for y in line_y:
         if not filtered_y or abs(y - filtered_y[-1]) > 5:
             filtered_y.append(y)
 
+    # 去重複、合併相近的 x 值
+    filtered_x = []
+    for x in line_x:
+        if not filtered_x or abs(x - filtered_x[-1]) > 5:
+            filtered_x.append(x)
+
     # 找每條水平線的 X 範圍
-    line_segments = []
+    line_segments_y = []
     for y in filtered_y:
         row = edges[y, :]   # 該行的所有像素
         x_positions = np.where(row > 0)[0]  # 該行白點位置
         if len(x_positions) > 0:
             x1, x2 = x_positions.tolist()[0], x_positions.tolist()[-1]
-            line_segments.append([x1, y.item(), x2, y.item()])
-    # print(line_segments)
-    lines = np.array(line_segments, dtype=np.int64).reshape(-1, 1, 4)
+            line_segments_y.append([x1, y.item(), x2, y.item()])
+    # print(line_segments_y)
+    lines_y = np.array(line_segments_y, dtype=np.int64).reshape(-1, 1, 4)
+
+    # 找每條垂直線的 Y 範圍
+    line_segments_x = []
+    for x in filtered_x:
+        row = edges[x, :]   # 該行的所有像素
+        y_positions = np.where(row > 0)[0]  # 該行白點位置
+        if len(y_positions) > 0:
+            y1, y2 = 0, img.shape[0]
+            line_segments_x.append([x.item(), y1, x.item(), y2])
+    # print(line_segments_x)
+    lines_x = np.array(line_segments_x, dtype=np.int64).reshape(-1, 1, 4)
     
     draw_lines = []
     # 提取橫線 y 座標
     horizontal_lines = []
-    for line in lines:
+    for line in lines_y:
         x1, y1, x2, y2 = line[0]
         if abs(y1 - y2) < 5 and abs(x2 - x1) > gray.shape[1] * 0.6:  # 判斷是否為橫線
             horizontal_lines.append(y1)
+            # draw_lines.append(line)
+
+    # 提取垂直線 x 座標
+    vertical_lines = []
+    for line in lines_x:
+        x1, y1, x2, y2 = line[0]
+        if abs(x1 - x2) < 5:  # 判斷是否為垂直線
+            vertical_lines.append(x1)
             draw_lines.append(line)
 
     # 排序並去除相近重複線
     horizontal_lines = sorted(horizontal_lines)
-    filtered_lines = []
-    threshold = 5  # 線距小於門檻視為同一條
+    horizontal_filtered_lines = []
+    threshold = 5  # 線距小於這個視為同一條
+
+    vertical_lines = sorted(vertical_lines)
+    vertical_filtered_lines = []
 
     for y in horizontal_lines:
-        if not filtered_lines or abs(y - filtered_lines[-1]) > threshold:
-            filtered_lines.append(y)
-    # print(len(filtered_lines))    
-    return filtered_lines, draw_lines
+        if not horizontal_filtered_lines or abs(y - horizontal_filtered_lines[-1]) > threshold:
+            horizontal_filtered_lines.append(y)
+    for x in vertical_lines:
+        if not vertical_filtered_lines or abs(x - vertical_filtered_lines[-1]) > threshold:
+            vertical_filtered_lines.append(x)
+    print(len(vertical_filtered_lines))    
+    return horizontal_filtered_lines, vertical_filtered_lines, draw_lines
