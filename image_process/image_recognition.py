@@ -15,7 +15,7 @@ import config
 def color_mapping(image_data: bytes, start_date_str: str) -> dict:
     img, circle_colors = get_color_table(image_data)
     # 轉換圖片從 BGR 到 RGB
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img_rgb = img.copy()
     height, width, _ = img_rgb.shape
 
     # 取得橫線
