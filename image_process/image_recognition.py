@@ -128,7 +128,7 @@ def get_line_graph_values(chart_images: np.ndarray, line_graphs: np.ndarray, y_v
         y_val_start = y_vals[i][0]
         y_val_end = y_vals[i][1]
 
-        horizen_lines, draw_lines = get_filtered_lines(chart_images[i])
+        horizen_lines, _, draw_lines = get_filtered_lines(chart_images[i])
         sorted_horizen = sorted(horizen_lines)
         y_pixel_start = sorted_horizen[0]
         y_pixel_end = sorted_horizen[-1]
