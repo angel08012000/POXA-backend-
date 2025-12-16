@@ -305,8 +305,9 @@ def line_graphs_processing(chart_images: np.ndarray) -> np.ndarray:
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))
         erosion_gray = cv2.morphologyEx(open_gray, cv2.MORPH_ERODE, kernel)
 
-        x_min = 100
-        x_max = erosion_gray.shape[1] - 50
+        # 清除左右雜訊
+        x_min = round(chart.shape[1] * 0.22)
+        x_max = erosion_gray.shape[1] - round(chart.shape[1] * 0.05)
         filtered_gray = erosion_gray.copy()
         filtered_gray[:, :x_min] = 0
         filtered_gray[:, x_max:] = 0

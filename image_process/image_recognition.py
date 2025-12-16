@@ -118,7 +118,7 @@ def pixel_to_kw(y_val_start, y_val_end, y_pixel_start, y_pixel_end, y):
 # 抓座標對應值
 def get_line_graph_values(chart_images: np.ndarray, line_graphs: np.ndarray, y_vals: list):
     i: int = 0
-    result = list()
+    line_graph_vals = list()
     if not line_graphs:
         print("no image received")
         return
@@ -133,36 +133,64 @@ def get_line_graph_values(chart_images: np.ndarray, line_graphs: np.ndarray, y_v
         y_pixel_start = sorted_horizen[0]
         y_pixel_end = sorted_horizen[-1]
 
+        if y_pixel_end - y_pixel_start <= 0:
+            print(f"[error] line graph {i+1} y 軸判斷錯誤")
+            i = i + 1
+            continue
+
         # 找平均線輪廓
         contours, _ = cv2.findContours(graph, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         if not contours:
             print(f"\nline graph {i+1} has no contours\n")
             i = i + 1
             continue
-        # 抓面積最大的輪廓
-        largest = max(contours, key=cv2.contourArea)
+        _, white_graph = cv2.threshold(graph, 125, 255, cv2.THRESH_BINARY)
+        # 保留最大連通區 (去掉雜點)
+        num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(white_graph, connectivity=8)
+        largest_label = 1 + np.argmax(stats[1:, cv2.CC_STAT_AREA])  # 跳過背景 (0)
+        mask = (labels == largest_label).astype(np.uint8) * 255
+
+        ys, xs = np.where(mask > 0)
+        coords = np.column_stack((xs, ys))  # (x, y) 座標
+        points = coords.tolist()
+
+        if not points:
+            print(f"\nline graph {i+1} has no contours\n")
+            i = i + 1
+            continue
         
-        # 取出折線的所有點座標 (轉成 list of (x, y))
-        points = [tuple(pt[0]) for pt in largest]
         sorted_p = sorted(points, key=lambda p: p[0])
+
+        vis = chart_images[i].copy()
+        # 繪製不同顏色的標記
+        for j in range(1, num_labels):
+            color = (255, 0, 0)
+            # 標記為指定的顏色
+            mask = labels == j
+            vis[mask] = color
+
         x_pixel_start = sorted_p[0][0]
-        x_pixel_end = sorted_p[len(sorted_p) - 1][0]
+        x_pixel_end = sorted_p[-1][0]
+        print(f'x_pixel_start: {x_pixel_start}\nx_pixel_end: {x_pixel_end}')
 
         # 建立一個每小時 (整數) 的對應值（可用最接近的點）
         hours = np.arange(1, 25)
         hour_to_kw = {}
 
         dev = (x_pixel_end - x_pixel_start) // 48
-
+        # print(f"deviation: {dev}")
+        x_targets = list()
         for h in hours.tolist():
             x_target = hour_to_pixel(x_val_start, x_val_end, x_pixel_start, x_pixel_end, h)
+            x_targets.append(x_target)
+            # print(x_target)
             # 找出所有這個 x 附近的點（容許誤差 = dev）
             near_points = [p for p in points if abs(p[0] - x_target) <= dev]
             if near_points:
                 y_avg = int(np.mean([p[1] for p in near_points]))
+                # print(f'第 {i+1} 張圖的第 {h} 小時 y 平均值: {y_avg}')
                 hour_to_kw[h] = round(pixel_to_kw(y_val_start, y_val_end, y_pixel_start, y_pixel_end, y_avg))
         i = i + 1
+        line_graph_vals.append(hour_to_kw)
         print(f"{i}:\n{hour_to_kw}")
-        result.append(hour_to_kw)
-    
-    return result
+    return line_graph_vals
