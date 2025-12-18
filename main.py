@@ -383,10 +383,14 @@ def upload_file():
     if file.filename == '':
         return jsonify({"error": "No selected file"}), 400
 
+    start_date_str = request.form.get('start_date', '')
+    if start_date_str == '':
+        return jsonify({"error": "Please input the first date"}), 400
+
     # 將上傳的圖片讀取成 numpy array
     file_bytes = np.frombuffer(file.read(), np.uint8)
 
-    start_date_str = get_color_table_first_date(file_bytes)
+    # start_date_str = get_color_table_first_date(file_bytes)
     color_recg_result = color_mapping(file_bytes, start_date_str)
 
     # 取得折線圖和每張圖的 Y 軸值
