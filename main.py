@@ -378,7 +378,7 @@ def upload_file():
     if 'file' not in request.files:
         return jsonify({"error": "File not found"}), 400
 
-    file = request.files['file']
+    file = request.files.get('file')
 
     if file.filename == '':
         return jsonify({"error": "No selected file"}), 400
